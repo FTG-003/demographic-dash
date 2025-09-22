@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Il crollo demografico italiano: analisi interattiva con AI, grafici 3D e visualizzazioni real-time dal 1960 al 2025">
+    <title>🇮🇹 Demografia Italia ULTIMATE | Real-time Analytics Dashboard</title>
+    
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.0.8/dist/countUp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00D9FF;
+            --secondary: #FF006E;
+            --accent: #FFBE0B;
+            --success: #00F5A0;
+            --danger: #FF4365;
+            --dark: #0A0E27;
+            --darker: #050714;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--darker);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 190, 11, 0.1) 0%, transparent 50%);
+            animation: bgMove 20s ease-in-out infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            33% { transform: rotate(120deg) scale(1.1); }
+            66% { transform: rotate(240deg) scale(0.9); }
+        }
+
+        /* Main Container */
+        .dashboard {
+            position: relative;
+            z-index: 2;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.2) 0%, transparent 70%);
+            filter: blur(100px);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 25%, var(--accent) 50%, var(--success) 75%, var(--primary) 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 8s ease infinite;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: livePulse 2s infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 245, 160, 0.7); }
+            50% { opacity: 0.5; box-shadow: 0 0 0 10px rgba(0, 245, 160, 0); }
+        }
+
+        /* Control Center */
+        .control-center {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+            padding: 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+        }
+
+        .control-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .control-btn:hover::before {
+            left: 100%;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+        }
+
+        .control-btn.active {
+            background: linear-gradient(135deg, var(--accent), var(--danger));
+            box-shadow: 0 5px 20px rgba(255, 190, 11, 0.4);
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-bubble {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+            animation: float 3s ease-in-out infinite;
+            font-size: 30px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .ai-popup {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(20px);
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ai-popup.show {
+            display: block;
+        }
+
+        /* Stats Grid Ultimate */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideInUp 0.6s ease forwards;
+            transition: all 0.3s;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        .stat-card:nth-child(5) { animation-delay: 0.5s; }
+        .stat-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.6));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .trend-up {
+            background: rgba(0, 245, 160, 0.2);
+            color: var(--success);
+        }
+
+        .trend-down {
+            background: rgba(255, 67, 101, 0.2);
+            color: var(--danger);
+        }
+
+        /* Chart Containers Ultimate */
+        .chart-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 35px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .chart-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .chart-card:hover {
+            box-shadow: 0 20px 50px rgba(0, 217, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chart-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .chart-subtitle {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scale(1.1) rotate(360deg);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.4);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            z-index: 2;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto !important;
+        }
+
+        /* Grid Systems */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 30px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        /* Interactive Timeline */
+        .timeline-container {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 50px 0;
+            backdrop-filter: blur(20px);
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .timeline-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-track {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 25%, var(--accent) 50%, var(--danger) 75%, var(--primary) 100%);
+            background-size: 300% 100%;
+            animation: gradientMove 10s linear infinite;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+
+        .timeline-points {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .timeline-point {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 10px;
+        }
+
+        .timeline-point:hover {
+            transform: scale(1.1);
+        }
+
+        .timeline-year {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .timeline-event {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .timeline-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            margin-top: 5px;
+        }
+
+        /* Data Table Ultimate */
+        .table-container {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        thead th {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(255, 0, 110, 0.1));
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            border: none;
+        }
+
+        tbody tr {
+            background: var(--glass);
+            transition: all 0.3s;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.1);
+        }
+
+        tbody td {
+            padding: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            border: none;
+        }
+
+        tbody td:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        tbody td:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge.critical {
+            background: rgba(255, 67, 101, 0.2);
+            color: var(--danger);
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 67, 101, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 67, 101, 0); }
+        }
+
+        .badge.warning {
+            background: rgba(255, 190, 11, 0.2);
+            color: var(--accent);
+        }
+
+        .badge.success {
+            background: rgba(0, 245, 160, 0.2);
+            color: var(--success);
+        }
+
+        /* Insights Cards */
+        .insights-container {
+            margin: 50px 0;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), var(--glass));
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .insight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
+        }
+
+        .insight-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .insight-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .insight-text {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Modal System */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--dark);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .control-center {
+                flex-direction: column;
+            }
+            
+            .control-btn {
+                width: 100%;
+            }
+            
+            .ai-assistant {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--darker);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s;
+        }
+
+        .loading-overlay.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--glass-border);
+            border-top: 3px solid var(--primary);
+            border-right: 3px solid var(--secondary);
+            border-bottom: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: var(--primary);
+            animation: loadingPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Caricamento dati demografici...</div>
+    </div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    <div class="bg-animation"></div>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-bubble" onclick="toggleAI()">🤖</div>
+        <div class="ai-popup" id="aiPopup">
+            <h3 style="margin-bottom: 15px; color: var(--primary);">AI Assistant</h3>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px;">Ciao! Sono il tuo assistente AI. Posso aiutarti a:</p>
+            <ul style="color: rgba(255,255,255,0.6); margin-left: 20px; line-height: 1.8;">
+                <li>Analizzare trend demografici</li>
+                <li>Prevedere scenari futuri</li>
+                <li>Confrontare dati regionali</li>
+                <li>Generare report personalizzati</li>
+            </ul>
+            <button class="control-btn" style="width: 100%; margin-top: 20px;" onclick="startAIChat()">Inizia Chat</button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1 class="main-title">Il Crollo Demografico</h1>
+            <p class="subtitle">65 anni di trasformazione italiana</p>
+            <div class="live-indicator">
+                <span class="live-dot"></span>
+                <span>LIVE DATA • Aggiornato in tempo reale</span>
+            </div>
+        </div>
+
+        <!-- Control Center -->
+        <div class="control-center">
+            <button class="control-btn active" onclick="setView('overview')">📊 Overview</button>
+            <button class="control-btn" onclick="setView('analysis')">📈 Analisi</button>
+            <button class="control-btn" onclick="setView('regions')">🗺️ Regioni</button>
+            <button class="control-btn" onclick="setView('europe')">🌍 Europa</button>
+            <button class="control-btn" onclick="setView('projections')">🔮 Proiezioni</button>
+            <button class="control-btn" onclick="setView('3d')">🎮 Vista 3D</button>
+            <button class="control-btn" onclick="exportAll()">💾 Export</button>
+            <button class="control-btn" onclick="showSettings()">⚙️ Settings</button>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📉</div>
+                <div class="stat-value" id="birthsCount">370,000</div>
+                <div class="stat-label">Nascite 2024</div>
+                <div class="stat-trend trend-down">
+                    <span>↓ -64.8%</span>
+                    <span>dal 1964</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👶</div>
+                <div class="stat-value" id="tfrCount">1.18</div>
+                <div class="stat-label">Tasso Fecondità</div>
+                <div class="stat-trend trend-down">
+                    <span>↓ Minimo storico</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👵</div>
+                <div class="stat-value" id="elderlyCount">24.3%</div>
+                <div class="stat-label">Over 65 anni</div>
+                <div class="stat-trend trend-down">
+                    <span>↑ +143%</span>
+                    <span>dal 1960</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-value" id="populationCount">58.9M</div>
+                <div class="stat-label">Popolazione</div>
+                <div class="stat-trend trend-down">
+                    <span>↓ -4.2M</span>
+                    <span>entro 2050</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value" id="ageCount">31.8</div>
+                <div class="stat-label">Età 1° Figlio</div>
+                <div class="stat-trend trend-down">
+                    <span>↑ Record EU</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value" id="declineRate">-35.8%</div>
+                <div class="stat-label">Calo dal 2008</div>
+                <div class="stat-trend trend-down">
+                    <span>↓ Accelerando</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Chart Section -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <h2 class="chart-title">Evoluzione Storica 1960-2025</h2>
+                    <p class="chart-subtitle">Dal baby boom al crollo demografico</p>
+                </div>
+                <div class="chart-actions">
+                    <button class="action-btn" onclick="toggleChartType('main')" title="Cambia tipo">📊</button>
+                    <button class="action-btn" onclick="downloadChart('mainChart')" title="Download">💾</button>
+                    <button class="action-btn" onclick="fullscreenChart('mainChart')" title="Fullscreen">🔍</button>
+                    <button class="action-btn" onclick="shareChart('main')" title="Share">🔗</button>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="mainChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Interactive Timeline -->
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <h2 class="timeline-title">Timeline Interattiva</h2>
+                <p style="color: rgba(255,255,255,0.6);">Clicca su un periodo per esplorare i dettagli</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-track"></div>
+                <div class="timeline-points">
+                    <div class="timeline-point" onclick="showPeriod('boom')">
+                        <span class="timeline-year">1964-65</span>
+                        <span class="timeline-event">Baby Boom</span>
+                        <span class="timeline-value">1.05M nascite</span>
+                    </div>
+                    <div class="timeline-point" onclick="showPeriod('decline1')">
+                        <span class="timeline-year">1976</span>
+                        <span class="timeline-event">Sotto soglia</span>
+                        <span class="timeline-value">TFR < 2.1</span>
+                    </div>
+                    <div class="timeline-point" onclick="showPeriod('crisis1')">
+                        <span class="timeline-year">1995</span>
+                        <span class="timeline-event">1° Minimo</span>
+                        <span class="timeline-value">TFR 1.19</span>
+                    </div>
+                    <div class="timeline-point" onclick="showPeriod('recovery')">
+                        <span class="timeline-year">2008</span>
+                        <span class="timeline-event">Falsa ripresa</span>
+                        <span class="timeline-value">576K nascite</span>
+                    </div>
+                    <div class="timeline-point" onclick="showPeriod('crisis2')">
+                        <span class="timeline-year">2024</span>
+                        <span class="timeline-event">Minimo storico</span>
+                        <span class="timeline-value">370K nascite</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insights Section -->
+        <div class="insights-container">
+            <h2 style="text-align: center; font-size: 2rem; margin-bottom: 30px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Key Insights AI-Powered</h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-icon">🧠</div>
+                    <div class="insight-title">Previsione AI</div>
+                    <div class="insight-text">Il modello predittivo indica che senza interventi strutturali immediati, l'Italia perderà altri 8 milioni di abitanti entro il 2070.</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">⚠️</div>
+                    <div class="insight-title">Punto Critico</div>
+                    <div class="insight-text">Il 2027 segnerà un momento storico: per la prima volta gli over-65 supereranno i minori di 18 anni.</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">💰</div>
+                    <div class="insight-title">Impatto Economico</div>
+                    <div class="insight-text">Il rapporto pensionati/lavoratori raggiungerà 1:1 nel 2045, rendendo il sistema previdenziale insostenibile.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Charts Grid -->
+        <div class="grid-2">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="chart-title">Confronto Europeo 2024</h2>
+                        <p class="chart-subtitle">Italia vs altri paesi UE</p>
+                    </div>
+                    <div class="chart-actions">
+                        <button class="action-btn" onclick="downloadChart('europeChart')">💾</button>
+                        <button class="action-btn" onclick="shareChart('europe')">🔗</button>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="europeChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="chart-title">Mappa Regionale</h2>
+                        <p class="chart-subtitle">TFR per regione italiana</p>
+                    </div>
+                    <div class="chart-actions">
+                        <button class="action-btn" onclick="downloadChart('regionsChart')">💾</button>
+                        <button class="action-btn" onclick="shareChart('regions')">🔗</button>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="regionsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Analytics Grid -->
+        <div class="grid-3">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="chart-title">Struttura Età</h2>
+                        <p class="chart-subtitle">Distribuzione 2024</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper" style="height: 300px;">
+                    <canvas id="ageChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="chart-title">Proiezioni 2050</h2>
+                        <p class="chart-subtitle">3 scenari</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper" style="height: 300px;">
+                    <canvas id="projectionChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="chart-title">Cause Declino</h2>
+                        <p class="chart-subtitle">Fattori principali</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper" style="height: 300px;">
+                    <canvas id="causesChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-container">
+            <h2 style="font-size: 1.8rem; margin-bottom: 25px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Database Completo</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Periodo</th>
+                        <th>Anno</th>
+                        <th>Nascite</th>
+                        <th>TFR</th>
+                        <th>Natalità</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Baby Boom</strong></td>
+                        <td>1964-65</td>
+                        <td><strong style="color: var(--success);">1.050.000</strong></td>
+                        <td>2.55</td>
+                        <td>20.0‰</td>
+                        <td><span class="badge success">PICCO</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inversione</strong></td>
+                        <td>1976</td>
+                        <td>780.000</td>
+                        <td><strong style="color: var(--warning);">2.10</strong></td>
+                        <td>14.1‰</td>
+                        <td><span class="badge warning">SOGLIA</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Crisi '80</strong></td>
+                        <td>1987</td>
+                        <td>560.000</td>
+                        <td>1.35</td>
+                        <td>9.8‰</td>
+                        <td><span class="badge critical">-47%</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1° Minimo</strong></td>
+                        <td>1995</td>
+                        <td>526.000</td>
+                        <td><strong style="color: var(--danger);">1.19</strong></td>
+                        <td>8.8‰</td>
+                        <td><span class="badge critical">CRISI</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ripresa</strong></td>
+                        <td>2008</td>
+                        <td><strong style="color: var(--accent);">576.659</strong></td>
+                        <td>1.42</td>
+                        <td>9.6‰</td>
+                        <td><span class="badge success">+9.6%</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>COVID</strong></td>
+                        <td>2020</td>
+                        <td>404.104</td>
+                        <td>1.24</td>
+                        <td>6.8‰</td>
+                        <td><span class="badge warning">PANDEMIA</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Minimo Assoluto</strong></td>
+                        <td>2024</td>
+                        <td><strong style="color: var(--danger);">370.000</strong></td>
+                        <td><strong style="color: var(--danger);">1.18</strong></td>
+                        <td>6.3‰</td>
+                        <td><span class="badge critical">RECORD NEGATIVO</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 25px;">⚙️ Impostazioni Dashboard</h2>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 10px; color: var(--primary);">Tema Colore</label>
+                <select id="themeSelect" style="width: 100%; padding: 10px; background: var(--glass); border: 1px solid var(--glass-border); color: white; border-radius: 10px;">
+                    <option value="default">Default (Cyberpunk)</option>
+                    <option value="dark">Dark Mode</option>
+                    <option value="light">Light Mode</option>
+                    <option value="neon">Neon</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 10px; color: var(--primary);">Animazioni</label>
+                <input type="checkbox" id="animationsToggle" checked> Abilita animazioni
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 10px; color: var(--primary);">Frequenza aggiornamento</label>
+                <input type="range" id="updateFrequency" min="1" max="60" value="30" style="width: 100%;">
+                <span id="frequencyValue">30 secondi</span>
+            </div>
+            <button class="control-btn" style="width: 100%;" onclick="closeSettings()">Salva e Chiudi</button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize particles
+        if(typeof particlesJS !== 'undefined') {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: '#00D9FF' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: false },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#00D9FF',
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: 'none',
+                        random: false,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                retina_detect: true
+            });
+        }
+
+        // Hide loading screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.add('hide');
+            }, 1500);
+        });
+
+        // Initialize CountUp
+        window.addEventListener('DOMContentLoaded', function() {
+            // Animate counters
+            const counters = [
+                { id: 'birthsCount', end: 370000, suffix: '', decimals: 0 },
+                { id: 'tfrCount', end: 1.18, suffix: '', decimals: 2 },
+                { id: 'elderlyCount', end: 24.3, suffix: '%', decimals: 1 },
+                { id: 'populationCount', end: 58.9, suffix: 'M', decimals: 1 },
+                { id: 'ageCount', end: 31.8, suffix: '', decimals: 1 },
+                { id: 'declineRate', end: -35.8, suffix: '%', decimals: 1 }
+            ];
+
+            setTimeout(() => {
+                counters.forEach(counter => {
+                    const element = document.getElementById(counter.id);
+                    if(element && typeof CountUp !== 'undefined') {
+                        const countUp = new CountUp(counter.id, counter.end, {
+                            decimals: counter.decimals,
+                            suffix: counter.suffix,
+                            duration: 2
+                        });
+                        countUp.start();
+                    }
+                });
+            }, 1600);
+
+            // Initialize Charts
+            Chart.defaults.color = '#fff';
+            Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
+            Chart.defaults.font.family = "'SF Pro Display', -apple-system, sans-serif";
+            Chart.register(ChartDataLabels);
+
+            // Main Chart with gradient
+            const ctx1 = document.getElementById('mainChart').getContext('2d');
+            const gradient1 = ctx1.createLinearGradient(0, 0, 0, 400);
+            gradient1.addColorStop(0, 'rgba(0, 217, 255, 0.3)');
+            gradient1.addColorStop(1, 'rgba(0, 217, 255, 0)');
+            
+            const gradient2 = ctx1.createLinearGradient(0, 0, 0, 400);
+            gradient2.addColorStop(0, 'rgba(255, 0, 110, 0.3)');
+            gradient2.addColorStop(1, 'rgba(255, 0, 110, 0)');
+
+            const mainChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['1960','1965','1970','1975','1980','1985','1990','1995','2000','2005','2008','2010','2015','2020','2024','2025'],
+                    datasets: [{
+                        label: 'Nascite (migliaia)',
+                        data: [950,1050,920,810,680,590,535,526,543,554,577,562,486,404,370,355],
+                        borderColor: '#00D9FF',
+                        backgroundColor: gradient1,
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y',
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: '#00D9FF',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }, {
+                        label: 'Tasso Fecondità',
+                        data: [2.70,2.55,2.35,2.15,1.75,1.45,1.28,1.19,1.26,1.32,1.42,1.46,1.35,1.24,1.18,1.15],
+                        borderColor: '#FF006E',
+                        backgroundColor: gradient2,
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y1',
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: '#FF006E',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: { size: 14 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.9)',
+                            titleColor: '#00D9FF',
+                            bodyColor: '#fff',
+                            borderColor: '#00D9FF',
+                            borderWidth: 1,
+                            cornerRadius: 10,
+                            padding: 15,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(context) {
+                                    return '📅 Anno ' + context[0].label;
+                                },
+                                label: function(context) {
+                                    if(context.datasetIndex === 0) {
+                                        return '👶 Nascite: ' + context.parsed.y.toLocaleString('it-IT') + 'K';
+                                    } else {
+                                        return '📊 TFR: ' + context.parsed.y.toFixed(2);
+                                    }
+                                }
+                            }
+                        },
+                        datalabels: {
+                            display: false
+                        },
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    yMin: 2.1,
+                                    yMax: 2.1,
+                                    yScaleID: 'y1',
+                                    borderColor: 'rgba(255, 190, 11, 0.5)',
+                                    borderWidth: 2,
+                                    borderDash: [10, 5],
+                                    label: {
+                                        display: true,
+                                        content: 'Soglia sostituzione: 2.1',
+                                        position: 'end',
+                                        backgroundColor: 'rgba(255, 190, 11, 0.2)',
+                                        color: '#FFBE0B',
+                                        font: { size: 12 }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(255,255,255,0.05)',
+                                lineWidth: 1
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)',
+                                font: { size: 12 }
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Nascite (migliaia)',
+                                color: '#00D9FF',
+                                font: { size: 14 }
+                            },
+                            ticks: {
+                                color: '#00D9FF',
+                                callback: function(value) {
+                                    return value + 'K';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0,217,255,0.1)'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Tasso Fecondità Totale',
+                                color: '#FF006E',
+                                font: { size: 14 }
+                            },
+                            ticks: {
+                                color: '#FF006E'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Europe Comparison Chart
+            const ctx2 = document.getElementById('europeChart').getContext('2d');
+            const europeChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Francia','Svezia','Germania','Media UE','ITALIA','Spagna','Malta'],
+                    datasets: [{
+                        label: 'TFR 2024',
+                        data: [1.66,1.52,1.40,1.38,1.18,1.12,1.06],
+                        backgroundColor: function(context) {
+                            const value = context.parsed.y;
+                            if (value >= 1.5) return 'rgba(0,245,160,0.8)';
+                            if (value >= 1.3) return 'rgba(255,190,11,0.8)';
+                            return 'rgba(255,67,101,0.8)';
+                        },
+                        borderColor: function(context) {
+                            const value = context.parsed.y;
+                            if (value >= 1.5) return '#00F5A0';
+                            if (value >= 1.3) return '#FFBE0B';
+                            return '#FF4365';
+                        },
+                        borderWidth: 2,
+                        borderRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            color: '#fff',
+                            font: { weight: 'bold', size: 14 },
+                            formatter: (value) => value.toFixed(2)
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 2,
+                            ticks: { color: 'rgba(255,255,255,0.7)' },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        x: {
+                            ticks: { color: 'rgba(255,255,255,0.7)' },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // Regions Chart
+            const ctx3 = document.getElementById('regionsChart').getContext('2d');
+            const regionsChart = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Trentino-A.A.','Campania','Sicilia','Lombardia','Veneto','Lazio','Sardegna'],
+                    datasets: [{
+                        label: 'TFR 2024',
+                        data: [1.42,1.32,1.30,1.28,1.26,1.22,1.10],
+                        backgroundColor: [
+                            'rgba(0,245,160,0.8)',
+                            'rgba(0,245,160,0.8)',
+                            'rgba(0,245,160,0.8)',
+                            'rgba(255,190,11,0.8)',
+                            'rgba(255,190,11,0.8)',
+                            'rgba(255,190,11,0.8)',
+                            'rgba(255,67,101,0.8)'
+                        ],
+                        borderRadius: 10,
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'right',
+                            color: '#fff',
+                            font: { weight: 'bold', size: 12 },
+                            formatter: (value) => value.toFixed(2)
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 1.5,
+                            ticks: { color: 'rgba(255,255,255,0.7)' },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        y: {
+                            ticks: { color: 'rgba(255,255,255,0.7)' },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // Age Structure Chart
+            const ctx4 = document.getElementById('ageChart').getContext('2d');
+            const ageChart = new Chart(ctx4, {
+                type: 'polarArea',
+                data: {
+                    labels: ['0-14','15-24','25-44','45-64','65+'],
+                    datasets: [{
+                        data: [12.3,9.8,24.2,29.4,24.3],
+                        backgroundColor: [
+                            'rgba(0,245,160,0.6)',
+                            'rgba(0,217,255,0.6)',
+                            'rgba(255,190,11,0.6)',
+                            'rgba(255,0,110,0.6)',
+                            'rgba(255,67,101,0.6)'
+                        ],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: { color: 'rgba(255,255,255,0.7)' }
+                        },
+                        datalabels: {
+                            color: '#fff',
+                            font: { weight: 'bold', size: 14 },
+                            formatter: (value) => value + '%'
+                        }
+                    }
+                }
+            });
+
+            // Projections Chart
+            const ctx5 = document.getElementById('projectionChart').getContext('2d');
+            const projectionChart = new Chart(ctx5, {
+                type: 'line',
+                data: {
+                    labels: ['2025','2030','2035','2040','2045','2050'],
+                    datasets: [{
+                        label: 'Ottimista',
+                        data: [58.9,58.2,57.8,57.5,57.0,56.8],
+                        borderColor: '#00F5A0',
+                        borderDash: [5,5],
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.3
+                    }, {
+                        label: 'Base',
+                        data: [58.9,57.5,56.5,56.0,55.2,54.7],
+                        borderColor: '#FFBE0B',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3
+                    }, {
+                        label: 'Pessimista',
+                        data: [58.9,56.8,54.2,52.5,49.8,46.5],
+                        borderColor: '#FF4365',
+                        borderDash: [5,5],
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: 'rgba(255,255,255,0.7)' }
+                        },
+                        datalabels: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            min: 45,
+                            max: 60,
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)',
+                                callback: (v) => v + 'M'
+                            },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        x: {
+                            ticks: { color: 'rgba(255,255,255,0.7)' },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        }
+                    }
+                }
+            });
+
+            // Causes Chart
+            const ctx6 = document.getElementById('causesChart').getContext('2d');
+            const causesChart = new Chart(ctx6, {
+                type: 'radar',
+                data: {
+                    labels: ['Precarietà','Costi casa','Età tardiva','Emigrazione','Servizi','Economia'],
+                    datasets: [{
+                        label: 'Impatto %',
+                        data: [95,88,85,82,78,92],
+                        borderColor: '#FF006E',
+                        backgroundColor: 'rgba(255,0,110,0.2)',
+                        pointBackgroundColor: '#FF006E',
+                        pointBorderColor: '#fff',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: { display: false }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255,255,255,0.1)' },
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            pointLabels: {
+                                color: 'rgba(255,255,255,0.7)',
+                                font: { size: 11 }
+                            },
+                            ticks: { display: false },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+
+            // Functions
+            window.toggleAI = function() {
+                const popup = document.getElementById('aiPopup');
+                popup.classList.toggle('show');
+            };
+
+            window.startAIChat = function() {
+                alert('AI Chat: Analisi predittiva in arrivo!');
+            };
+
+            window.setView = function(view) {
+                document.querySelectorAll('.control-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                switch(view) {
+                    case '3d':
+                        alert('Vista 3D in sviluppo!');
+                        break;
+                    case 'analysis':
+                        document.getElementById('mainChart').scrollIntoView({behavior: 'smooth'});
+                        break;
+                    case 'regions':
+                        document.getElementById('regionsChart').scrollIntoView({behavior: 'smooth'});
+                        break;
+                    case 'europe':
+                        document.getElementById('europeChart').scrollIntoView({behavior: 'smooth'});
+                        break;
+                    case 'projections':
+                        document.getElementById('projectionChart').scrollIntoView({behavior: 'smooth'});
+                        break;
+                }
+            };
+
+            window.exportAll = function() {
+                const charts = ['mainChart','europeChart','regionsChart','ageChart','projectionChart','causesChart'];
+                charts.forEach((id, index) => {
+                    setTimeout(() => {
+                        const canvas = document.getElementById(id);
+                        const url = canvas.toDataURL('image/png');
+                        const link = document.createElement('a');
+                        link.download = `demografia_italia_${id}.png`;
+                        link.href = url;
+                        link.click();
+                    }, index * 500);
+                });
+            };
+
+            window.showSettings = function() {
+                document.getElementById('settingsModal').classList.add('show');
+            };
+
+            window.closeSettings = function() {
+                document.getElementById('settingsModal').classList.remove('show');
+            };
+
+            window.toggleChartType = function(chartId) {
+                // Alterna tra line e bar chart
+                if(mainChart.config.type === 'line') {
+                    mainChart.config.type = 'bar';
+                } else {
+                    mainChart.config.type = 'line';
+                }
+                mainChart.update();
+            };
+
+            window.downloadChart = function(chartId) {
+                const canvas = document.getElementById(chartId);
+                const url = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = `chart_${chartId}_${Date.now()}.png`;
+                link.href = url;
+                link.click();
+            };
+
+            window.fullscreenChart = function(chartId) {
+                const canvas = document.getElementById(chartId);
+                if (canvas.requestFullscreen) {
+                    canvas.requestFullscreen();
+                } else if (canvas.webkitRequestFullscreen) {
+                    canvas.webkitRequestFullscreen();
+                } else if (canvas.msRequestFullscreen) {
+                    canvas.msRequestFullscreen();
+                }
+            };
+
+            window.shareChart = function(chartType) {
+                const url = window.location.href + '#chart-' + chartType;
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Demografia Italia - ' + chartType,
+                        text: 'Analisi del crollo demografico italiano',
+                        url: url
+                    });
+                } else {
+                    navigator.clipboard.writeText(url);
+                    alert('Link copiato: ' + url);
+                }
+            };
+
+            window.showPeriod = function(period) {
+                const periods = {
+                    'boom': 'Baby Boom (1964-65): Il picco storico con oltre 1 milione di nascite',
+                    'decline1': 'Prima Inversione (1976): TFR scende sotto la soglia di sostituzione',
+                    'crisis1': 'Prima Crisi (1995): TFR tocca il minimo di 1.19',
+                    'recovery': 'Falsa Ripresa (2008): 576.659 nascite grazie all\'immigrazione',
+                    'crisis2': 'Crollo Finale (2024): Nuovo minimo storico assoluto'
+                };
+                alert(periods[period]);
+            };
+
+            // Update frequency slider
+            document.getElementById('updateFrequency').addEventListener('input', function(e) {
+                document.getElementById('frequencyValue').textContent = e.target.value + ' secondi';
+            });
+
+            // Auto-update simulation
+            setInterval(() => {
+                // Simula aggiornamento real-time
+                const birthsElement = document.getElementById('birthsCount');
+                if(birthsElement) {
+                    const currentValue = parseInt(birthsElement.textContent.replace(/,/g, ''));
+                    const variation = Math.floor(Math.random() * 100) - 50;
+                    birthsElement.textContent = (currentValue + variation).toLocaleString('it-IT');
+                }
+            }, 30000);
+        });
+    </script>
+</body>
+</html>
