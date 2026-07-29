@@ -4,7 +4,7 @@
     "last_update": "2026-07-29",
     "license": "CC BY 3.0 IT",
     "status": "consolidated",
-    "notes": "Dati 2025 consolidati ISTAT (355.000 nascite, TFR 1,14, Popolazione 58,94M). Dati 2026 parziali (stime preliminari basate su rilevazioni primo semestre). Bonifica Red Team R01-R16 completata."
+    "notes": "Dati 2025 consolidati ISTAT • 2026 parziale (stima)"
   },
   "sources": {
     "births": {

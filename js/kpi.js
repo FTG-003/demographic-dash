@@ -8,12 +8,12 @@ function initKPIs() {
   var kpis = [
     {
       id: 'kpiBirths',
-      val: (obs.births.values[obs.births.values.length - 1] * 1000).toLocaleString('it-IT'),
+      val: (obs.births.values[obs.births.values.length - 2] * 1000).toLocaleString('it-IT'),
       trendKey: 'births',
     },
     {
       id: 'kpiTfr',
-      val: obs.fertility.values[obs.fertility.values.length - 1]
+      val: obs.fertility.values[obs.fertility.values.length - 2]
         .toFixed(2)
         .replace('.', ','),
       trendKey: 'tfr',
@@ -28,7 +28,7 @@ function initKPIs() {
     },
     {
       id: 'kpiPopulation',
-      val: obs.population.values[obs.population.values.length - 1]
+      val: obs.population.values[obs.population.values.length - 2]
         .toFixed(1)
         .replace('.', ','),
       trendKey: 'population',
@@ -69,13 +69,13 @@ function initCounters() {
   var counters = [
     {
       id: 'kpiBirths',
-      end: obs.births.values[obs.births.values.length - 1] * 1000,
+      end: obs.births.values[obs.births.values.length - 2] * 1000,
       decimals: 0,
       suffix: '',
     },
     {
       id: 'kpiTfr',
-      end: obs.fertility.values[obs.fertility.values.length - 1],
+      end: obs.fertility.values[obs.fertility.values.length - 2],
       decimals: 2,
       suffix: '',
     },
@@ -87,7 +87,7 @@ function initCounters() {
     },
     {
       id: 'kpiPopulation',
-      end: obs.population.values[obs.population.values.length - 1],
+      end: obs.population.values[obs.population.values.length - 2],
       decimals: 1,
       suffix: '',
     },
