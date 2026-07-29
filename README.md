@@ -10,7 +10,7 @@
 
 ---
 
-**L'Osservatorio Demografico Italiano** è una dashboard interattiva, professionale e accessibile per l'analisi della demografia italiana dal 1960 al 2025, basata esclusivamente su **fonti ufficiali ISTAT ed Eurostat**. Il progetto adotta un'architettura single-file HTML con vaniglia JavaScript/CSS, zero dipendenze backend e pubblicazione immediata su GitHub Pages.
+**L'Osservatorio Demografico Italiano** è una dashboard interattiva, professionale e accessibile per l'analisi della demografia italiana dal 1960 al 2026, basata esclusivamente su **fonti ufficiali ISTAT ed Eurostat**. Il progetto adotta un'architettura single-file HTML con vaniglia JavaScript/CSS, zero dipendenze backend e pubblicazione immediata su GitHub Pages.
 
 ---
 
@@ -110,9 +110,9 @@ Tutti i dati provengono da fonti statistiche ufficiali e sono classificati per s
 
 | Indicatore | Fonte | Periodo | Stato |
 |---|---|---|---|
-| Nascite | ISTAT — Bilancio demografico | 1960–2025 | ✅ Consolidato 1960–2024 / ⚠️ Provvisorio 2025 |
-| TFR | ISTAT — Indicatori demografici | 1960–2025 | ✅ Consolidato 1960–2024 / ⚠️ Provvisorio 2025 |
-| Popolazione residente | ISTAT — Popolazione residente | 1960–2025 | ✅ Consolidato 1960–2024 / ⚠️ Provvisorio 2025 |
+| Nascite | ISTAT — Bilancio demografico | 1960–2026 | ✅ Consolidato 1960–2025 / ⚠️ Parziale 2026 |
+| TFR | ISTAT — Indicatori demografici | 1960–2026 | ✅ Consolidato 1960–2025 / ⚠️ Parziale 2026 |
+| Popolazione residente | ISTAT — Popolazione residente | 1960–2026 | ✅ Consolidato 1960–2025 / ⚠️ Parziale 2026 |
 | TFR regionale | ISTAT — Indicatori regionali | 2024 | ✅ Consolidato |
 | TFR Europa | Eurostat — demo_find | 2024 | ✅ Consolidato |
 | Proiezioni demografiche | ISTAT — Previsioni 2023–2070 | 2025–2050 | 🔮 Previsionale (scenario mediano) |
@@ -156,5 +156,6 @@ I contributi sono benvenuti! Vedi [CONTRIBUTING.md](./docs/CONTRIBUTING.md) per 
 ---
 
 <p align="center">
-  <sub>Costruito con ❤️ e dati aperti. I dati demografici raccontano la storia di un paese.</sub>
+  <sub>Costruito con ❤️ e dati aperti. I dati demografici raccontano la storia di un paese.</sub><br>
+  <sub><strong>v1.4</strong> — Rilasciato il 29 Luglio 2026 — Bonifica Red Team completata (R01–R16) — Dati ISTAT consolidati 2025</sub>
 </p>

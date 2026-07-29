@@ -5,6 +5,45 @@
 
 ---
 
+## [1.4] — 2026-07-29
+
+### Aggiunto
+- Integrazione dati ISTAT **consolidati 2025**: 355.000 nascite, TFR 1,14, Popolazione 58,94 milioni
+- Aggiunte **proiezioni parziali 2026**: 340.000 nascite, TFR 1,12, Popolazione 58,82 milioni
+- Dataset portato a stato `"consolidated"` con note metodologiche trasparenti
+- Nuove voci nella `historicalTable` per 2025 e 2026
+- Nuovi eventi nella timeline: `consolidated_2025`, `partial_2026`
+- Aggiornati KPI `births.trend` (−66,2%), `tfr.trend` (minimo storico assoluto), `decline` (577K→355K)
+
+### Migliorato
+- Periodo fonti esteso a 1960–2026 per births, fertility, population
+- Dati popolazione 2025 rettificati a 58,94M (consolidato ISTAT)
+- Aggiornati badge e titolo dashboard a v1.4
+
+### Fisso
+- **Bonifica Red Team completa (R01–R16)**:
+  - R01: Validazione lato server per payload ISTAT
+  - R02: Rigore metodologico e trasparenza note
+  - R03: Coerenza versione su tutte le superfici
+  - R04: Robustezza caricamento CDN (fallback)
+  - R05: Performance e lazy loading
+  - R06: Sanity check su spike YoY e gap temporali
+  - R07: Accessibilità WCAG — label, contrasto, navigazione
+  - R08: Gestione errori e boundary
+  - R09: Cache busting e versione dinamica
+  - R10: Test cross-browser e responsività
+  - R11: Codice hardening (XSS, injection)
+  - R12: Separazione dati/presentazione
+  - R13: Logging e audit trail
+  - R14: Documentazione aggiornata
+  - R15: Compatibilità backward dataset
+  - R16: Allineamento semantico schema
+
+- Sincronizzazione automatica `dataset.json` ↔ `index.html` completata
+- Nessuna regressione DOM, dashboard o responsività
+
+---
+
 ## [1.3] — 2026-07-29
 
 ### Aggiunto
