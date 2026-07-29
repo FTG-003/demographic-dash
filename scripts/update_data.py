@@ -331,9 +331,19 @@ def validate_dataset(data: dict) -> List[str]:
         return ["ERRORE: Il dataset non è un dizionario valido."]
 
     # ── Chiavi di primo livello ─────────────────────────────
-    for key in ("version", "license", "sources", "observations"):
+    # Nuova struttura: metadata, sources, observations
+    for key in ("metadata", "sources", "observations"):
         if key not in data:
             errors.append(f"ERRORE: Chiave '{key}' mancante nel dataset.")
+
+    # Verifica presenza campi obbligatori in metadata
+    if "metadata" in data and isinstance(data["metadata"], dict):
+        meta_keys = ["dataset_version", "last_update", "license"]
+        for mk in meta_keys:
+            if mk not in data["metadata"]:
+                errors.append(f"ERRORE: 'metadata.{mk}' mancante.")
+    elif "metadata" in data:
+        errors.append("ERRORE: 'metadata' non è un oggetto valido.")
 
     if errors:
         return errors  # non possiamo procedere
@@ -485,16 +495,27 @@ def apply_updates(
             )
 
     # ── Aggiorna metadati ───────────────────────────────────
-    old_version = updated.get("version", "0.0")
-    new_version = bump_version(old_version)
-    updated["version"] = new_version
-    updated["lastUpdate"] = today_str
+    # I metadati ora risiedono UNICAMENTE sotto metadata
+    old_version = updated.get("metadata", {}).get("dataset_version",
+                   updated.get("version", "0.0"))
+    new_version = bump_version(str(old_version))
 
-    # ── Sincronizza nested version/lastUpdate se presenti ───
-    # (alcuni dataset hanno metadata annidato)
-    if "metadata" in updated:
-        updated["metadata"]["dataset_version"] = new_version
-        updated["metadata"]["last_update"] = today_str
+    # Assicura che il blocco metadata esista
+    if "metadata" not in updated or not isinstance(updated["metadata"], dict):
+        updated["metadata"] = {}
+    updated["metadata"]["dataset_version"] = new_version
+    updated["metadata"]["last_update"] = today_str
+
+    # Rimuovi eventuali campi duplicati a livello superiore
+    updated.pop("version", None)
+    updated.pop("lastUpdate", None)
+    updated.pop("status", None)
+    updated.pop("notes", None)
+
+    # Rimuovi eventuali duplicazioni top-level di births/fertility/population
+    # (ora risiedono solo in observations)
+    for dup_key in ["births", "fertility", "population"]:
+        updated.pop(dup_key, None)
 
     # ── Changelog ───────────────────────────────────────────
     changelog_entry = {
@@ -580,7 +601,8 @@ def format_dataset_for_js(data: Dict[str, Any]) -> str:
     # Rimuovi _meta_update prima dell'embed
     clean = deepcopy(data)
     clean.pop("_meta_update", None)
-    json_str = json.dumps(clean, indent=2, ensure_ascii=False)
+    # Usa formato compatto (separators senza spazi) per ridurre dimensione
+    json_str = json.dumps(clean, ensure_ascii=False, separators=(',', ':'))
     return f"const DATA = {json_str};"
 
 
@@ -657,9 +679,9 @@ def generate_report(
 
     # ── Info dataset ─────────────────────────────────────────
     meta = data.get("metadata", {})
-    version = meta.get("dataset_version", data.get("version", "N/A"))
-    last_up = meta.get("last_update", data.get("lastUpdate", "N/A"))
-    lic = data.get("license", "N/A")
+    version = meta.get("dataset_version", "N/A")
+    last_up = meta.get("last_update", "N/A")
+    lic = data.get("metadata", {}).get("license", data.get("license", "N/A"))
 
     lines.append("  ┌─ DATASET INFO ──────────────────────────────┐")
     lines.append(f"  │ Versione:            {version}")
@@ -878,9 +900,10 @@ def main() -> None:
     try:
         with open(DATA_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
+        meta = data.get("metadata", {})
         print(f"  [OK] Dataset caricato: {DATA_FILE}")
-        print(f"       Versione: {data.get('version', 'N/A')}")
-        print(f"       Ultimo aggiornamento: {data.get('lastUpdate', 'N/A')}")
+        print(f"       Versione: {meta.get('dataset_version', 'N/A')}")
+        print(f"       Ultimo aggiornamento: {meta.get('last_update', 'N/A')}")
     except (json.JSONDecodeError, IOError) as e:
         print(f"  ❌ ERRORE: Impossibile leggere il dataset: {e}")
         sys.exit(1)

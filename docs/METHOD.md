@@ -277,4 +277,4 @@ Periodo estratto: 2025–2050 (passi quinquennali).
 ---
 
 > **Documento tecnico manutenuto come parte del repository.**  
-> Ultimo aggiornamento: 2026-07-29 — Versione dataset v1.4.
+> Ultimo aggiornamento: 2026-07-29 — Versione dataset v1.3.
