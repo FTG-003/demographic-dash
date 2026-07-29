@@ -13,7 +13,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔭</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <title>Italian Demographic Observatory v1.4 (29 Luglio 2026)</title>
 
     <!-- Libraries -->
@@ -43,35 +43,54 @@
             --success-dim: rgba(16, 185, 129, 0.15);
             --dark: #0F1736;
             --darker: #070B1A;
-            --card-bg: rgba(15, 23, 54, 0.78);
-            --card-border: rgba(42, 58, 92, 0.55);
+            --card-bg: rgba(15, 23, 54, 0.72);
+            --card-border: rgba(58, 78, 120, 0.45);
             --text: #EDF2F7;
-            --text-secondary: #8B95C7;
+            --text-secondary: #A0ABD0;
             --text-muted: #7A8AB5;
-            --radius: 12px;
-            --radius-sm: 6px;
-            --radius-lg: 18px;
+            --radius: 14px;
+            --radius-sm: 8px;
+            --radius-lg: 20px;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
             --shadow-lg: 0 16px 56px rgba(0, 0, 0, 0.55);
-            --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
-            --font-body: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-display: 'Sora', 'DM Serif Display', Georgia, 'Times New Roman', serif;
+            --font-body: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', monospace;
-            --glass-border: rgba(42, 58, 92, 0.4);
+            --glass-border: rgba(58, 78, 120, 0.35);
             --glass: rgba(255, 255, 255, 0.04);
-            --card-border-strong: rgba(42, 58, 92, 0.8);
+            --card-border-strong: rgba(58, 78, 120, 0.7);
             --cyan: #00D9FF;
             --cyan-dim: rgba(0, 217, 255, 0.12);
+            
+            /* ── Vibrant Semantic Section Palette ── */
+            --coral: #FF5E62;
+            --coral-dim: rgba(255, 94, 98, 0.15);
+            --coral-glow: rgba(255, 94, 98, 0.25);
+            --sunset: #FF9966;
+            --sunset-dim: rgba(255, 153, 102, 0.12);
+            --ciano: #00F2FE;
+            --ciano-dim: rgba(0, 242, 254, 0.13);
+            --smeraldo: #4FACFE;
+            --smeraldo-dim: rgba(79, 172, 254, 0.13);
+            --viola: #7F00FF;
+            --viola-dim: rgba(127, 0, 255, 0.14);
+            --magenta: #E100FF;
+            --magenta-dim: rgba(225, 0, 255, 0.12);
+            --ambra: #FFB75E;
+            --ambra-dim: rgba(255, 183, 94, 0.14);
+            --oro: #ED8F03;
+            --oro-dim: rgba(237, 143, 3, 0.13);
         }
 
         ::selection {
-            background: var(--accent);
+            background: var(--coral);
             color: var(--darker);
         }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--darker); }
         ::-webkit-scrollbar-thumb {
-            background: var(--primary);
+            background: linear-gradient(180deg, var(--coral), var(--viola));
             border-radius: 3px;
         }
 
@@ -80,7 +99,7 @@
             background: var(--darker);
             color: var(--text);
             font-size: 17px;
-            line-height: 1.6;
+            line-height: 1.65;
             -webkit-font-smoothing: antialiased;
             position: relative;
         }
@@ -95,9 +114,10 @@
             bottom: 0;
             z-index: 0;
             background:
-                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59, 130, 246, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 80% 90%, rgba(245, 166, 35, 0.04) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 50% at 10% 70%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
+                radial-gradient(ellipse 70% 50% at 20% 10%, rgba(255, 94, 98, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 80% 20%, rgba(0, 242, 254, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 50% at 50% 80%, rgba(127, 0, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 30% at 10% 80%, rgba(255, 183, 94, 0.04) 0%, transparent 40%);
             pointer-events: none;
         }
 
@@ -115,10 +135,10 @@
         .section-title {
             font-family: var(--font-display);
             font-size: 1.85rem;
-            font-weight: 400;
+            font-weight: 700;
             margin-bottom: 8px;
             color: var(--text);
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
         }
 
         .section-subtitle {
@@ -155,7 +175,7 @@
             width: 40px;
             height: 40px;
             border-radius: var(--radius-sm);
-            background: var(--primary-dim);
+            background: var(--coral-dim);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -208,17 +228,17 @@
             font-weight: 500;
         }
 
-        .console-stat-value.accent {
-            color: var(--accent);
+                .console-stat-value.accent {
+            color: var(--coral);
         }
         .console-stat-value.danger {
-            color: var(--danger);
+            color: var(--coral);
         }
         .console-stat-value.primary {
-            color: var(--primary);
+            color: var(--ciano);
         }
         .console-stat-value.success {
-            color: var(--success);
+            color: var(--smeraldo);
         }
 
         /* ──── Header ──── */
@@ -228,18 +248,21 @@
             position: relative;
         }
 
-        .header-title {
+                .header-title {
             font-family: var(--font-display);
             font-size: clamp(1.8rem, 4.5vw, 2.8rem);
-            font-weight: 400;
+            font-weight: 700;
             margin-bottom: 12px;
             position: relative;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
             color: var(--text);
         }
 
         .header-title .highlight {
-            color: var(--accent);
+            background: linear-gradient(135deg, var(--coral), var(--sunset));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header-subtitle {
@@ -262,10 +285,10 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 14px;
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 0.72rem;
-            font-weight: 500;
+            font-size: 0.74rem;
+            font-weight: 600;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             color: var(--text-secondary);
@@ -280,13 +303,13 @@
         }
 
         .header-badge .dot.blue {
-            background: var(--primary);
+            background: var(--ciano);
         }
         .header-badge .dot.yellow {
-            background: var(--accent);
+            background: var(--ambra);
         }
         .header-badge .dot.green {
-            background: var(--success);
+            background: var(--coral);
         }
 
         .header-badge strong {
@@ -328,9 +351,10 @@
         }
 
         .nav-btn.active {
-            background: var(--primary-dim);
-            color: var(--primary);
-            font-weight: 600;
+            background: var(--coral-dim);
+            color: var(--coral);
+            font-weight: 700;
+            box-shadow: inset 0 -2px 0 var(--coral);
         }
 
         .nav-btn:focus-visible {
@@ -353,13 +377,70 @@
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: var(--radius);
-            padding: 24px 28px;
+            padding: 28px 30px;
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 4px 20px rgba(0,0,0,0.25);
             transition: all 0.3s ease;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--coral), var(--sunset));
+            opacity: 0.8;
+        }
+
+        .kpi-card:nth-child(2)::before {
+            background: linear-gradient(90deg, var(--coral), var(--sunset));
+        }
+
+        .kpi-card:nth-child(3)::before,
+        .kpi-card:nth-child(5)::before {
+            background: linear-gradient(90deg, var(--ciano), var(--smeraldo));
+        }
+
+        .kpi-card:nth-child(4)::before {
+            background: linear-gradient(90deg, var(--viola), var(--magenta));
+        }
+
+        .kpi-card:nth-child(6)::before {
+            background: linear-gradient(90deg, var(--ambra), var(--oro));
+        }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--coral-glow) 0%, transparent 70%);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .kpi-card:nth-child(2)::after {
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--coral-glow) 0%, transparent 70%);
+        }
+
+        .kpi-card:nth-child(3)::after,
+        .kpi-card:nth-child(5)::after {
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 242, 254, 0.2) 0%, transparent 70%);
+        }
+
+        .kpi-card:nth-child(4)::after {
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(127, 0, 255, 0.2) 0%, transparent 70%);
+        }
+
+        .kpi-card:nth-child(6)::after {
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 183, 94, 0.2) 0%, transparent 70%);
         }
 
         .kpi-card:hover {
@@ -384,19 +465,52 @@
 
         .kpi-value {
             font-family: var(--font-mono);
-            font-size: 2.6rem;
+            font-size: 3.2rem;
             font-weight: 800;
             margin-bottom: 6px;
             color: var(--text);
-            line-height: 1.1;
-            letter-spacing: -0.02em;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--coral), var(--sunset));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .kpi-card:nth-child(2) .kpi-value {
+            background: linear-gradient(135deg, var(--coral), var(--sunset));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .kpi-card:nth-child(3) .kpi-value,
+        .kpi-card:nth-child(5) .kpi-value {
+            background: linear-gradient(135deg, var(--ciano), var(--smeraldo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .kpi-card:nth-child(4) .kpi-value {
+            background: linear-gradient(135deg, var(--viola), var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .kpi-card:nth-child(6) .kpi-value {
+            background: linear-gradient(135deg, var(--ambra), var(--oro));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .kpi-label {
             color: var(--text-secondary);
             font-size: 0.78rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
             margin-bottom: 10px;
             font-weight: 600;
         }
@@ -413,13 +527,13 @@
         }
 
         .kpi-trend.down {
-            background: var(--danger-dim);
-            color: var(--danger);
+            background: var(--coral-dim);
+            color: var(--coral);
         }
 
         .kpi-trend.up {
-            background: var(--success-dim);
-            color: var(--success);
+            background: var(--ciano-dim);
+            color: var(--ciano);
         }
 
         .kpi-note {
@@ -440,10 +554,45 @@
             margin-bottom: 24px;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             box-shadow: 0 4px 20px rgba(0,0,0,0.25);
             transition: all 0.3s ease;
+        }
+
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--coral), var(--sunset));
+            opacity: 0.8;
+        }
+
+        .chart-card:has(#europeChart)::before {
+            background: linear-gradient(90deg, var(--viola), var(--magenta));
+        }
+
+        .chart-card:has(#regionsChart)::before {
+            background: linear-gradient(90deg, var(--viola), var(--magenta));
+        }
+
+        .chart-card:has(#ageChart)::before {
+            background: linear-gradient(90deg, var(--ciano), var(--smeraldo));
+        }
+
+        .chart-card:has(#projectionChart)::before {
+            background: linear-gradient(90deg, var(--ciano), var(--smeraldo));
+        }
+
+        .chart-card:has(#causesChart)::before {
+            background: linear-gradient(90deg, var(--ambra), var(--oro));
+        }
+
+        .chart-card:has(.timeline-section)::before {
+            background: linear-gradient(90deg, var(--ambra), var(--oro));
         }
 
         .chart-card:hover {
@@ -462,8 +611,8 @@
 
         .chart-title {
             font-family: var(--font-display);
-            font-size: 1.35rem;
-            font-weight: 400;
+            font-size: 1.4rem;
+            font-weight: 700;
             color: var(--text);
             letter-spacing: -0.01em;
         }
@@ -496,9 +645,9 @@
         }
 
         .chart-action:hover {
-            background: var(--primary-dim);
-            border-color: var(--primary);
-            color: var(--primary);
+            background: var(--coral-dim);
+            border-color: var(--coral);
+            color: var(--coral);
         }
 
         .chart-action:focus-visible {
@@ -507,10 +656,10 @@
             box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.15);
         }
 
-        .chart-wrapper {
+                .chart-wrapper {
             position: relative;
             width: 100%;
-            height: 420px;
+            height: 400px;
             z-index: 1;
         }
 
@@ -519,7 +668,7 @@
         }
 
         .chart-wrapper.short {
-            height: 320px;
+            height: 340px;
         }
 
         canvas {
@@ -538,7 +687,7 @@
         }
 
         .chart-source a {
-            color: var(--primary);
+            color: var(--ciano);
             text-decoration: none;
         }
 
@@ -568,9 +717,22 @@
             border-radius: var(--radius);
             padding: 32px;
             margin-bottom: 24px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            position: relative;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+
+        .timeline-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ambra), var(--oro));
+            opacity: 0.8;
         }
 
         .timeline-header {
@@ -593,8 +755,8 @@
             top: 0;
             height: 100%;
             width: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--danger));
-            opacity: 0.5;
+            background: linear-gradient(90deg, var(--ambra), var(--oro), var(--coral));
+            opacity: 0.6;
         }
 
         .timeline-points {
@@ -619,8 +781,8 @@
         }
 
         .timeline-point:hover {
-            background: var(--glass);
-            border-color: var(--glass-border);
+            background: var(--ambra-dim);
+            border-color: var(--ambra);
             transform: scale(1.05);
         }
 
@@ -635,7 +797,7 @@
             font-family: var(--font-mono);
             font-size: 1rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--ambra);
             margin-bottom: 4px;
         }
 
@@ -664,11 +826,11 @@
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: var(--radius);
-            padding: 24px 28px;
+            padding: 26px 30px;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             box-shadow: 0 4px 20px rgba(0,0,0,0.25);
             transition: all 0.3s ease;
         }
@@ -678,10 +840,30 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 3px;
+            width: 4px;
             height: 100%;
-            background: var(--primary);
-            opacity: 0.5;
+            background: linear-gradient(180deg, var(--coral), var(--sunset));
+            opacity: 0.7;
+        }
+
+        .observation-card:nth-child(2)::before {
+            background: linear-gradient(180deg, var(--ciano), var(--smeraldo));
+        }
+
+        .observation-card:nth-child(3)::before {
+            background: linear-gradient(180deg, var(--ambra), var(--oro));
+        }
+
+        .observation-card:nth-child(4)::before {
+            background: linear-gradient(180deg, var(--viola), var(--magenta));
+        }
+
+        .observation-card:nth-child(5)::before {
+            background: linear-gradient(180deg, var(--ciano), var(--smeraldo));
+        }
+
+        .observation-card:nth-child(6)::before {
+            background: linear-gradient(180deg, var(--ambra), var(--oro));
         }
 
         .observation-card:hover {
@@ -700,7 +882,45 @@
             font-size: 1.05rem;
             font-weight: 700;
             margin-bottom: 8px;
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--coral), var(--sunset));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .observation-card:nth-child(2) .observation-title {
+            background: linear-gradient(135deg, var(--ciano), var(--smeraldo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .observation-card:nth-child(3) .observation-title {
+            background: linear-gradient(135deg, var(--ambra), var(--oro));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .observation-card:nth-child(4) .observation-title {
+            background: linear-gradient(135deg, var(--viola), var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .observation-card:nth-child(5) .observation-title {
+            background: linear-gradient(135deg, var(--ciano), var(--smeraldo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .observation-card:nth-child(6) .observation-title {
+            background: linear-gradient(135deg, var(--ambra), var(--oro));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .observation-text {
@@ -730,14 +950,14 @@
         }
 
         thead th {
-            background: var(--primary-dim);
+            background: rgba(255, 94, 98, 0.12);
             padding: 14px;
             text-align: left;
             font-weight: 600;
             font-size: 0.74rem;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            color: var(--primary);
+            color: var(--coral);
             border: none;
         }
 
@@ -772,25 +992,25 @@
 
         .badge {
             display: inline-block;
-            padding: 2px 10px;
-            border-radius: 10px;
-            font-size: 0.68rem;
-            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
         }
 
         .badge.red {
-            background: var(--danger-dim);
-            color: var(--danger);
+            background: var(--coral-dim);
+            color: var(--coral);
         }
 
         .badge.yellow {
-            background: var(--accent-dim);
-            color: var(--accent);
+            background: var(--ambra-dim);
+            color: var(--ambra);
         }
 
         .badge.green {
-            background: var(--success-dim);
-            color: var(--success);
+            background: rgba(0, 242, 254, 0.13);
+            color: var(--ciano);
         }
 
         .badge.blue {
@@ -827,7 +1047,7 @@
 
         .methodology dt {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--ciano);
             font-size: 0.85rem;
             margin-top: 14px;
         }
@@ -854,7 +1074,7 @@
 
         .methodology li::before {
             content: "▸ ";
-            color: var(--primary);
+            color: var(--ciano);
         }
 
         /* ═══════════════════════════════════════════════════
@@ -884,7 +1104,7 @@
         .changelog-version {
             font-family: var(--font-mono);
             font-weight: 700;
-            color: var(--primary);
+            color: var(--coral);
             font-size: 0.85rem;
         }
 
@@ -908,7 +1128,7 @@
 
         .changelog-changes li::before {
             content: "→ ";
-            color: var(--accent);
+            color: var(--ambra);
         }
 
         /* ═══════════════════════════════════════════════════
@@ -929,7 +1149,7 @@
         }
 
         .footer a {
-            color: var(--primary);
+            color: var(--ciano);
             text-decoration: none;
         }
 
@@ -1061,8 +1281,8 @@
             .kpi-icon { font-size: 1.2rem; }
             .grid-2 { grid-template-columns: 1fr; }
             .grid-3 { grid-template-columns: 1fr; }
-            .chart-wrapper { height: 300px; }
-            .chart-wrapper.tall { height: 340px; }
+            .chart-wrapper { height: 320px; }
+            .chart-wrapper.tall { height: 360px; }
             .chart-card { padding: 18px; }
             .timeline-section { padding: 20px; }
             .timeline-points { flex-direction: row; flex-wrap: wrap; gap: 6px; }
@@ -1131,7 +1351,7 @@
     ════════════════════════════════════════════════════════ -->
     <div class="modal-overlay open" id="loadingOverlay" role="status" aria-label="Caricamento dati demografici in corso" aria-live="polite">
         <div style="text-align: center;">
-            <div class="spinner" style="width: 48px; height: 48px; border: 3px solid var(--glass-border); border-top-color: var(--primary); border-radius: 50%; margin: 0 auto 16px; animation: spin 0.8s linear infinite;"></div>
+            <div class="spinner" style="width: 48px; height: 48px; border: 3px solid var(--glass-border); border-top-color: var(--coral); border-radius: 50%; margin: 0 auto 16px; animation: spin 0.8s linear infinite;"></div>
             <p style="color: var(--text-secondary); font-size: 0.9rem;">Caricamento dati demografici...</p>
         </div>
     </div>
@@ -1534,7 +1754,7 @@
             <h2 id="infoModalTitle" style="margin-bottom: 12px;">Informazioni sul progetto</h2>
             
             <div style="margin-bottom: 20px;">
-                <h3 style="font-size: 0.9rem; color: var(--primary); margin: 0 0 8px;">Dataset</h3>
+                <h3 style="font-size: 0.9rem; color: var(--ciano); margin: 0 0 8px;">Dataset</h3>
                 <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
                 <strong>Italian Demographic Observatory</strong> raccoglie e visualizza i principali indicatori demografici italiani dal 1960 a oggi.
                 Tutti i dati provengono da fonti ufficiali (ISTAT, Eurostat).
@@ -1542,7 +1762,7 @@
             </div>
 
             <div style="margin-bottom: 20px;">
-                <h3 style="font-size: 0.9rem; color: var(--primary); margin: 0 0 8px;">Librerie utilizzate</h3>
+                <h3 style="font-size: 0.9rem; color: var(--ciano); margin: 0 0 8px;">Librerie utilizzate</h3>
                 <ul style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.8; padding-left: 16px;">
                     <li>Chart.js 4.4.7 — grafici interattivi</li>
                     <li>Chart.js Plugin Datalabels 2.2.0 — etichette dati</li>
@@ -1552,7 +1772,7 @@
             </div>
 
             <div style="margin-bottom: 20px;">
-                <h3 style="font-size: 0.9rem; color: var(--primary); margin: 0 0 8px;">Accessibilità</h3>
+                <h3 style="font-size: 0.9rem; color: var(--ciano); margin: 0 0 8px;">Accessibilità</h3>
                 <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
                 La dashboard è progettata per essere fruibile da tutti. Supporta la navigazione tramite tastiera,
                 è compatibile con screen reader e rispetta le preferenze di riduzione del movimento.
@@ -1560,7 +1780,7 @@
             </div>
 
             <div style="margin-bottom: 20px;">
-                <h3 style="font-size: 0.9rem; color: var(--primary); margin: 0 0 8px;">Licenza</h3>
+                <h3 style="font-size: 0.9rem; color: var(--ciano); margin: 0 0 8px;">Licenza</h3>
                 <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
                 Dati: <a href="https://creativecommons.org/licenses/by/3.0/it/" target="_blank" rel="noopener noreferrer">CC BY 3.0 IT</a> (ISTAT). Codice su GitHub.
                 </p>
@@ -1667,7 +1887,7 @@
     function initChartDefaults() {
         Chart.defaults.color = 'rgba(240, 230, 216, 0.55)';
         Chart.defaults.borderColor = 'rgba(42, 58, 92, 0.25)';
-        Chart.defaults.font.family = "'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif";
+        Chart.defaults.font.family = "'Outfit', 'Inter', -apple-system, sans-serif";
         Chart.register(ChartDataLabels);
         if (typeof ChartAnnotation !== 'undefined') {
             Chart.register(ChartAnnotation);
@@ -1744,23 +1964,23 @@
 
         initChartDefaults();
 
-        /* ─── 1. Main Chart: nascite + TFR ─── */
+        /* ─── 1. Main Chart: nascite + TFR (Coral/Sunset Natalità) ─── */
         var mainCtx = getEl('mainChart').getContext('2d');
         var mH = mainCtx.canvas.parentElement.clientHeight || 440;
         var gradB = mainCtx.createLinearGradient(0,0,0,mH);
-        gradB.addColorStop(0,'rgba(26,115,232,0.25)');
-        gradB.addColorStop(1,'rgba(26,115,232,0.0)');
+        gradB.addColorStop(0,'rgba(255,94,98,0.3)');
+        gradB.addColorStop(1,'rgba(255,94,98,0.0)');
         var gradT = mainCtx.createLinearGradient(0,0,0,mH);
-        gradT.addColorStop(0,'rgba(232,67,147,0.25)');
-        gradT.addColorStop(1,'rgba(232,67,147,0.0)');
+        gradT.addColorStop(0,'rgba(255,153,102,0.3)');
+        gradT.addColorStop(1,'rgba(255,153,102,0.0)');
         var obs = DATA.observations;
         var mainChart = new Chart(mainCtx, {
             type:'line',
             data:{
                 labels: obs.births.years,
                 datasets:[
-                    {label:'Nati vivi (migliaia)',data:obs.births.values,borderColor:'#3A8EC9',backgroundColor:gradB,borderWidth:2,tension:0.3,fill:true,yAxisID:'y',pointRadius:2.5,pointHoverRadius:5,pointBackgroundColor:'#3A8EC9',pointBorderColor:'rgba(240,230,216,0.2)',pointBorderWidth:1},
-                    {label:'TFR (figli per donna)',data:obs.fertility.values,borderColor:'#D4513E',backgroundColor:gradT,borderWidth:2,tension:0.3,fill:true,yAxisID:'y1',pointRadius:3,pointHoverRadius:6,pointBackgroundColor:'#D4513E',pointBorderColor:'rgba(240,230,216,0.2)',pointBorderWidth:1}
+                    {label:'Nati vivi (migliaia)',data:obs.births.values,borderColor:'#FF5E62',backgroundColor:gradB,borderWidth:2.5,tension:0.3,fill:true,yAxisID:'y',pointRadius:3,pointHoverRadius:6,pointBackgroundColor:'#FF5E62',pointBorderColor:'rgba(240,230,216,0.2)',pointBorderWidth:1},
+                    {label:'TFR (figli per donna)',data:obs.fertility.values,borderColor:'#FF9966',backgroundColor:gradT,borderWidth:2.5,tension:0.3,fill:true,yAxisID:'y1',pointRadius:3.5,pointHoverRadius:7,pointBackgroundColor:'#FF9966',pointBorderColor:'rgba(240,230,216,0.2)',pointBorderWidth:1}
                 ]
             },
             options:{
@@ -1772,9 +1992,9 @@
                     annotation:{annotations:{replacementLine:{type:'line',yMin:obs.fertility_threshold.value,yMax:obs.fertility_threshold.value,yScaleID:'y1',borderColor:'rgba(245,158,11,0.5)',borderWidth:2,borderDash:[6,4],label:{display:true,content:'Soglia sostituzione: '+obs.fertility_threshold.value.toFixed(1).replace('.',','),position:'end',backgroundColor:'rgba(245,158,11,0.15)',color:'#F59E0B',font:{size:11}}}}}
                 },
                 scales:{
-                    x:{grid:{color:'rgba(42,58,92,0.2)'},ticks:{color:'rgba(240,230,216,0.4)',font:{size:11,family:"'Inter', sans-serif"},maxTicksLimit:15}},
-                    y:{type:'linear',position:'left',title:{display:true,text:'Nati vivi (migliaia)',color:'#3A8EC9',font:{size:12,family:"'Inter', sans-serif"}},ticks:{color:'#3A8EC9',callback:function(v){return v+'K'}},grid:{color:'rgba(58,142,201,0.08)'}},
-                    y1:{type:'linear',position:'right',title:{display:true,text:'TFR (figli per donna)',color:'#D4513E',font:{size:12,family:"'Inter', sans-serif"}},ticks:{color:'#D4513E'},grid:{drawOnChartArea:false}}
+                    x:{grid:{color:'rgba(42,58,92,0.2)'},ticks:{color:'rgba(240,230,216,0.4)',font:{size:11,family:"'Outfit', 'Inter', sans-serif"},maxTicksLimit:15}},
+                    y:{type:'linear',position:'left',title:{display:true,text:'Nati vivi (migliaia)',color:'#FF5E62',font:{size:12,family:"'Outfit', 'Inter', sans-serif"}},ticks:{color:'#FF5E62',callback:function(v){return v+'K'}},grid:{color:'rgba(255,94,98,0.08)'}},
+                    y1:{type:'linear',position:'right',title:{display:true,text:'TFR (figli per donna)',color:'#FF9966',font:{size:12,family:"'Outfit', 'Inter', sans-serif"}},ticks:{color:'#FF9966'},grid:{drawOnChartArea:false}}
                 }
             }
         });
@@ -1787,14 +2007,14 @@
         });
         getEl('downloadMainChart').addEventListener('click',function(){downloadChart('mainChart','evoluzione_demografica');});
 
-        /* ─── 2. Europe Chart ─── */
+        /* ─── 2. Europe Chart (Viola/Magenta Elettrico) ─── */
         var euroCtx = getEl('europeChart').getContext('2d');
-        var euVals = obs.fertility_europe.values;
-        var euColors = euVals.map(function(v){if(v>=1.5)return'rgba(16,185,129,0.8)';if(v>=1.3)return'rgba(245,158,11,0.8)';return'rgba(239,68,68,0.8)';});
-        var euBorders = euVals.map(function(v){if(v>=1.5)return'#10B981';if(v>=1.3)return'#F59E0B';return'#EF4444';});
+        var euValNew = obs.fertility_europe.values;
+        var euColors = euValNew.map(function(v){if(v>=1.5)return'rgba(127,0,255,0.85)';if(v>=1.3)return'rgba(225,0,255,0.7)';return'rgba(225,0,255,0.45)';});
+        var euBorders = euValNew.map(function(v){if(v>=1.5)return'#7F00FF';if(v>=1.3)return'#E100FF';return'rgba(225,0,255,0.6)';});
         new Chart(euroCtx,{
             type:'bar',
-            data:{labels:obs.fertility_europe.countries,datasets:[{data:euVals,backgroundColor:euColors,borderColor:euBorders,borderWidth:2,borderRadius:6}]},
+            data:{labels:obs.fertility_europe.countries,datasets:[{data:euValNew,backgroundColor:euColors,borderColor:euBorders,borderWidth:2,borderRadius:8}]},
             options:{
                 responsive:true,maintainAspectRatio:false,
                 plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(14,19,41,0.95)',titleColor:'rgba(240,230,216,0.55)',bodyColor:'#F0E6D8',borderColor:'rgba(42,58,92,0.5)',borderWidth:1,cornerRadius:8,padding:10,caretPadding:6,callbacks:{title:function(ctx){return ctx[0].label},label:function(ctx){return 'TFR: '+ctx.parsed.y.toFixed(2)}}},datalabels:{anchor:'end',align:'top',color:'rgba(240,230,216,0.9)',font:{weight:'bold',size:11,family:"'Inter', sans-serif"},formatter:function(v){return v.toFixed(2)}}},
@@ -1804,14 +2024,14 @@
         });
         getEl('downloadEuropeChart').addEventListener('click',function(){downloadChart('europeChart','confronto_europeo_tfr');});
 
-        /* ─── 3. Regions Chart (R06 — soglie dinamiche) ─── */
+        /* ─── 3. Regions Chart (Viola/Magenta Elettrico) ─── */
         var regCtx = getEl('regionsChart').getContext('2d');
         var regVals = obs.fertility_regions.values;
-        var regColors = regVals.map(function(v){if(v>=1.5)return'rgba(16,185,129,0.8)';if(v>=1.3)return'rgba(245,158,11,0.8)';return'rgba(239,68,68,0.8)';});
-        var regBorders = regVals.map(function(v){if(v>=1.5)return'#10B981';if(v>=1.3)return'#F59E0B';return'#EF4444';});
+        var regColors = regVals.map(function(v){if(v>=1.5)return'rgba(127,0,255,0.85)';if(v>=1.3)return'rgba(225,0,255,0.7)';return'rgba(225,0,255,0.45)';});
+        var regBorders = regVals.map(function(v){if(v>=1.5)return'#7F00FF';if(v>=1.3)return'#E100FF';return'rgba(225,0,255,0.6)';});
         new Chart(regCtx,{
             type:'bar',
-            data:{labels:obs.fertility_regions.regions,datasets:[{data:regVals,backgroundColor:regColors,borderColor:regBorders,borderRadius:6,borderWidth:2}]},
+            data:{labels:obs.fertility_regions.regions,datasets:[{data:regVals,backgroundColor:regColors,borderColor:regBorders,borderRadius:8,borderWidth:2}]},
             options:{
                 indexAxis:'y',responsive:true,maintainAspectRatio:false,
                 plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(14,19,41,0.95)',titleColor:'rgba(240,230,216,0.55)',bodyColor:'#F0E6D8',borderColor:'rgba(42,58,92,0.5)',borderWidth:1,cornerRadius:8,padding:10,caretPadding:6,callbacks:{title:function(ctx){return ctx[0].label},label:function(ctx){return 'TFR: '+ctx.parsed.x.toFixed(2)}}},datalabels:{anchor:'end',align:'right',color:'rgba(240,230,216,0.9)',font:{weight:'bold',size:11,family:"'Inter', sans-serif"},formatter:function(v){return v.toFixed(2)}}},
@@ -1821,11 +2041,11 @@
         });
         getEl('downloadRegionsChart').addEventListener('click',function(){downloadChart('regionsChart','tfr_regionale');});
 
-        /* ─── 4. Age Structure Chart ─── */
+        /* ─── 4. Age Structure Chart (Ciano/Smeraldo Invecchiamento) ─── */
         var ageCtx = getEl('ageChart').getContext('2d');
         new Chart(ageCtx,{
             type:'polarArea',
-            data:{labels:obs.age_structure.categories,datasets:[{data:obs.age_structure.values,backgroundColor:['rgba(16,185,129,0.6)','rgba(26,115,232,0.6)','rgba(245,158,11,0.6)','rgba(232,67,147,0.6)','rgba(239,68,68,0.6)'],borderColor:'rgba(255,255,255,0.2)',borderWidth:1.5}]},
+            data:{labels:obs.age_structure.categories,datasets:[{data:obs.age_structure.values,backgroundColor:['rgba(0,242,254,0.7)','rgba(79,172,254,0.7)','rgba(37,117,252,0.7)','rgba(107,72,255,0.7)','rgba(127,0,255,0.7)'],borderColor:'rgba(255,255,255,0.3)',borderWidth:2}]},
             options:{
                 responsive:true,maintainAspectRatio:false,
                 plugins:{legend:{position:'right',labels:{color:'rgba(240,230,216,0.55)',font:{size:11,family:"'Inter', sans-serif"}}},datalabels:{color:'rgba(240,230,216,0.9)',font:{weight:'bold',size:12,family:"'Inter', sans-serif"},formatter:function(v){return v+'%'}}},
@@ -1833,15 +2053,15 @@
             }
         });
 
-        /* ─── 5. Projections Chart ─── */
+        /* ─── 5. Projections Chart (Ciano/Smeraldo) ─── */
         var projCtx = getEl('projectionChart').getContext('2d');
         var proj = obs.projections;
         new Chart(projCtx,{
             type:'line',
             data:{labels:proj.years,datasets:[
-                {label:'Scenario ottimista',data:proj.scenarios.ottimista,borderColor:'#10B981',borderDash:[5,5],borderWidth:2,fill:false,tension:0.3,pointRadius:4,pointBackgroundColor:'#10B981'},
-                {label:'Scenario mediano (ISTAT)',data:proj.scenarios.base,borderColor:'#F59E0B',borderWidth:3,fill:false,tension:0.3,pointRadius:5,pointBackgroundColor:'#F59E0B'},
-                {label:'Scenario pessimista',data:proj.scenarios.pessimista,borderColor:'#EF4444',borderDash:[5,5],borderWidth:2,fill:false,tension:0.3,pointRadius:4,pointBackgroundColor:'#EF4444'}
+                {label:'Scenario ottimista',data:proj.scenarios.ottimista,borderColor:'rgba(0,242,254,0.6)',borderDash:[5,5],borderWidth:2,fill:false,tension:0.3,pointRadius:4,pointBackgroundColor:'rgba(0,242,254,0.6)'},
+                {label:'Scenario mediano (ISTAT)',data:proj.scenarios.base,borderColor:'#00F2FE',borderWidth:3,fill:false,tension:0.3,pointRadius:5,pointBackgroundColor:'#00F2FE'},
+                {label:'Scenario pessimista',data:proj.scenarios.pessimista,borderColor:'rgba(79,172,254,0.6)',borderDash:[5,5],borderWidth:2,fill:false,tension:0.3,pointRadius:4,pointBackgroundColor:'rgba(79,172,254,0.6)'}
             ]},
             options:{
                 responsive:true,maintainAspectRatio:false,
@@ -1850,12 +2070,12 @@
             }
         });
 
-        /* ─── 6. Causes Chart (qualitativo) ─── */
+        /* ─── 6. Causes Chart (Ambra/Oro Fattori) ─── */
         var causesCtx = getEl('causesChart').getContext('2d');
         var causesData = obs.causes;
         new Chart(causesCtx,{
             type:'radar',
-            data:{labels:causesData.categories,datasets:[{label:'Impatto relativo (stima qualitativa)',data:causesData.values,borderColor:'#D4513E',backgroundColor:'rgba(212,81,62,0.12)',pointBackgroundColor:'#D4513E',pointBorderColor:'rgba(240,230,216,0.2)',borderWidth:2,pointRadius:3}]},
+            data:{labels:causesData.categories,datasets:[{label:'Impatto relativo (stima qualitativa)',data:causesData.values,borderColor:'#FFB75E',backgroundColor:'rgba(255,183,94,0.15)',pointBackgroundColor:'#FFB75E',pointBorderColor:'rgba(240,230,216,0.3)',borderWidth:2.5,pointRadius:4}]},
             options:{
                 responsive:true,maintainAspectRatio:false,
                 plugins:{legend:{labels:{color:'rgba(240,230,216,0.55)',font:{size:10,family:"'Inter', sans-serif"}}},datalabels:{display:false}},
