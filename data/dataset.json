@@ -159,9 +159,9 @@
       "notes": "Indice sintetico multidimensionale basato su indicatori ISTAT/Eurostat. I valori sono una stima qualitativa composita e non costituiscono dati statistici ufficiali."
     },
     "births_decline": {
-      "label": "Calo nascite 2008–2024",
+      "label": "Calo nascite 2008–2025",
       "unit": "%",
-      "value": -35.8,
+      "value": -38.5,
       "source": "births"
     },
     "timeline": {
@@ -187,25 +187,25 @@
       },
       "consolidated_2025": {
         "period": "2025",
-        "description": "Consolidamento ISTAT (2025): I dati provvisori 2025 vengono confermati: 355.000 nascite, TFR 1,14, popolazione 58,94 milioni. Il declino si attenua ma prosegue."
+        "description": "Nuovo minimo storico ISTAT (2025): I dati definitivi confermano 355.000 nascite, TFR 1,14, popolazione 58,94 milioni. Superato il record negativo del 2024."
       },
       "partial_2026": {
         "period": "2026",
-        "description": "Rilevazioni parziali (2026): I dati del primo semestre 2026 confermano il trend discendente: circa 340.000 nascite attese, TFR in calo a 1,12."
+        "description": "Rilevazione parziale ANPR (2026): I dati del primo semestre 2026 confermano il trend discendente: circa 340.000 nascite presunte, TFR in calo a 1,12."
       }
     },
     "kpi": {
       "births": {
         "trend": "−66,2% dal 1965",
-        "note": "Dato ufficiale consolidato ISTAT (1960–2025). 2026: stima parziale."
+        "note": "Nuovo minimo storico 2025 (355k). Dato ufficiale consolidato ISTAT (1960–2025). 2026: stima parziale."
       },
       "tfr": {
-        "trend": "Minimo storico assoluto",
+        "trend": "Nuovo minimo storico 2025 (1,14)",
         "note": "Soglia sostituzione: 2,1. Dato 2025 consolidato: 1,14."
       },
       "elderly": {
         "trend": "+143% dal 1960",
-        "note": "Fonte: ISTAT 2024"
+        "note": "Fonte: ISTAT 2024 (ultimo anno consolidato disponibile)"
       },
       "population": {
         "trend": "−4,2M entro 2050*",
@@ -216,7 +216,7 @@
         "note": "Record UE. Dato ISTAT 2024."
       },
       "decline": {
-        "trend": "Flessione in atto",
+        "trend": "−38,5% in 17 anni",
         "note": "ISTAT: 577K (2008) → 355K (2025) — calo del −38,5%"
       }
     }
