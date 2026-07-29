@@ -47,7 +47,7 @@
             --card-border: rgba(26, 37, 85, 0.6);
             --text: #EDF2F7;
             --text-secondary: #8B95C7;
-            --text-muted: #55608E;
+            --text-muted: #7A8AB5;
             --radius: 12px;
             --radius-sm: 6px;
             --radius-lg: 18px;
@@ -79,7 +79,6 @@
             font-family: var(--font-body);
             background: var(--darker);
             color: var(--text);
-            overflow-x: hidden;
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             position: relative;
@@ -338,8 +337,9 @@
         }
 
         .nav-btn:focus-visible {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.25);
         }
 
         /* ═══════════════════════════════════════════════════
@@ -365,7 +365,12 @@
         .kpi-card:hover {
             border-color: rgba(255,255,255,0.1);
             box-shadow: var(--shadow);
-            transform: translateY(-2px);
+        }
+
+        @media (hover: hover) {
+            .kpi-card:hover {
+                transform: translateY(-2px);
+            }
         }
 
         .kpi-icon {
@@ -492,8 +497,9 @@
         }
 
         .chart-action:focus-visible {
-            outline: 2px solid var(--primary);
+            outline: 3px solid var(--accent);
             outline-offset: 2px;
+            box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.15);
         }
 
         .chart-wrapper {
@@ -611,8 +617,9 @@
         }
 
         .timeline-point:focus-visible {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.25);
         }
 
         .timeline-year {
@@ -700,6 +707,7 @@
             padding: 24px;
             margin-bottom: 24px;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
@@ -989,8 +997,9 @@
         }
 
         .modal-close:focus-visible {
-            outline: 2px solid var(--primary);
+            outline: 3px solid var(--accent);
             outline-offset: 2px;
+            box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.25);
         }
 
         /* ═══════════════════════════════════════════════════
@@ -1024,6 +1033,10 @@
         /* ═══════════════════════════════════════════════════
            Responsive
            ═══════════════════════════════════════════════════ */
+        @media (max-width: 1110px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
         @media (max-width: 768px) {
             .dashboard { padding: 12px 10px; }
             .header { padding: 16px 10px 16px; }
@@ -1032,7 +1045,7 @@
             .console-stats { justify-content: center; }
             .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .kpi-card { padding: 16px; }
-            .kpi-value { font-size: 1.4rem; }
+            .kpi-value { font-size: 1.4rem; word-break: break-word; hyphens: auto; }
             .kpi-icon { font-size: 1.2rem; }
             .grid-2 { grid-template-columns: 1fr; }
             .grid-3 { grid-template-columns: 1fr; }
@@ -1042,9 +1055,9 @@
             .timeline-section { padding: 16px; }
             .timeline-points { flex-direction: row; flex-wrap: wrap; gap: 6px; }
             .timeline-point { min-width: calc(33% - 6px); flex: 1 1 auto; }
-            .table-section { padding: 12px; }
-            .nav { gap: 2px; padding: 4px; }
-            .nav-btn { font-size: 0.7rem; padding: 6px 10px; }
+            .table-section { padding: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .nav { gap: 2px; padding: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .nav-btn { font-size: 0.7rem; padding: 6px 10px; white-space: nowrap; }
             .modal-content { padding: 20px; }
             .observations-grid { grid-template-columns: 1fr; }
             .chart-header { flex-direction: column; }
@@ -1054,7 +1067,7 @@
         @media (max-width: 480px) {
             .kpi-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
             .kpi-card { padding: 12px; }
-            .kpi-value { font-size: 1.15rem; }
+            .kpi-value { font-size: 1.15rem; word-break: break-word; }
             .kpi-label { font-size: 0.65rem; }
             .timeline-point { min-width: calc(50% - 6px); }
             .console-stat { min-width: 60px; }
@@ -1065,16 +1078,22 @@
            Accessibility: reduced motion
            ═══════════════════════════════════════════════════ */
         @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-            body::before { animation: none; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
 
         /* ═══════════════════════════════════════════════════
            Focus visible
            ═══════════════════════════════════════════════════ */
         a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.25);
+            border-radius: var(--radius-sm);
         }
 
         /* ═══════════════════════════════════════════════════
@@ -1094,7 +1113,7 @@
     <!-- ════════════════════════════════════════════════════════
     Loading Screen
     ════════════════════════════════════════════════════════ -->
-    <div class="modal-overlay open" id="loadingOverlay" role="status" aria-label="Caricamento">
+    <div class="modal-overlay open" id="loadingOverlay" role="status" aria-label="Caricamento dati demografici in corso" aria-live="polite">
         <div style="text-align: center;">
             <div style="width: 48px; height: 48px; border: 3px solid var(--glass-border); border-top-color: var(--primary); border-radius: 50%; margin: 0 auto 16px; animation: spin 0.8s linear infinite;"></div>
             <p style="color: var(--text-secondary); font-size: 0.9rem;">Caricamento dati demografici...</p>
@@ -1103,6 +1122,9 @@
 
     <style>
         @keyframes spin { to { transform: rotate(360deg); } }
+        @media (prefers-reduced-motion: reduce) {
+            .modal-overlay.open div[style*="animation: spin"] { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+        }
     </style>
 
     <!-- ════════════════════════════════════════════════════════
@@ -1111,7 +1133,7 @@
     <div class="dashboard" role="main">
 
         <!-- ──── Observatory Console ──── -->
-        <div class="observatory-console" role="banner">
+        <div class="observatory-console">
             <div class="console-brand">
                 <div class="console-icon">🔭</div>
                 <div class="console-title">
@@ -1157,8 +1179,8 @@
             <button class="nav-btn" data-view="regions">Regioni</button>
             <button class="nav-btn" data-view="europe">Europa</button>
             <button class="nav-btn" data-view="projections">Proiezioni</button>
-            <button class="nav-btn" data-action="export">Esporta</button>
-            <button class="nav-btn" data-action="info">Informazioni</button>
+            <button class="nav-btn" data-action="export" aria-label="Esporta tutti i grafici come PNG">Esporta</button>
+            <button class="nav-btn" data-action="info" aria-label="Apri finestra informazioni sul progetto" aria-controls="infoModal">Informazioni</button>
         </nav>
 
         <!-- ──── KPI Grid ──── -->
@@ -1197,7 +1219,7 @@
                     <div class="kpi-value" id="kpiAge">—</div>
                     <div class="kpi-label">Età media al primo figlio</div>
                     <div class="kpi-trend up" id="kpiAgeTrend">Tra i valori più elevati in ambito UE</div>
-                    <span class="kpi-note" id="kpiAgeNote">Caricamento...</span>
+                    <span class="kpi-note" id="kpiAgeNote">Record UE. Dato ISTAT 2024.</span>
                 </div>
                 <div class="kpi-card">
                     <span class="kpi-icon" aria-hidden="true">⚠️</span>
@@ -1218,12 +1240,13 @@
                         <p class="chart-subtitle">Nati vivi (migliaia) e Tasso di Fecondità Totale</p>
                     </div>
                     <div class="chart-actions">
-                        <button class="chart-action" id="toggleMainChartType" title="Cambia tipo grafico" aria-label="Cambia tipo grafico">📊</button>
+                        <button class="chart-action" id="toggleMainChartType" title="Cambia tipo grafico" aria-label="Alterna tra grafico a linee e a barre" aria-controls="mainChart">📊</button>
                         <button class="chart-action" id="downloadMainChart" title="Scarica PNG" aria-label="Scarica grafico come PNG">💾</button>
                     </div>
                 </div>
                 <div class="chart-wrapper tall">
-                    <canvas id="mainChart" role="img" aria-label="Grafico dell'evoluzione demografica dal 1960 al 2025 con nascite e TFR"></canvas>
+                    <canvas id="mainChart" role="img" aria-label="Grafico dell'evoluzione demografica dal 1960 al 2025 con nascite e TFR" aria-describedby="desc-mainChart"></canvas>
+                    <span id="desc-mainChart" hidden>Grafico che mostra l'evoluzione delle nascite in migliaia e del TFR in Italia dal 1960 al 2025. Le nascite sono diminuite da oltre 1 milione nel 1964 a 370.000 nel 2024. Il TFR è passato da 2,7 a 1,18 nello stesso periodo.</span>
                 </div>
                 <div class="chart-source">
                     Fonte: <a href="https://demo.istat.it/" target="_blank" rel="noopener noreferrer">ISTAT — Bilancio demografico</a> / <a href="https://www.istat.it/it/archivio/indicatori-demografici" target="_blank" rel="noopener noreferrer">Indicatori demografici</a>.
@@ -1240,28 +1263,28 @@
                     <p class="section-subtitle">Seleziona un periodo per i dettagli</p>
                 </div>
                 <div class="timeline-track" aria-hidden="true"></div>
-                <div class="timeline-points" role="tablist" aria-label="Periodi storici">
-                    <button class="timeline-point" role="tab" aria-selected="false" data-period="boom">
+                <div class="timeline-points" role="group" aria-label="Periodi storici">
+                    <button class="timeline-point" data-period="boom">
                         <span class="timeline-year">1964–65</span>
                         <span class="timeline-event">Picco nascite</span>
                         <span class="timeline-value">1.016K–1.050K</span>
                     </button>
-                    <button class="timeline-point" role="tab" aria-selected="false" data-period="decline1">
+                    <button class="timeline-point" data-period="decline1">
                         <span class="timeline-year">1976</span>
                         <span class="timeline-event">Calo sotto soglia sostituzione</span>
                         <span class="timeline-value">TFR 1,85</span>
                     </button>
-                    <button class="timeline-point" role="tab" aria-selected="false" data-period="crisis1">
+                    <button class="timeline-point" data-period="crisis1">
                         <span class="timeline-year">1995</span>
                         <span class="timeline-event">Fase di minimo storico</span>
                         <span class="timeline-value">TFR 1,19</span>
                     </button>
-                    <button class="timeline-point" role="tab" aria-selected="false" data-period="recovery">
+                    <button class="timeline-point" data-period="recovery">
                         <span class="timeline-year">2008</span>
                         <span class="timeline-event">Ripresa congiunturale temp.</span>
                         <span class="timeline-value">577K nascite</span>
                     </button>
-                    <button class="timeline-point" role="tab" aria-selected="false" data-period="crisis2">
+                    <button class="timeline-point" data-period="crisis2">
                         <span class="timeline-year">2024</span>
                         <span class="timeline-event">Minimo storico</span>
                         <span class="timeline-value">370K nascite</span>
@@ -1322,7 +1345,8 @@
                         </div>
                     </div>
                     <div class="chart-wrapper short">
-                        <canvas id="europeChart" role="img" aria-label="Grafico a barre del TFR nei paesi europei"></canvas>
+                        <canvas id="europeChart" role="img" aria-label="Grafico a barre del TFR nei paesi europei" aria-describedby="desc-europeChart"></canvas>
+                        <span id="desc-europeChart" hidden>Grafico a barre del TFR nei paesi dell'Unione Europea nel 2024. L'Italia con 1,18 si colloca tra i valori più bassi, mentre la Francia guida con 1,66.</span>
                     </div>
                     <div class="chart-source">
                         Fonte: <a href="https://ec.europa.eu/eurostat/databrowser/view/demo_find" target="_blank" rel="noopener noreferrer">Eurostat — Fertility indicators (demo_find)</a> / <a href="https://ec.europa.eu/eurostat" target="_blank" rel="noopener noreferrer">Eurostat Data Portal</a>, 2024.
@@ -1341,7 +1365,8 @@
                         </div>
                     </div>
                     <div class="chart-wrapper short">
-                        <canvas id="regionsChart" role="img" aria-label="Grafico a barre orizzontali del TFR per regione italiana"></canvas>
+                        <canvas id="regionsChart" role="img" aria-label="Grafico a barre orizzontali del TFR per regione italiana" aria-describedby="desc-regionsChart"></canvas>
+                        <span id="desc-regionsChart" hidden>Grafico a barre orizzontali del TFR per regione italiana nel 2024. Il Trentino-Alto Adige mostra il valore più alto (1,42), la Sardegna il più basso (1,10).</span>
                     </div>
                     <div class="chart-source">
                         Fonte: <a href="https://www.istat.it/it/archivio/indicatori-demografici" target="_blank" rel="noopener noreferrer">ISTAT — Indicatori demografici regionali</a>, 2024. Dato ufficiale consolidato ISTAT.
@@ -1358,7 +1383,8 @@
                         <h2 class="chart-title">Struttura per età (2024)</h2>
                     </div>
                     <div class="chart-wrapper short">
-                        <canvas id="ageChart" role="img" aria-label="Grafico polare della distribuzione per fasce d'età"></canvas>
+                        <canvas id="ageChart" role="img" aria-label="Grafico polare della distribuzione per fasce d'età" aria-describedby="desc-ageChart"></canvas>
+                        <span id="desc-ageChart" hidden>Grafico polare della distribuzione della popolazione italiana per fasce d'età nel 2024. La fascia 45-64 è la più numerosa (29,4%), seguita dagli over 65 (24,3%).</span>
                     </div>
                     <div class="chart-source">Fonte: <a href="https://demo.istat.it/" target="_blank" rel="noopener noreferrer">ISTAT — Popolazione residente per età</a>, 2024. Dato ufficiale consolidato ISTAT.</div>
                 </div>
@@ -1370,7 +1396,8 @@
                         <p class="chart-subtitle">Scenario mediano ISTAT</p>
                     </div>
                     <div class="chart-wrapper short">
-                        <canvas id="projectionChart" role="img" aria-label="Grafico a linee delle proiezioni di popolazione"></canvas>
+                        <canvas id="projectionChart" role="img" aria-label="Grafico a linee delle proiezioni di popolazione" aria-describedby="desc-projectionChart"></canvas>
+                        <span id="desc-projectionChart" hidden>Grafico a linee delle proiezioni della popolazione italiana dal 2025 al 2050 secondo tre scenari ISTAT: ottimista, mediano e pessimista. Lo scenario mediano prevede una riduzione da 58,9 a 54,7 milioni.</span>
                     </div>
                     <div class="chart-source">
                         Fonte: <a href="https://www.istat.it/it/previsioni-demografiche" target="_blank" rel="noopener noreferrer">ISTAT — Previsioni demografiche 2023–2070</a> (scenario mediano). Scenario previsionale ISTAT — le proiezioni non costituiscono previsioni certe.
@@ -1384,7 +1411,8 @@
                         <p class="chart-subtitle">Stima dell'impatto relativo</p>
                     </div>
                     <div class="chart-wrapper short">
-                        <canvas id="causesChart" role="img" aria-label="Grafico radar dei fattori del declino demografico"></canvas>
+                        <canvas id="causesChart" role="img" aria-label="Grafico radar dei fattori del declino demografico" aria-describedby="desc-causesChart"></canvas>
+                        <span id="desc-causesChart" hidden>Grafico radar dei fattori del declino demografico: precarietà lavorativa, costo abitazioni, età materna avanzata, emigrazione giovanile, carenza servizi e incertezza economica.</span>
                     </div>
                     <div class="chart-source">
                         Nota: Indice sintetico multidimensionale basato su indicatori ISTAT/Eurostat. I valori sono una stima qualitativa composita e non costituiscono dati statistici ufficiali. Disclaimer: il presente grafico ha scopo illustrativo e non rappresenta misurazioni statistiche certificate.
@@ -1474,16 +1502,17 @@
         <footer class="footer" role="contentinfo">
             <p><strong>Italian Demographic Observatory</strong> — uno strumento di analisi basato su dati aperti ISTAT.</p>
             <p><strong>Aggiornamento dataset:</strong> 29 Luglio 2026 — Fonti: <a href="https://demo.istat.it/" target="_blank" rel="noopener noreferrer">ISTAT</a>, <a href="https://ec.europa.eu/eurostat" target="_blank" rel="noopener noreferrer">Eurostat Data Portal</a>.</p>
-            <p>Dati disponibili sotto licenza <a href="https://creativecommons.org/licenses/by/3.0/it/" target="_blank" rel="noopener noreferrer">CC BY 3.0 IT</a>. Codice: <a href="https://github.com/username/demographic-dash" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
-            <p>Per segnalazioni: <a href="https://github.com/username/demographic-dash/issues" target="_blank" rel="noopener noreferrer">Apri un ticket</a></p>
+            <p>Dati disponibili sotto licenza <a href="https://creativecommons.org/licenses/by/3.0/it/" target="_blank" rel="noopener noreferrer">CC BY 3.0 IT</a>. Codice: <a href="https://github.com/fabrizioterzi/demographic-dash" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+            <p>Per segnalazioni: <a href="https://github.com/fabrizioterzi/demographic-dash/issues" target="_blank" rel="noopener noreferrer">Apri un ticket</a></p>
         </footer>
 
     </div>
 
     <!-- ──── Info Modal ──── -->
-    <div class="modal-overlay" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle">
+    <div class="modal-overlay" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle" aria-describedby="infoModalDesc">
+        <span id="infoModalDesc" hidden>Finestra informativa sul progetto, librerie utilizzate e licenza.</span>
         <div class="modal-content">
-            <button class="modal-close" id="closeInfoModal" aria-label="Chiudi">✕</button>
+            <button class="modal-close" id="closeInfoModal" aria-label="Chiudi finestra informativa" aria-controls="infoModal">✕</button>
             <h2 id="infoModalTitle" style="margin-bottom: 12px;">Informazioni sul progetto</h2>
             
             <div style="margin-bottom: 20px;">
@@ -1531,7 +1560,7 @@
     </div>
 
     <!-- ──── Toast ──── -->
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <!-- ════════════════════════════════════════════════════════
     JavaScript
@@ -1634,9 +1663,11 @@
     /** Mostra un toast notification per 3 secondi */
     function showToast(msg) {
         var toast = getEl('toast');
+        if (!toast) return;
         toast.textContent = msg;
         toast.classList.add('show');
-        setTimeout(function() { toast.classList.remove('show'); }, 3000);
+        clearTimeout(toast._hideTimer);
+        toast._hideTimer = setTimeout(function() { toast.classList.remove('show'); }, 3000);
     }
 
     /** Scarica un canvas come PNG */
@@ -1648,6 +1679,7 @@
             var link = document.createElement('a');
             link.download = (filename || 'chart') + '_v' + DATA.dataset_version + '.png';
             link.href = url;
+            link.style.display = 'none';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -1662,9 +1694,12 @@
     // ═══════════════════════════════════════════════════════════
 
     window.addEventListener('load', function() {
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var delay = prefersReduced ? 100 : 600;
         setTimeout(function() {
-            getEl('loadingOverlay').classList.remove('open');
-        }, 600);
+            var overlay = getEl('loadingOverlay');
+            if (overlay) overlay.classList.remove('open');
+        }, delay);
     });
 
     // ═══════════════════════════════════════════════════════════
@@ -1687,6 +1722,7 @@
 
     function initCounters() {
         if (typeof CountUp === 'undefined') return;
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var obs = DATA.observations;
         var counters = [
             {id:'kpiBirths',   end: obs.births.values[obs.births.values.length-1] * 1000, decimals:0, suffix:''},
@@ -1703,8 +1739,8 @@
                     var cu = new CountUp(c.id, c.end, {
                         decimals: c.decimals,
                         suffix: c.suffix || '',
-                        duration: 2,
-                        useEasing: true,
+                        duration: prefersReduced ? 0 : 2,
+                        useEasing: !prefersReduced,
                         useGrouping: c.id === 'kpiBirths'
                     });
                     cu.start();
@@ -1775,7 +1811,7 @@
                 responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
                 plugins:{
                     legend:{labels:{usePointStyle:true,padding:16,font:{size:12}}},
-                    tooltip:{backgroundColor:'rgba(14,19,41,0.95)',titleColor:'rgba(240,230,216,0.55)',bodyColor:'#F0E6D8',borderColor:'rgba(42,58,92,0.5)',borderWidth:1,cornerRadius:8,padding:12,callbacks:{title:function(ctx){return'Anno '+ctx[0].label},label:function(ctx){if(ctx.datasetIndex===0)return'Nascite: '+ctx.parsed.y.toLocaleString('it-IT')+'K';return'TFR: '+ctx.parsed.y.toFixed(2)}}},
+                    tooltip:{backgroundColor:'rgba(14,19,41,0.95)',titleColor:'rgba(240,230,216,0.55)',bodyColor:'#F0E6D8',borderColor:'rgba(42,58,92,0.5)',borderWidth:1,cornerRadius:8,padding:12,caretPadding:6,callbacks:{title:function(ctx){return'Anno '+ctx[0].label},label:function(ctx){if(ctx.datasetIndex===0)return'Nascite: '+ctx.parsed.y.toLocaleString('it-IT')+'K';return'TFR: '+ctx.parsed.y.toFixed(2)}}},
                     datalabels:{display:false},
                     annotation:{annotations:{replacementLine:{type:'line',yMin:obs.fertility_threshold.value,yMax:obs.fertility_threshold.value,yScaleID:'y1',borderColor:'rgba(245,158,11,0.5)',borderWidth:2,borderDash:[6,4],label:{display:true,content:'Soglia sostituzione: '+obs.fertility_threshold.value.toFixed(1).replace('.',','),position:'end',backgroundColor:'rgba(245,158,11,0.15)',color:'#F59E0B',font:{size:11}}}}}
                 },
@@ -1786,7 +1822,13 @@
                 }
             }
         });
-        getEl('toggleMainChartType').addEventListener('click',function(){mainChart.config.type=mainChart.config.type==='line'?'bar':'line';mainChart.update();});
+        getEl('toggleMainChartType').addEventListener('click',function(){
+            var isLine = mainChart.config.type === 'line';
+            mainChart.config.type = isLine ? 'bar' : 'line';
+            mainChart.update();
+            var btn = getEl('toggleMainChartType');
+            if (btn) btn.textContent = isLine ? '📈' : '📊';
+        });
         getEl('downloadMainChart').addEventListener('click',function(){downloadChart('mainChart','evoluzione_demografica');});
 
         /* ─── 2. Europe Chart ─── */
@@ -1799,7 +1841,8 @@
             data:{labels:obs.fertility_europe.countries,datasets:[{data:euVals,backgroundColor:euColors,borderColor:euBorders,borderWidth:2,borderRadius:6}]},
             options:{
                 responsive:true,maintainAspectRatio:false,
-                plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',color:'rgba(240,230,216,0.9)',font:{weight:'bold',size:11,family:"'Inter', sans-serif"},formatter:function(v){return v.toFixed(2)}}},
+                plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(14,19,41,0.95)',titleColor:'rgba(240,230,216,0.55)',bodyColor:'#F0E6D8',borderColor:'rgba(42,58,92,0.5)',borderWidth:1,cornerRadius:8,padding:10,caretPadding:6,callbacks:{title:function(ctx){return ctx[0].label},label:function(ctx){return 'TFR: '+ctx.parsed.y.toFixed(2)}}},datalabels:{anchor:'end',align:'top',color:'rgba(240,230,216,0.9)',font:{weight:'bold',size:11,family:"'Inter', sans-serif"},formatter:function(v){return v.toFixed(2)}}},
+                interaction:{mode:'index',intersect:true},
                 scales:{y:{beginAtZero:true,max:2,ticks:{color:'rgba(240,230,216,0.4)'},grid:{color:'rgba(42,58,92,0.2)'}},x:{ticks:{color:'rgba(240,230,216,0.4)',font:{size:11}},grid:{display:false}}}
             }
         });
@@ -1812,7 +1855,8 @@
             data:{labels:obs.fertility_regions.regions,datasets:[{data:obs.fertility_regions.values,backgroundColor:['rgba(16,185,129,0.8)','rgba(16,185,129,0.8)','rgba(16,185,129,0.8)','rgba(245,158,11,0.8)','rgba(245,158,11,0.8)','rgba(245,158,11,0.8)','rgba(239,68,68,0.8)'],borderRadius:6,borderWidth:1,borderColor:'rgba(255,255,255,0.2)'}]},
             options:{
                 indexAxis:'y',responsive:true,maintainAspectRatio:false,
-                plugins:{legend:{display:false},datalabels:{anchor:'end',align:'right',color:'rgba(240,230,216,0.9)',font:{weight:'bold',size:11,family:"'Inter', sans-serif"},formatter:function(v){return v.toFixed(2)}}},
+                plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(14,19,41,0.95)',titleColor:'rgba(240,230,216,0.55)',bodyColor:'#F0E6D8',borderColor:'rgba(42,58,92,0.5)',borderWidth:1,cornerRadius:8,padding:10,caretPadding:6,callbacks:{title:function(ctx){return ctx[0].label},label:function(ctx){return 'TFR: '+ctx.parsed.x.toFixed(2)}}},datalabels:{anchor:'end',align:'right',color:'rgba(240,230,216,0.9)',font:{weight:'bold',size:11,family:"'Inter', sans-serif"},formatter:function(v){return v.toFixed(2)}}},
+                interaction:{mode:'index',intersect:true},
                 scales:{x:{beginAtZero:true,max:1.5,ticks:{color:'rgba(240,230,216,0.4)'},grid:{color:'rgba(42,58,92,0.2)'}},y:{ticks:{color:'rgba(240,230,216,0.4)',font:{size:11}},grid:{display:false}}}
             }
         });
@@ -1932,8 +1976,8 @@
                     {id:'projectionChart',name:'proiezioni'},
                     {id:'causesChart',name:'fattori_declino'}
                 ];
-                chartIds.forEach(function(ch,i){setTimeout(function(){downloadChart(ch.id,ch.name);},i*600);});
-                showToast('Esportazione di '+chartIds.length+' grafici avviata.');
+                showToast('Esportazione di ' + chartIds.length + ' grafici in corso...');
+                chartIds.forEach(function(ch,i){setTimeout(function(){downloadChart(ch.id,ch.name);},i*400);});
             });
         });
     }
@@ -1946,10 +1990,24 @@
         var tl = DATA.observations.timeline;
         var descriptions = {};
         Object.keys(tl).forEach(function(k) { descriptions[k] = tl[k].description; });
-        document.querySelectorAll('.timeline-point').forEach(function(btn) {
+        var points = document.querySelectorAll('.timeline-point');
+        points.forEach(function(btn) {
+            // Imposta ruolo e comportamento ARIA
+            btn.setAttribute('aria-label', btn.querySelector('.timeline-event')?.textContent || 'Periodo');
             btn.addEventListener('click', function() {
-                var msg = descriptions[btn.getAttribute('data-period')] || 'Nessuna informazione disponibile per questo periodo.';
+                var period = btn.getAttribute('data-period');
+                var msg = descriptions[period] || 'Nessuna informazione disponibile per questo periodo.';
                 showToast(msg);
+                // Aggiorna stato selezionato
+                points.forEach(function(p) { p.removeAttribute('aria-pressed'); });
+                btn.setAttribute('aria-pressed', 'true');
+            });
+            // Keyboard: Enter e Space per coerenza
+            btn.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    btn.click();
+                }
             });
         });
     }
