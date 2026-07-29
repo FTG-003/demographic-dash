@@ -395,6 +395,14 @@
       ],
       "source": "population"
     },
+    "first_child_age": {
+      "label": "Età media al primo figlio",
+      "unit": "anni",
+      "value": 31.8,
+      "year": 2024,
+      "source": "fertility",
+      "notes": "Record UE. Dato ISTAT 2024."
+    },
     "fertility_europe": {
       "label": "TFR per paese europeo (2024)",
       "unit": "figli per donna",
