@@ -2,7 +2,7 @@
   "name": "demographic-dash",
   "version": "1.0.0",
   "description": "Dashboard interattiva sulla demografia italiana, basata su dati **ISTAT** ed **Eurostat**.",
-  "main": "index.js",
+  "main": "index.html",
   "directories": {
     "doc": "docs"
   },
@@ -14,14 +14,10 @@
     "url": "git+https://github.com/FTG-003/demographic-dash.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "author": "Fabrizio Terzi",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/FTG-003/demographic-dash/issues"
   },
-  "homepage": "https://github.com/FTG-003/demographic-dash#readme",
-  "dependencies": {
-    "playwright": "^1.62.0"
-  }
+  "homepage": "https://github.com/FTG-003/demographic-dash#readme"
 }

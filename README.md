@@ -66,7 +66,7 @@
 
 ```bash
 # 1. Clona il repository
-git clone https://github.com/username/demographic-dash.git
+git clone https://github.com/FTG-003/demographic-dash.git
 cd demographic-dash
 
 # 2. Avvia un server HTTP locale (Python)

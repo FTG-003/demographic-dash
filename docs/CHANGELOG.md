@@ -5,25 +5,11 @@
 
 ---
 
-## [1.4] — 2026-07-29
+## [1.3] — 2026-07-29
 
 ### Aggiunto
-- Nuova serie dati 2026 per `births` (348.000), `fertility` (TFR 1,13), `population` (58,9M)
-- Integrazione con lo script `update_data.py`: pipeline automatica di validazione, spike detection e embed
-- Documentazione `METHOD.md`: spiegazione rigorosa degli indicatori demografici
-
-### Modificato
-- `docs/CHANGELOG.md`: ora generato automaticamente dallo script Python
-- `index.html`: il blocco `const DATA = {…}` viene sincronizzato automaticamente via `--embed`
-
-### Tecnologia
-- Script Python `update_data.py` con 7 nuovi comandi CLI (`--check`, `--update`, `--embed`, `--simulate`)
-- Spike Detection automatica con soglia ±15% YoY per tutte le metriche
-- Validazione strutturale dello schema dataset (bloccante all'avvio)
-
----
-
-## [1.3] — 2026-07-29
+- Nuova sezione `causes` e `fertility_threshold` nelle osservazioni del dataset
+- Aggiunti dati `timeline` e `kpi` descrittivi nel dataset per coerenza con `index.html`
 
 ### Migliorato
 - Reingegnerizzazione completa del data layer: oggetto `DATA` strutturato con metadati e osservazioni
@@ -32,6 +18,8 @@
 
 ### Fisso
 - Riorganizzazione del dataset JSON per garantire la compatibilità tra `dataset.json` e l'oggetto `DATA` in `index.html`
+- Aggiunta voce di changelog mancante per la versione 1.3
+- Aggiunti campi root-level `births`, `fertility`, `population` al dataset per allineamento con `DATA`
 
 ---
 

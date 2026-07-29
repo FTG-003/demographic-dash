@@ -215,4 +215,4 @@ I metadati di fonte sono centralizzati nell'oggetto `DATA.sources`:
 ---
 
 > **Documento manutenuto come parte del repository.**  
-> Ultimo aggiornamento: 2026-07-29 — Versione v1.4.
+> Ultimo aggiornamento: 2026-07-29 — Versione v1.3.

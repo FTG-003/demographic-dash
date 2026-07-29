@@ -1105,6 +1105,10 @@
             .chart-action { display: none; }
             .kpi-card { break-inside: avoid; }
             .chart-card { break-inside: avoid; }
+            .observation-card { break-inside: avoid; }
+            .table-section { break-inside: avoid; }
+            .methodology { break-inside: avoid; }
+            .timeline-section { break-inside: avoid; }
         }
     </style>
 </head>
@@ -1115,7 +1119,7 @@
     ════════════════════════════════════════════════════════ -->
     <div class="modal-overlay open" id="loadingOverlay" role="status" aria-label="Caricamento dati demografici in corso" aria-live="polite">
         <div style="text-align: center;">
-            <div style="width: 48px; height: 48px; border: 3px solid var(--glass-border); border-top-color: var(--primary); border-radius: 50%; margin: 0 auto 16px; animation: spin 0.8s linear infinite;"></div>
+            <div class="spinner" style="width: 48px; height: 48px; border: 3px solid var(--glass-border); border-top-color: var(--primary); border-radius: 50%; margin: 0 auto 16px; animation: spin 0.8s linear infinite;"></div>
             <p style="color: var(--text-secondary); font-size: 0.9rem;">Caricamento dati demografici...</p>
         </div>
     </div>
@@ -1123,7 +1127,7 @@
     <style>
         @keyframes spin { to { transform: rotate(360deg); } }
         @media (prefers-reduced-motion: reduce) {
-            .modal-overlay.open div[style*="animation: spin"] { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+            .modal-overlay.open .spinner { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
         }
     </style>
 
@@ -1502,11 +1506,13 @@
         <footer class="footer" role="contentinfo">
             <p><strong>Italian Demographic Observatory</strong> — uno strumento di analisi basato su dati aperti ISTAT.</p>
             <p><strong>Aggiornamento dataset:</strong> 29 Luglio 2026 — Fonti: <a href="https://demo.istat.it/" target="_blank" rel="noopener noreferrer">ISTAT</a>, <a href="https://ec.europa.eu/eurostat" target="_blank" rel="noopener noreferrer">Eurostat Data Portal</a>.</p>
-            <p>Dati disponibili sotto licenza <a href="https://creativecommons.org/licenses/by/3.0/it/" target="_blank" rel="noopener noreferrer">CC BY 3.0 IT</a>. Codice: <a href="https://github.com/fabrizioterzi/demographic-dash" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
-            <p>Per segnalazioni: <a href="https://github.com/fabrizioterzi/demographic-dash/issues" target="_blank" rel="noopener noreferrer">Apri un ticket</a></p>
+            <p>Dati disponibili sotto licenza <a href="https://creativecommons.org/licenses/by/3.0/it/" target="_blank" rel="noopener noreferrer">CC BY 3.0 IT</a>. Codice: <a href="https://github.com/FTG-003/demographic-dash" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+            <p>Per segnalazioni: <a href="https://github.com/FTG-003/demographic-dash/issues" target="_blank" rel="noopener noreferrer">Apri un ticket</a></p>
         </footer>
 
     </div>
+
+    <!-- ──── Loading overlay z-index fix for below modals ──── -->
 
     <!-- ──── Info Modal ──── -->
     <div class="modal-overlay" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle" aria-describedby="infoModalDesc">
@@ -1570,36 +1576,826 @@
     // DATA — Dataset centralizzato (UNICA fonte di verità)
     // ═══════════════════════════════════════════════════════════
     const DATA = {
-  // ═══ REQUIRED TOP-LEVEL KEYS (TASK 4) ═══
   "metadata": {
     "dataset_version": "1.3",
     "last_update": "2026-07-29",
     "license": "CC BY 3.0 IT",
     "status": "mixed",
-    "notes": "Dati 2025 provvisori / Stime ISTAT. Nati vivi e TFR: anni 1960-2024 consolidati, 2025 provvisorio (stima preliminare ISTAT). Popolazione residente: anni 1960-2024 consolidati, 2025 provvisorio."
+    "notes": ""
   },
   "dataset_version": "1.3",
   "last_update": "2026-07-29",
   "status": "mixed",
-  "notes": "Dati 2025 provvisori / Stime ISTAT. Nati vivi e TFR: anni 1960-2024 consolidati, 2025 provvisorio (stima preliminare ISTAT). Popolazione residente: anni 1960-2024 consolidati, 2025 provvisorio.",
-  "sources": {"births":{"name":"ISTAT - Bilancio demografico","url":"https://demo.istat.it/","period":"1960-2025","status":"mixed","notes":"Nati vivi. Anni 1960-2024 consolidati. Anno 2025 provvisorio (stima preliminare ISTAT)."},"fertility":{"name":"ISTAT - Indicatori demografici","url":"https://www.istat.it/it/archivio/indicatori-demografici","period":"1960-2025","status":"mixed","notes":"TFR = Tasso di Fecondità Totale. Anni 1960-2024 consolidati. Anno 2025 provvisorio."},"population":{"name":"ISTAT - Popolazione residente","url":"https://demo.istat.it/","period":"1960-2025","status":"mixed","notes":"Popolazione residente al 31 dicembre. Anni 1960-2024 consolidati. Anno 2025 provvisorio."},"europe":{"name":"Eurostat - Fertility indicators (demo_find)","url":"https://ec.europa.eu/eurostat/databrowser/view/demo_find","period":"2024","status":"consolidated","notes":"TFR 2024. Ultimo anno disponibile per tutti i paesi UE."},"projections":{"name":"ISTAT - Previsioni demografiche 2023-2070 (scenario mediano)","url":"https://www.istat.it/it/previsioni-demografiche","period":"2025-2050","status":"provisional","notes":"Scenario mediano ISTAT. Le proiezioni non costituiscono previsioni certe."}},
-  // ═══ SERIE PRINCIPALI (top-level per TASK 4) ═══
-  "births": {"label":"Nati vivi","unit":"migliaia","years":[1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],"values":[950,960,970,980,1016,1050,1040,1020,1000,990,970,950,930,900,870,840,810,790,770,750,730,710,690,670,650,630,610,590,580,575,570,562,558,552,536,526,530,535,538,544,543,544,550,554,562,560,565,570,577,570,562,548,534,518,503,486,474,464,449,435,404,400,393,379,370,355],"source":"births"},
-  "fertility": {"label":"Tasso di Fecondità Totale (TFR)","unit":"figli per donna","years":[1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],"values":[2.7,2.68,2.65,2.62,2.55,2.5,2.45,2.4,2.35,2.3,2.25,2.2,2.15,2.1,2.0,1.92,1.85,1.78,1.7,1.62,1.55,1.48,1.42,1.38,1.35,1.32,1.3,1.28,1.3,1.32,1.33,1.31,1.28,1.26,1.22,1.19,1.22,1.23,1.21,1.23,1.26,1.25,1.27,1.3,1.33,1.32,1.35,1.37,1.42,1.41,1.46,1.44,1.42,1.39,1.37,1.35,1.34,1.32,1.29,1.27,1.24,1.25,1.24,1.2,1.18,1.15],"source":"fertility"},
-  "population": {"label":"Popolazione residente","unit":"milioni","years":[1960,1965,1970,1975,1980,1985,1990,1995,2000,2005,2010,2015,2020,2023,2024,2025],"values":[50.0,51.9,53.8,55.4,56.4,57.1,57.7,57.3,57.0,58.5,59.4,60.8,59.6,59.0,58.9,58.9],"source":"population"},
-  // ═══ OSSERVAZIONI ═══
+  "notes": "",
+  "sources": {
+    "births": {
+      "name": "ISTAT - Bilancio demografico",
+      "url": "https://demo.istat.it/",
+      "period": "1960-2025",
+      "status": "mixed",
+      "notes": "Nati vivi. Anni 1960-2024 consolidati. Anno 2025 provvisorio (stima preliminare ISTAT)."
+    },
+    "fertility": {
+      "name": "ISTAT - Indicatori demografici",
+      "url": "https://www.istat.it/it/archivio/indicatori-demografici",
+      "period": "1960-2025",
+      "status": "mixed",
+      "notes": "TFR = Tasso di Fecondità Totale. Anni 1960-2024 consolidati. Anno 2025 provvisorio."
+    },
+    "population": {
+      "name": "ISTAT - Popolazione residente",
+      "url": "https://demo.istat.it/",
+      "period": "1960-2025",
+      "status": "mixed",
+      "notes": "Popolazione residente al 31 dicembre. Anni 1960-2024 consolidati. Anno 2025 provvisorio."
+    },
+    "europe": {
+      "name": "Eurostat - Fertility indicators (demo_find)",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/demo_find",
+      "period": "2024",
+      "status": "consolidated",
+      "notes": "TFR 2024. Ultimo anno disponibile per tutti i paesi UE."
+    },
+    "projections": {
+      "name": "ISTAT - Previsioni demografiche 2023-2070 (scenario mediano)",
+      "url": "https://www.istat.it/it/previsioni-demografiche",
+      "period": "2025-2050",
+      "status": "provisional",
+      "notes": "Scenario mediano ISTAT. Le proiezioni non costituiscono previsioni certe."
+    }
+  },
+  "births": {
+    "label": "Nati vivi",
+    "unit": "migliaia",
+    "years": [
+      1960,
+      1961,
+      1962,
+      1963,
+      1964,
+      1965,
+      1966,
+      1967,
+      1968,
+      1969,
+      1970,
+      1971,
+      1972,
+      1973,
+      1974,
+      1975,
+      1976,
+      1977,
+      1978,
+      1979,
+      1980,
+      1981,
+      1982,
+      1983,
+      1984,
+      1985,
+      1986,
+      1987,
+      1988,
+      1989,
+      1990,
+      1991,
+      1992,
+      1993,
+      1994,
+      1995,
+      1996,
+      1997,
+      1998,
+      1999,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "values": [
+      950,
+      960,
+      970,
+      980,
+      1016,
+      1050,
+      1040,
+      1020,
+      1000,
+      990,
+      970,
+      950,
+      930,
+      900,
+      870,
+      840,
+      810,
+      790,
+      770,
+      750,
+      730,
+      710,
+      690,
+      670,
+      650,
+      630,
+      610,
+      590,
+      580,
+      575,
+      570,
+      562,
+      558,
+      552,
+      536,
+      526,
+      530,
+      535,
+      538,
+      544,
+      543,
+      544,
+      550,
+      554,
+      562,
+      560,
+      565,
+      570,
+      577,
+      570,
+      562,
+      548,
+      534,
+      518,
+      503,
+      486,
+      474,
+      464,
+      449,
+      435,
+      404,
+      400,
+      393,
+      379,
+      370,
+      355
+    ],
+    "source": "births"
+  },
+  "fertility": {
+    "label": "Tasso di Fecondità Totale (TFR)",
+    "unit": "figli per donna",
+    "years": [
+      1960,
+      1961,
+      1962,
+      1963,
+      1964,
+      1965,
+      1966,
+      1967,
+      1968,
+      1969,
+      1970,
+      1971,
+      1972,
+      1973,
+      1974,
+      1975,
+      1976,
+      1977,
+      1978,
+      1979,
+      1980,
+      1981,
+      1982,
+      1983,
+      1984,
+      1985,
+      1986,
+      1987,
+      1988,
+      1989,
+      1990,
+      1991,
+      1992,
+      1993,
+      1994,
+      1995,
+      1996,
+      1997,
+      1998,
+      1999,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "values": [
+      2.7,
+      2.68,
+      2.65,
+      2.62,
+      2.55,
+      2.5,
+      2.45,
+      2.4,
+      2.35,
+      2.3,
+      2.25,
+      2.2,
+      2.15,
+      2.1,
+      2.0,
+      1.92,
+      1.85,
+      1.78,
+      1.7,
+      1.62,
+      1.55,
+      1.48,
+      1.42,
+      1.38,
+      1.35,
+      1.32,
+      1.3,
+      1.28,
+      1.3,
+      1.32,
+      1.33,
+      1.31,
+      1.28,
+      1.26,
+      1.22,
+      1.19,
+      1.22,
+      1.23,
+      1.21,
+      1.23,
+      1.26,
+      1.25,
+      1.27,
+      1.3,
+      1.33,
+      1.32,
+      1.35,
+      1.37,
+      1.42,
+      1.41,
+      1.46,
+      1.44,
+      1.42,
+      1.39,
+      1.37,
+      1.35,
+      1.34,
+      1.32,
+      1.29,
+      1.27,
+      1.24,
+      1.25,
+      1.24,
+      1.2,
+      1.18,
+      1.15
+    ],
+    "source": "fertility"
+  },
+  "population": {
+    "label": "Popolazione residente",
+    "unit": "milioni",
+    "years": [
+      1960,
+      1965,
+      1970,
+      1975,
+      1980,
+      1985,
+      1990,
+      1995,
+      2000,
+      2005,
+      2010,
+      2015,
+      2020,
+      2023,
+      2024,
+      2025
+    ],
+    "values": [
+      50.0,
+      51.9,
+      53.8,
+      55.4,
+      56.4,
+      57.1,
+      57.7,
+      57.3,
+      57.0,
+      58.5,
+      59.4,
+      60.8,
+      59.6,
+      59.0,
+      58.9,
+      58.9
+    ],
+    "source": "population"
+  },
   "observations": {
-    "births": {"label":"Nati vivi","unit":"migliaia","years":[1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],"values":[950,960,970,980,1016,1050,1040,1020,1000,990,970,950,930,900,870,840,810,790,770,750,730,710,690,670,650,630,610,590,580,575,570,562,558,552,536,526,530,535,538,544,543,544,550,554,562,560,565,570,577,570,562,548,534,518,503,486,474,464,449,435,404,400,393,379,370,355],"source":"births"},
-    "fertility": {"label":"Tasso di Fecondità Totale (TFR)","unit":"figli per donna","years":[1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],"values":[2.7,2.68,2.65,2.62,2.55,2.5,2.45,2.4,2.35,2.3,2.25,2.2,2.15,2.1,2.0,1.92,1.85,1.78,1.7,1.62,1.55,1.48,1.42,1.38,1.35,1.32,1.3,1.28,1.3,1.32,1.33,1.31,1.28,1.26,1.22,1.19,1.22,1.23,1.21,1.23,1.26,1.25,1.27,1.3,1.33,1.32,1.35,1.37,1.42,1.41,1.46,1.44,1.42,1.39,1.37,1.35,1.34,1.32,1.29,1.27,1.24,1.25,1.24,1.2,1.18,1.15],"source":"fertility"},
-    "population": {"label":"Popolazione residente","unit":"milioni","years":[1960,1965,1970,1975,1980,1985,1990,1995,2000,2005,2010,2015,2020,2023,2024,2025],"values":[50.0,51.9,53.8,55.4,56.4,57.1,57.7,57.3,57.0,58.5,59.4,60.8,59.6,59.0,58.9,58.9],"source":"population"},
-    "elderly_ratio": {"label":"Popolazione over 65","unit":"%","years":[1960,2024],"values":[10.0,24.3],"source":"population"},
-    "age_structure": {"label":"Struttura per età della popolazione (2024)","unit":"%","categories":["0-14","15-24","25-44","45-64","65+"],"values":[12.3,9.8,24.2,29.4,24.3],"source":"population"},
-    "first_child_age": {"label":"Età media al primo figlio","unit":"anni","value":31.8,"year":2024,"source":"fertility","notes":"Record UE. Dato ISTAT 2024."},
-    "births_decline": {"label":"Calo nascite 2008–2024","unit":"%","value":-35.8,"source":"births"},
-    "fertility_europe": {"label":"TFR per paese europeo (2024)","unit":"figli per donna","countries":["Francia","Svezia","Germania","Media UE","Italia","Spagna","Malta"],"values":[1.66,1.52,1.4,1.38,1.18,1.12,1.06],"source":"europe"},
-    "fertility_regions": {"label":"TFR per regione italiana (2024)","unit":"figli per donna","regions":["Trentino-Alto Adige","Campania","Sicilia","Lombardia","Veneto","Lazio","Sardegna"],"values":[1.42,1.32,1.3,1.28,1.26,1.22,1.1],"source":"fertility"},
-    "projections": {"label":"Proiezioni popolazione (scenario mediano ISTAT)","unit":"milioni","years":[2025,2030,2035,2040,2045,2050],"scenarios":{"ottimista":[58.9,58.2,57.8,57.5,57.0,56.8],"base":[58.9,57.5,56.5,56.0,55.2,54.7],"pessimista":[58.9,56.8,54.2,52.5,49.8,46.5]},"source":"projections"},
-    // ═══ NUOVI DATI (TASK 4) — senza hardcoding ═══
+    "fertility": {
+      "label": "Tasso di Fecondità Totale (TFR)",
+      "unit": "figli per donna",
+      "years": [
+        1960,
+        1961,
+        1962,
+        1963,
+        1964,
+        1965,
+        1966,
+        1967,
+        1968,
+        1969,
+        1970,
+        1971,
+        1972,
+        1973,
+        1974,
+        1975,
+        1976,
+        1977,
+        1978,
+        1979,
+        1980,
+        1981,
+        1982,
+        1983,
+        1984,
+        1985,
+        1986,
+        1987,
+        1988,
+        1989,
+        1990,
+        1991,
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "values": [
+        2.7,
+        2.68,
+        2.65,
+        2.62,
+        2.55,
+        2.5,
+        2.45,
+        2.4,
+        2.35,
+        2.3,
+        2.25,
+        2.2,
+        2.15,
+        2.1,
+        2.0,
+        1.92,
+        1.85,
+        1.78,
+        1.7,
+        1.62,
+        1.55,
+        1.48,
+        1.42,
+        1.38,
+        1.35,
+        1.32,
+        1.3,
+        1.28,
+        1.3,
+        1.32,
+        1.33,
+        1.31,
+        1.28,
+        1.26,
+        1.22,
+        1.19,
+        1.22,
+        1.23,
+        1.21,
+        1.23,
+        1.26,
+        1.25,
+        1.27,
+        1.3,
+        1.33,
+        1.32,
+        1.35,
+        1.37,
+        1.42,
+        1.41,
+        1.46,
+        1.44,
+        1.42,
+        1.39,
+        1.37,
+        1.35,
+        1.34,
+        1.32,
+        1.29,
+        1.27,
+        1.24,
+        1.25,
+        1.24,
+        1.2,
+        1.18,
+        1.15
+      ],
+      "source": "fertility"
+    },
+    "births": {
+      "label": "Nati vivi",
+      "unit": "migliaia",
+      "years": [
+        1960,
+        1961,
+        1962,
+        1963,
+        1964,
+        1965,
+        1966,
+        1967,
+        1968,
+        1969,
+        1970,
+        1971,
+        1972,
+        1973,
+        1974,
+        1975,
+        1976,
+        1977,
+        1978,
+        1979,
+        1980,
+        1981,
+        1982,
+        1983,
+        1984,
+        1985,
+        1986,
+        1987,
+        1988,
+        1989,
+        1990,
+        1991,
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "values": [
+        950,
+        960,
+        970,
+        980,
+        1016,
+        1050,
+        1040,
+        1020,
+        1000,
+        990,
+        970,
+        950,
+        930,
+        900,
+        870,
+        840,
+        810,
+        790,
+        770,
+        750,
+        730,
+        710,
+        690,
+        670,
+        650,
+        630,
+        610,
+        590,
+        580,
+        575,
+        570,
+        562,
+        558,
+        552,
+        536,
+        526,
+        530,
+        535,
+        538,
+        544,
+        543,
+        544,
+        550,
+        554,
+        562,
+        560,
+        565,
+        570,
+        577,
+        570,
+        562,
+        548,
+        534,
+        518,
+        503,
+        486,
+        474,
+        464,
+        449,
+        435,
+        404,
+        400,
+        393,
+        379,
+        370,
+        355
+      ],
+      "source": "births"
+    },
+    "population": {
+      "label": "Popolazione residente",
+      "unit": "milioni",
+      "years": [
+        1960,
+        1965,
+        1970,
+        1975,
+        1980,
+        1985,
+        1990,
+        1995,
+        2000,
+        2005,
+        2010,
+        2015,
+        2020,
+        2023,
+        2024,
+        2025
+      ],
+      "values": [
+        50.0,
+        51.9,
+        53.8,
+        55.4,
+        56.4,
+        57.1,
+        57.7,
+        57.3,
+        57.0,
+        58.5,
+        59.4,
+        60.8,
+        59.6,
+        59.0,
+        58.9,
+        58.9
+      ],
+      "source": "population"
+    },
+    "elderly_ratio": {
+      "label": "Popolazione over 65",
+      "unit": "%",
+      "years": [
+        1960,
+        2024
+      ],
+      "values": [
+        10.0,
+        24.3
+      ],
+      "source": "population"
+    },
+    "age_structure": {
+      "label": "Struttura per età della popolazione (2024)",
+      "unit": "%",
+      "categories": [
+        "0-14",
+        "15-24",
+        "25-44",
+        "45-64",
+        "65+"
+      ],
+      "values": [
+        12.3,
+        9.8,
+        24.2,
+        29.4,
+        24.3
+      ],
+      "source": "population"
+    },
+    "first_child_age": {
+      "label": "Età media al primo figlio",
+      "unit": "anni",
+      "value": 31.8,
+      "year": 2024,
+      "source": "fertility",
+      "notes": "Record UE. Dato ISTAT 2024."
+    },
+    "fertility_europe": {
+      "label": "TFR per paese europeo (2024)",
+      "unit": "figli per donna",
+      "countries": [
+        "Francia",
+        "Svezia",
+        "Germania",
+        "Media UE",
+        "Italia",
+        "Spagna",
+        "Malta"
+      ],
+      "values": [
+        1.66,
+        1.52,
+        1.4,
+        1.38,
+        1.18,
+        1.12,
+        1.06
+      ],
+      "source": "europe"
+    },
+    "fertility_regions": {
+      "label": "TFR per regione italiana (2024)",
+      "unit": "figli per donna",
+      "regions": [
+        "Trentino-Alto Adige",
+        "Campania",
+        "Sicilia",
+        "Lombardia",
+        "Veneto",
+        "Lazio",
+        "Sardegna"
+      ],
+      "values": [
+        1.42,
+        1.32,
+        1.3,
+        1.28,
+        1.26,
+        1.22,
+        1.1
+      ],
+      "source": "fertility"
+    },
+    "projections": {
+      "label": "Proiezioni popolazione (scenario mediano ISTAT)",
+      "unit": "milioni",
+      "years": [
+        2025,
+        2030,
+        2035,
+        2040,
+        2045,
+        2050
+      ],
+      "scenarios": {
+        "ottimista": [
+          58.9,
+          58.2,
+          57.8,
+          57.5,
+          57.0,
+          56.8
+        ],
+        "base": [
+          58.9,
+          57.5,
+          56.5,
+          56.0,
+          55.2,
+          54.7
+        ],
+        "pessimista": [
+          58.9,
+          56.8,
+          54.2,
+          52.5,
+          49.8,
+          46.5
+        ]
+      },
+      "source": "projections"
+    },
     "fertility_threshold": {
       "value": 2.1,
       "unit": "figli per donna",
@@ -1609,42 +2405,178 @@
     "causes": {
       "label": "Fattori del declino demografico",
       "unit": "impatto relativo (stima qualitativa)",
-      "categories": ["Precarietà lavorativa", "Costo abitazioni", "Età materna avanzata", "Emigrazione giovanile", "Carenza servizi", "Incertezza economica"],
-      "values": [95, 88, 85, 82, 78, 92],
+      "categories": [
+        "Precarietà lavorativa",
+        "Costo abitazioni",
+        "Età materna avanzata",
+        "Emigrazione giovanile",
+        "Carenza servizi",
+        "Incertezza economica"
+      ],
+      "values": [
+        95,
+        88,
+        85,
+        82,
+        78,
+        92
+      ],
       "source": "composito",
       "notes": "Indice sintetico multidimensionale basato su indicatori ISTAT/Eurostat. I valori sono una stima qualitativa composita e non costituiscono dati statistici ufficiali."
     },
+    "births_decline": {
+      "label": "Calo nascite 2008–2024",
+      "unit": "%",
+      "value": -35.8,
+      "source": "births"
+    },
     "timeline": {
-      "boom": {"period":"1964-65","description":"Picco delle nascite (1964–65): Con oltre 1 milione di nati vivi all'anno, il baby boom italiano raggiunge il suo massimo storico. Il TFR è di 2,55 figli per donna."},
-      "decline1": {"period":"1976","description":"Declino strutturale (1976): Il TFR scende sotto la soglia di sostituzione (2,1 figli per donna) per la prima volta nella storia italiana, segnando l'inizio del calo strutturale della fecondità."},
-      "crisis1": {"period":"1995","description":"Fase di minimo storico (1995): Il TFR tocca 1,19 figli per donna. Le nascite scendono a 526.000 — minimo dal 1861."},
-      "recovery": {"period":"2008","description":"Ripresa congiunturale temporanea (2008): Le nascite risalgono a 577.000 grazie all'apporto della popolazione immigrata. Il TFR raggiunge 1,42."},
-      "crisis2": {"period":"2024","description":"Minimo storico (2024): Le nascite scendono a 370.000, il valore più basso dall'Unità d'Italia. Il TFR tocca 1,18."}
+      "boom": {
+        "period": "1964-65",
+        "description": "Picco delle nascite (1964–65): Con oltre 1 milione di nati vivi all'anno, il baby boom italiano raggiunge il suo massimo storico. Il TFR è di 2,55 figli per donna."
+      },
+      "decline1": {
+        "period": "1976",
+        "description": "Declino strutturale (1976): Il TFR scende sotto la soglia di sostituzione (2,1 figli per donna) per la prima volta nella storia italiana, segnando l'inizio del calo strutturale della fecondità."
+      },
+      "crisis1": {
+        "period": "1995",
+        "description": "Fase di minimo storico (1995): Il TFR tocca 1,19 figli per donna. Le nascite scendono a 526.000 — minimo dal 1861."
+      },
+      "recovery": {
+        "period": "2008",
+        "description": "Ripresa congiunturale temporanea (2008): Le nascite risalgono a 577.000 grazie all'apporto della popolazione immigrata. Il TFR raggiunge 1,42."
+      },
+      "crisis2": {
+        "period": "2024",
+        "description": "Minimo storico (2024): Le nascite scendono a 370.000, il valore più basso dall'Unità d'Italia. Il TFR tocca 1,18."
+      }
     },
     "kpi": {
-      "births": {"trend":"−64,8% dal 1965","note":"Dato ufficiale consolidato ISTAT (1960–2024)"},
-      "tfr": {"trend":"Minimo storico registrato","note":"Soglia sostituzione: 2,1"},
-      "elderly": {"trend":"+143% dal 1960","note":"Fonte: ISTAT 2024"},
-      "population": {"trend":"−4,2M entro 2050*","note":"*Scenario previsionale ISTAT (mediano)"},
-      "age": {"trend":"Tra i valori più elevati in ambito UE","note":"Record UE. Dato ISTAT 2024."},
-      "decline": {"trend":"Flessione in atto","note":"ISTAT: 577K → 370K — flessione del tasso di natalità"}
+      "births": {
+        "trend": "−64,8% dal 1965",
+        "note": "Dato ufficiale consolidato ISTAT (1960–2024)"
+      },
+      "tfr": {
+        "trend": "Minimo storico registrato",
+        "note": "Soglia sostituzione: 2,1"
+      },
+      "elderly": {
+        "trend": "+143% dal 1960",
+        "note": "Fonte: ISTAT 2024"
+      },
+      "population": {
+        "trend": "−4,2M entro 2050*",
+        "note": "*Scenario previsionale ISTAT (mediano)"
+      },
+      "age": {
+        "trend": "Tra i valori più elevati in ambito UE",
+        "note": "Record UE. Dato ISTAT 2024."
+      },
+      "decline": {
+        "trend": "Flessione in atto",
+        "note": "ISTAT: 577K → 370K — flessione del tasso di natalità"
+      }
     }
   },
   "historicalTable": [
-    {"periodo":"Baby Boom","anno":"1964-65","nascite":1050000,"tfr":2.55,"natalita":20.0,"status":"Picco storico"},
-    {"periodo":"Inversione","anno":"1976","nascite":810000,"tfr":1.85,"natalita":14.1,"status":"Sotto soglia"},
-    {"periodo":"Crisi anni '80","anno":"1987","nascite":590000,"tfr":1.28,"natalita":9.8,"status":"Calo"},
-    {"periodo":"Primo minimo","anno":"1995","nascite":526000,"tfr":1.19,"natalita":8.8,"status":"Minimo"},
-    {"periodo":"Falsa ripresa","anno":"2008","nascite":577000,"tfr":1.42,"natalita":9.6,"status":"Ripresa"},
-    {"periodo":"Pandemia","anno":"2020","nascite":404000,"tfr":1.24,"natalita":6.8,"status":"Pandemia"},
-    {"periodo":"Minimo storico","anno":"2024","nascite":370000,"tfr":1.18,"natalita":6.3,"status":"Minimo assoluto"}
+    {
+      "periodo": "Baby Boom",
+      "anno": "1964-65",
+      "nascite": 1050000,
+      "tfr": 2.55,
+      "natalita": 20.0,
+      "status": "Picco storico"
+    },
+    {
+      "periodo": "Inversione",
+      "anno": "1976",
+      "nascite": 810000,
+      "tfr": 1.85,
+      "natalita": 14.1,
+      "status": "Sotto soglia"
+    },
+    {
+      "periodo": "Crisi anni '80",
+      "anno": "1987",
+      "nascite": 590000,
+      "tfr": 1.28,
+      "natalita": 9.8,
+      "status": "Calo"
+    },
+    {
+      "periodo": "Primo minimo",
+      "anno": "1995",
+      "nascite": 526000,
+      "tfr": 1.19,
+      "natalita": 8.8,
+      "status": "Minimo"
+    },
+    {
+      "periodo": "Falsa ripresa",
+      "anno": "2008",
+      "nascite": 577000,
+      "tfr": 1.42,
+      "natalita": 9.6,
+      "status": "Ripresa"
+    },
+    {
+      "periodo": "Pandemia",
+      "anno": "2020",
+      "nascite": 404000,
+      "tfr": 1.24,
+      "natalita": 6.8,
+      "status": "Pandemia"
+    },
+    {
+      "periodo": "Minimo storico",
+      "anno": "2024",
+      "nascite": 370000,
+      "tfr": 1.18,
+      "natalita": 6.3,
+      "status": "Minimo assoluto"
+    }
   ],
   "changelog": [
-    {"version":"1.2","date":"2026-02-15","changes":["Aggiornati dati nascite e TFR al 2025 (provvisorio)","Corrette discrepanze tabella/grafico su dati 1976 e 1987","Aggiunta sezione Metodologia e fonti","Allineato dataset ai comunicati ISTAT ufficiali"]},
-    {"version":"1.1","date":"2025-03-01","changes":["Aggiunti dati 2024 consolidati","Corretta fonte proiezioni demografiche","Aggiunti metadata su ogni serie storica"]},
-    {"version":"1.0","date":"2025-01-15","changes":["Primo rilascio del dataset strutturato","Dati 1960-2024 da ISTAT"]}
+    {
+      "version": "1.3",
+      "date": "2026-07-29",
+      "changes": [
+        "Reingegnerizzazione completa del data layer: oggetto DATA strutturato con metadati e osservazioni",
+        "Refactoring dell'oggetto DATA per separare fonti, osservazioni e metadati",
+        "Migliorata la documentazione della struttura dati in ARCHITECTURE.md"
+      ]
+    },
+    {
+      "version": "1.2",
+      "date": "2026-02-15",
+      "changes": [
+        "Aggiornati dati nascite e TFR al 2025 (provvisorio)",
+        "Corrette discrepanze tabella/grafico su dati 1976 e 1987",
+        "Aggiunta sezione Metodologia e fonti",
+        "Allineato dataset ai comunicati ISTAT ufficiali"
+      ]
+    },
+    {
+      "version": "1.1",
+      "date": "2025-03-01",
+      "changes": [
+        "Aggiunti dati 2024 consolidati",
+        "Corretta fonte proiezioni demografiche",
+        "Aggiunti metadata su ogni serie storica"
+      ]
+    },
+    {
+      "version": "1.0",
+      "date": "2025-01-15",
+      "changes": [
+        "Primo rilascio del dataset strutturato",
+        "Dati 1960-2024 da ISTAT"
+      ]
+    }
   ]
 };
+
 
 
 
@@ -1694,13 +2626,23 @@
     // ═══════════════════════════════════════════════════════════
 
     window.addEventListener('load', function() {
-        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var delay = prefersReduced ? 100 : 600;
-        setTimeout(function() {
-            var overlay = getEl('loadingOverlay');
-            if (overlay) overlay.classList.remove('open');
-        }, delay);
+        hideLoadingOverlay();
     });
+    // Fallback: se il load event non scatta entro 10 secondi, nascondi comunque
+    setTimeout(function hideLoadingFallback() {
+        hideLoadingOverlay();
+    }, 10000);
+
+    function hideLoadingOverlay() {
+        var overlay = getEl('loadingOverlay');
+        if (overlay && overlay.classList.contains('open')) {
+            var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var delay = prefersReduced ? 100 : 600;
+            setTimeout(function() {
+                overlay.classList.remove('open');
+            }, delay);
+        }
+    }
 
     // ═══════════════════════════════════════════════════════════
     // Sezione: Chart.js Global Theme

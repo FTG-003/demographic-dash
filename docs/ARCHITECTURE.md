@@ -314,4 +314,4 @@ Il sistema è progettato per soddisfare le linee guida WCAG 2.1 Livello AA:
 ---
 
 > **Documento manutenuto come parte del repository.**  
-> Ultimo aggiornamento: 2026-07-29 — Versione v1.4.
+> Ultimo aggiornamento: 2026-07-29 — Versione v1.3.
