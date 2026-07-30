@@ -12,7 +12,7 @@
       "url": "https://demo.istat.it/",
       "period": "1960-2026",
       "status": "mixed",
-      "notes": "Nati vivi. Anni 1960-2025 consolidati. Anno 2026 parziale (stima preliminare basata su rilevazioni primo semestre)."
+      "notes": "Nascite (nati vivi, definizione ufficiale ISTAT). Anni 1960-2025 consolidati. Anno 2026 parziale (stima preliminare basata su rilevazioni primo semestre)."
     },
     "fertility": {
       "name": "ISTAT - Indicatori demografici",
@@ -75,7 +75,7 @@
       "source": "fertility"
     },
     "births": {
-      "label": "Nati vivi",
+      "label": "Nascite",
       "unit": "migliaia",
       "years": [
         1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969,
@@ -114,16 +114,17 @@
     "elderly_ratio": {
       "label": "Popolazione over 65",
       "unit": "%",
-      "years": [1960, 2024],
-      "values": [10.0, 24.3],
+      "years": [1960, 2024, 2025],
+      "values": [10.0, 24.3, 24.7],
       "source": "population"
     },
-    "age_structure": {
-      "label": "Struttura per età della popolazione (2024)",
+    "age_structure_2025": {
       "unit": "%",
-      "categories": ["0-14", "15-24", "25-44", "45-64", "65+"],
-      "values": [12.3, 9.8, 24.2, 29.4, 24.3],
-      "source": "population"
+      "year": 2025,
+      "source": "ISTAT (Indicatori Demografici 2025)",
+      "labels": ["0–14 anni", "15–39 anni", "40–64 anni", "65–79 anni", "80+ anni"],
+      "values": [11.9, 25.2, 38.2, 16.9, 7.8],
+      "median_age": 46.8
     },
     "first_child_age": {
       "label": "Età media al primo figlio",
@@ -131,7 +132,7 @@
       "value": 31.8,
       "year": 2024,
       "source": "fertility",
-      "notes": "Record UE. Dato ISTAT 2024."
+      "notes": "Record UE. Dato ISTAT 2024 (ultimo consolidato disponibile)."
     },
     "fertility_europe": {
       "label": "TFR per paese europeo (2024)",
@@ -181,7 +182,7 @@
     "timeline": {
       "boom": {
         "period": "1964-65",
-        "description": "Picco delle nascite (1964–65): Con oltre 1 milione di nati vivi all'anno, il baby boom italiano raggiunge il suo massimo storico. Il TFR è di 2,55 figli per donna."
+        "description": "Picco delle nascite (1964–65): Con oltre 1 milione di nati all'anno, il baby boom italiano raggiunge il suo massimo storico. Il TFR è di 2,55 figli per donna."
       },
       "decline1": {
         "period": "1976",
@@ -218,8 +219,8 @@
         "note": "Soglia sostituzione: 2,1. Dato 2025 consolidato: 1,14."
       },
       "elderly": {
-        "trend": "+143% dal 1960",
-        "note": "Fonte: ISTAT 2024 (ultimo anno consolidato disponibile)"
+        "trend": "+147% dal 1960",
+        "note": "Fonte: ISTAT 2025. Al 2025 gli Over 65 sono il 24,7% (14,8M), età media 46,8 anni. Over 80 a 4,6M."
       },
       "population": {
         "trend": "−4,2M entro 2050*",
@@ -242,9 +243,9 @@
     { "periodo": "Primo minimo", "anno": "1995", "nascite": 526000, "tfr": 1.19, "natalita": 8.8, "status": "Minimo" },
     { "periodo": "Falsa ripresa", "anno": "2008", "nascite": 577000, "tfr": 1.42, "natalita": 9.6, "status": "Ripresa" },
     { "periodo": "Pandemia", "anno": "2020", "nascite": 404000, "tfr": 1.24, "natalita": 6.8, "status": "Pandemia" },
-    { "periodo": "Minimo storico", "anno": "2024", "nascite": 370000, "tfr": 1.18, "natalita": 6.3, "status": "Minimo assoluto" },
-    { "periodo": "Consolidamento 2025", "anno": "2025", "nascite": 355000, "tfr": 1.14, "natalita": 6.0, "status": "Consolidato ISTAT" },
-    { "periodo": "Proiezione 2026", "anno": "2026", "nascite": 340000, "tfr": 1.12, "natalita": 5.8, "status": "Parziale (stima)" }
+    { "periodo": "Sotto la soglia", "anno": "2024", "nascite": 370000, "tfr": 1.18, "natalita": 6.3, "status": "Sotto soglia" },
+    { "periodo": "Consolidamento 2025", "anno": "2025", "nascite": 355000, "tfr": 1.14, "natalita": 6.0, "status": "Minimo storico consolidato (355k nati, TFR 1,14)" },
+    { "periodo": "Proiezione 2026", "anno": "2026", "nascite": 340000, "tfr": 1.12, "natalita": 5.8, "status": "Dato parziale / Proiezione ANPR (340k nati)" }
   ],
   "changelog": [
     {

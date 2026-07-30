@@ -43,7 +43,7 @@ function initCharts() {
       labels: obs.births.years,
       datasets: [
         {
-          label: 'Nati vivi (migliaia)',
+          label: 'Nascite (migliaia)',
           data: obs.births.values,
           borderColor: '#10B981',
           backgroundColor: gradB,
@@ -404,24 +404,37 @@ function initCharts() {
     downloadChart('regionsChart', 'tfr_regionale');
   });
 
-  /* ─── 4. Age Structure Chart (Ciano/Smeraldo Invecchiamento) ─── */
+  /* ─── 4. Age Structure Chart (5 classi ISTAT 2025 — Ciano/Smeraldo/Viola) ─── */
   var ageCtx = getEl('ageChart').getContext('2d');
+  var ageData = obs.age_structure_2025 || obs.age_structure;
+  var ageLabels = ageData.labels || ageData.categories;
+  var ageValues = ageData.values;
+  var agePopolazione = 58.94; // milioni 2025
+  var popEstimates = ageValues.map(function (v) { return (v / 100 * agePopolazione).toFixed(2); });
+
   new Chart(ageCtx, {
-    type: 'polarArea',
+    type: 'bar',
     data: {
-      labels: obs.age_structure.categories,
+      labels: ageLabels,
       datasets: [
         {
-          data: obs.age_structure.values,
+          data: ageValues,
           backgroundColor: [
-            'rgba(0,242,254,0.7)',
-            'rgba(79,172,254,0.7)',
-            'rgba(37,117,252,0.7)',
-            'rgba(107,72,255,0.7)',
-            'rgba(127,0,255,0.7)',
+            'rgba(0, 242, 254, 0.75)',   // 0-14: ciano brillante
+            'rgba(0, 188, 212, 0.75)',   // 15-39: ciano medio
+            'rgba(16, 185, 129, 0.70)',  // 40-64: smeraldo
+            'rgba(127, 0, 255, 0.70)',   // 65-79: viola
+            'rgba(80, 0, 160, 0.80)',    // 80+: viola profondo
           ],
-          borderColor: 'rgba(255,255,255,0.3)',
+          borderColor: [
+            'rgba(0, 242, 254, 0.9)',
+            'rgba(0, 188, 212, 0.9)',
+            'rgba(16, 185, 129, 0.9)',
+            'rgba(127, 0, 255, 0.9)',
+            'rgba(80, 0, 160, 0.9)',
+          ],
           borderWidth: 2,
+          borderRadius: 4,
         },
       ],
     },
@@ -429,14 +442,28 @@ function initCharts() {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: {
-          position: 'right',
-          labels: {
-            color: 'rgba(240,230,216,0.55)',
-            font: { size: 11, family: "'Inter', sans-serif" },
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(14,19,41,0.95)',
+          titleColor: 'rgba(240,230,216,0.55)',
+          bodyColor: '#F0E6D8',
+          borderColor: 'rgba(42,58,92,0.5)',
+          borderWidth: 1,
+          cornerRadius: 8,
+          padding: 12,
+          caretPadding: 6,
+          callbacks: {
+            title: function (ctx) {
+              return ctx[0].label;
+            },
+            label: function (ctx) {
+              var idx = ctx.dataIndex;
+              return ctx.parsed.y.toFixed(1) + '%  (~' + popEstimates[idx] + 'M)';            },
           },
         },
         datalabels: {
+          anchor: 'end',
+          align: 'top',
           color: 'rgba(240,230,216,0.9)',
           font: {
             weight: 'bold',
@@ -444,14 +471,26 @@ function initCharts() {
             family: "'Inter', sans-serif",
           },
           formatter: function (v) {
-            return v + '%';
+            return v.toFixed(1) + '%';
           },
         },
       },
       scales: {
-        r: {
-          grid: { color: 'rgba(255,255,255,0.06)' },
-          ticks: { display: false },
+        y: {
+          beginAtZero: true,
+          max: 45,
+          ticks: {
+            color: 'rgba(240,230,216,0.4)',
+            callback: function (v) { return v + '%'; },
+          },
+          grid: { color: 'rgba(42,58,92,0.2)' },
+        },
+        x: {
+          ticks: {
+            color: 'rgba(240,230,216,0.55)',
+            font: { size: 10, family: "'Inter', sans-serif" },
+          },
+          grid: { display: false },
         },
       },
     },

@@ -19,6 +19,8 @@ function initTable() {
     Pandemia: 'yellow',
     Minimo: 'red',
     'Minimo assoluto': 'red',
+    'Minimo storico consolidato (355k nati, TFR 1,14)': 'red',
+    'Dato parziale / Proiezione ANPR (340k nati)': 'yellow',
   };
   DATA.historicalTable.forEach(function (row) {
     html +=
