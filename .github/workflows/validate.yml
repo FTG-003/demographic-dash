@@ -25,27 +25,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ── Setup Node.js 20.x ────────────────────────────────────────────────
+      # ── Setup Node.js ──────────────────────────────────────────────────────
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
-          cache: npm
-          cache-dependency-path: package-lock.json
-
-      # ── Install npm dependencies (for Chart.js, CountUp, etc.) ────────────
-      - name: Install JS dependencies
-        run: npm ci
-        continue-on-error: true  # non blocca se node_modules non serve per syntax check
+          node-version: '22'
 
       # ── Setup Python 3.11 ─────────────────────────────────────────────────
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: pip
-      - name: Install Python dependencies (if any)
-        run: pip install --quiet --upgrade pip || true
 
       # ── JS Syntax Check ───────────────────────────────────────────────────
       - name: "[JS Syntax Check] node --check js/*.js"
