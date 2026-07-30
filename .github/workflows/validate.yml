@@ -46,10 +46,12 @@ jobs:
         run: python3 scripts/update_data.py --check
 
       # ── Sync Check (dataset.json vs index.html) ──────────────────────────
+      # Sync Check: embed dataset e verifica che index.html non differisca
+      # (flag -b ignora differenze di soli spazi/righe vuote)
       - name: Sync Check (dataset.json vs index.html)
         run: |
           python3 scripts/update_data.py --embed
-          git diff --ignore-space-at-eol --exit-code index.html
+          git diff -b --exit-code index.html
 
       # ── Line Ending Check ─────────────────────────────────────────────────
       - name: Line Ending Check (must be LF only)

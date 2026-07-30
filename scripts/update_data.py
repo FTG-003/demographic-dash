@@ -642,8 +642,11 @@ def embed_dataset_in_html(data: Dict[str, Any], html_content: str) -> str:
         end += 1
 
     # Genera il nuovo blocco JS con la stessa indentazione originale
+    # NOTA: NON aggiungere \n finale — il newline dopo ";" è già
+    # preservato in html_content[end:] e aggiungerne un altro crea
+    # una riga vuota extra prima di </script>.
     js_block = format_dataset_for_js(data)
-    replacement = f"{leading}{js_block}\n"
+    replacement = f"{leading}{js_block}"
 
     return html_content[:line_start] + replacement + html_content[end:]
 
