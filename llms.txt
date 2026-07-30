@@ -1,0 +1,40 @@
+# Osservatorio Demografico Italiano (1960–2026)
+> Dashboard interattiva sulla demografia italiana basata su dati ISTAT consolidati (1960–2025) e proiezioni ANPR (2026).
+
+## Sintesi
+
+Il progetto raccoglie, visualizza e rende accessibili le serie storiche ufficiali ISTAT della demografia italiana dal 1960 al 2025 (con stima parziale 2026). Include TFR, nascite, decessi, popolazione, struttura per età, proiezioni demografiche e confronti europei.
+
+**Fonti:** ISTAT Bilancio demografico, Indicatori demografici, Previsioni demografiche 2023–2070, Eurostat.
+
+## Punti chiave (2025 consolidato)
+
+| Indicatore | Valore |
+|---|---|
+| **Nascite 2025** | 355.000 (nuovo minimo storico) |
+| **TFR 2025** | 1,14 figli per donna |
+| **Decessi 2025** | 652.000 |
+| **Saldo naturale 2025** | −297.000 |
+| **Popolazione 2025** | 58,94 milioni |
+| **Over 65 (2025)** | 24,7% (+147% dal 1960) |
+| **Età media** | 46,8 anni |
+| **Età media al primo figlio** | 31,8 anni (record UE) |
+| **Calo nascite 2008→2025** | −38,5% |
+| **Proiezione 2050 (scenario base)** | 54,7 milioni |
+
+## Struttura repository
+
+- `index.html` — Dashboard interattiva completa
+- `data/dataset.json` — Dataset strutturato JSON (fonte unica di verità)
+- `llms-full.txt` — Trascrizione testuale esaustiva dell'intero dataset per LLM
+- `js/` — Moduli JavaScript (config, kpi, charts, navigation, modals, app)
+- `css/styles.css` — Stili della dashboard
+- `scripts/update_data.py` — Script di aggiornamento e validazione dati
+- `docs/` — Documentazione (ARCHITECTURE, METHOD, CHANGELOG, ecc.)
+
+## Collegamenti
+
+- **Dashboard:** https://ftg-003.github.io/demographic-dash/
+- **Dataset JSON:** https://ftg-003.github.io/demographic-dash/data/dataset.json
+- **Knowledge base completa:** https://ftg-003.github.io/demographic-dash/llms-full.txt
+- **Fonte ISTAT:** https://demo.istat.it/

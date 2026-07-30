@@ -1,0 +1,24 @@
+# robots.txt — Italian Demographic Observatory
+# https://ftg-003.github.io/demographic-dash/
+
+User-agent: *
+Allow: /
+
+# AI / LLM crawler autorizzazioni esplicite
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://ftg-003.github.io/demographic-dash/sitemap.xml

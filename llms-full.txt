@@ -1,0 +1,416 @@
+# Osservatorio Demografico Italiano — Knowledge Base Completa
+## Dataset ISTAT 1960–2026 (v1.4, 29 Luglio 2026)
+
+---
+## 1. METADATI DEL DATASET
+
+- **Nome:** Italian Demographic Observatory
+- **Versione:** 1.4
+- **Ultimo aggiornamento:** 2026-07-29
+- **Licenza:** CC BY 3.0 IT
+- **Stato:** consolidated (dati 2025 consolidati ISTAT; 2026 parziale/stima ANPR)
+- **Autore/dashboard:** Fabrizio Terzi
+- **Fonti:** ISTAT — demo.istat.it, Indicatori demografici, Previsioni 2023–2070
+
+---
+
+## 2. TASSO DI FECONDITÀ TOTALE (TFR) — figli per donna
+
+Serie storica completa 1960–2026:
+
+| Anno | TFR |
+|------|-----|
+| 1960 | 2,41 |
+| 1961 | 2,41 |
+| 1962 | 2,42 |
+| 1963 | 2,44 |
+| 1964 | 2,55 |
+| 1965 | 2,50 |
+| 1966 | 2,45 |
+| 1967 | 2,40 |
+| 1968 | 2,35 |
+| 1969 | 2,30 |
+| 1970 | 2,25 |
+| 1971 | 2,20 |
+| 1972 | 2,15 |
+| 1973 | 2,10 |
+| 1974 | 2,00 |
+| 1975 | 1,92 |
+| 1976 | 1,85 |
+| 1977 | 1,78 |
+| 1978 | 1,70 |
+| 1979 | 1,62 |
+| 1980 | 1,55 |
+| 1981 | 1,48 |
+| 1982 | 1,42 |
+| 1983 | 1,38 |
+| 1984 | 1,35 |
+| 1985 | 1,32 |
+| 1986 | 1,30 |
+| 1987 | 1,28 |
+| 1988 | 1,30 |
+| 1989 | 1,32 |
+| 1990 | 1,33 |
+| 1991 | 1,31 |
+| 1992 | 1,28 |
+| 1993 | 1,26 |
+| 1994 | 1,22 |
+| 1995 | 1,19 |
+| 1996 | 1,22 |
+| 1997 | 1,23 |
+| 1998 | 1,21 |
+| 1999 | 1,23 |
+| 2000 | 1,26 |
+| 2001 | 1,25 |
+| 2002 | 1,27 |
+| 2003 | 1,30 |
+| 2004 | 1,33 |
+| 2005 | 1,32 |
+| 2006 | 1,35 |
+| 2007 | 1,37 |
+| 2008 | 1,42 |
+| 2009 | 1,41 |
+| 2010 | 1,46 |
+| 2011 | 1,44 |
+| 2012 | 1,42 |
+| 2013 | 1,39 |
+| 2014 | 1,37 |
+| 2015 | 1,35 |
+| 2016 | 1,34 |
+| 2017 | 1,32 |
+| 2018 | 1,29 |
+| 2019 | 1,27 |
+| 2020 | 1,24 |
+| 2021 | 1,25 |
+| 2022 | 1,24 |
+| 2023 | 1,20 |
+| 2024 | 1,18 |
+| 2025 | 1,14 |
+| 2026 | 1,12 (stima parziale) |
+
+**Valore minimo:** 1,12 (2026, stima parziale)
+**Valore massimo:** 2,55 (1964)
+**Soglia di sostituzione:** 2,1 figli per donna
+
+---
+
+## 3. NASCITE — in migliaia
+
+Serie storica completa 1960–2026:
+
+| Anno | Nascite (migliaia) |
+|------|-------------------|
+| 1960 | 910 |
+| 1961 | 911 |
+| 1962 | 927 |
+| 1963 | 950 |
+| 1964 | 1016 |
+| 1965 | 1050 |
+| 1966 | 1040 |
+| 1967 | 1020 |
+| 1968 | 1000 |
+| 1969 | 990 |
+| 1970 | 970 |
+| 1971 | 950 |
+| 1972 | 930 |
+| 1973 | 900 |
+| 1974 | 870 |
+| 1975 | 840 |
+| 1976 | 810 |
+| 1977 | 790 |
+| 1978 | 770 |
+| 1979 | 750 |
+| 1980 | 730 |
+| 1981 | 710 |
+| 1982 | 690 |
+| 1983 | 670 |
+| 1984 | 650 |
+| 1985 | 630 |
+| 1986 | 610 |
+| 1987 | 590 |
+| 1988 | 580 |
+| 1989 | 575 |
+| 1990 | 570 |
+| 1991 | 562 |
+| 1992 | 558 |
+| 1993 | 552 |
+| 1994 | 536 |
+| 1995 | 526 |
+| 1996 | 530 |
+| 1997 | 535 |
+| 1998 | 538 |
+| 1999 | 544 |
+| 2000 | 543 |
+| 2001 | 544 |
+| 2002 | 550 |
+| 2003 | 554 |
+| 2004 | 562 |
+| 2005 | 560 |
+| 2006 | 565 |
+| 2007 | 570 |
+| 2008 | 577 |
+| 2009 | 570 |
+| 2010 | 562 |
+| 2011 | 548 |
+| 2012 | 534 |
+| 2013 | 518 |
+| 2014 | 503 |
+| 2015 | 486 |
+| 2016 | 474 |
+| 2017 | 464 |
+| 2018 | 449 |
+| 2019 | 435 |
+| 2020 | 404 |
+| 2021 | 400 |
+| 2022 | 393 |
+| 2023 | 379 |
+| 2024 | 370 |
+| 2025 | 355 |
+| 2026 | 340 (stima parziale) |
+
+**Picco storico:** 1.050.000 (1965)
+**Minimo storico:** 355.000 (2025 consolidato)
+**Calo 2008→2025:** −38,5%
+
+---
+
+## 4. DECESSI ANNUALI — in migliaia
+
+Serie storica completa 1960–2026:
+
+| Anno | Decessi (migliaia) |
+|------|-------------------|
+| 1960 | 480,9 |
+| 1961 | 485,8 |
+| 1962 | 508,2 |
+| 1963 | 516,4 |
+| 1964 | 490,1 |
+| 1965 | 518,3 |
+| 1966 | 514,4 |
+| 1967 | 510,1 |
+| 1968 | 516,9 |
+| 1969 | 560,8 |
+| 1970 | 521,1 |
+| 1971 | 521,1 |
+| 1972 | 523,8 |
+| 1973 | 529,7 |
+| 1974 | 533,8 |
+| 1975 | 538,9 |
+| 1976 | 560,4 |
+| 1977 | 540,8 |
+| 1978 | 546,7 |
+| 1979 | 538,3 |
+| 1980 | 554,3 |
+| 1981 | 554,4 |
+| 1982 | 545,7 |
+| 1983 | 559,4 |
+| 1984 | 553,8 |
+| 1985 | 547,4 |
+| 1986 | 547,3 |
+| 1987 | 537,8 |
+| 1988 | 524,8 |
+| 1989 | 539,4 |
+| 1990 | 543,7 |
+| 1991 | 553,8 |
+| 1992 | 545,0 |
+| 1993 | 555,0 |
+| 1994 | 555,0 |
+| 1995 | 555,2 |
+| 1996 | 555,2 |
+| 1997 | 557,8 |
+| 1998 | 576,9 |
+| 1999 | 576,9 |
+| 2000 | 560,2 |
+| 2001 | 560,0 |
+| 2002 | 557,4 |
+| 2003 | 588,9 |
+| 2004 | 546,7 |
+| 2005 | 567,3 |
+| 2006 | 557,9 |
+| 2007 | 558,5 |
+| 2008 | 570,8 |
+| 2009 | 561,7 |
+| 2010 | 587,5 |
+| 2011 | 593,4 |
+| 2012 | 612,2 |
+| 2013 | 612,8 |
+| 2014 | 601,4 |
+| 2015 | 647,6 |
+| 2016 | 615,3 |
+| 2017 | 649,1 |
+| 2018 | 633,1 |
+| 2019 | 634,4 |
+| 2020 | 740,3 (picco pandemico) |
+| 2021 | 709,0 |
+| 2022 | 713,5 |
+| 2023 | 661,2 |
+| 2024 | 652,0 |
+| 2025 | 652,0 |
+| 2026 | 650,0 (stima parziale) |
+
+**Picco massimo:** 740.300 (2020, anno pandemico)
+
+---
+
+## 5. POPOLAZIONE RESIDENTE — in milioni
+
+| Anno | Popolazione (milioni) |
+|------|----------------------|
+| 1960 | 50,0 |
+| 1965 | 51,9 |
+| 1970 | 53,8 |
+| 1975 | 55,4 |
+| 1980 | 56,4 |
+| 1985 | 57,1 |
+| 1990 | 57,7 |
+| 1995 | 57,3 |
+| 2000 | 57,0 |
+| 2005 | 58,5 |
+| 2010 | 59,4 |
+| 2015 | 60,8 |
+| 2020 | 59,6 |
+| 2023 | 59,0 |
+| 2024 | 58,9 |
+| 2025 | 58,94 |
+| 2026 | 58,82 (stima parziale) |
+
+**Valore massimo storico:** 60,8 milioni (2015)
+**Trend:** decrescita in atto dal 2015
+
+---
+
+## 6. POPOLAZIONE OVER 65 — percentuale sul totale
+
+| Anno | % Over 65 |
+|------|-----------|
+| 1960 | 10,0% |
+| 2024 | 24,3% |
+| 2025 | 24,7% |
+
+**Incremento 1960→2025:** +147%
+**Over 65 nel 2025:** 14,8 milioni
+**Over 80 nel 2025:** 4,6 milioni
+**Età media 2025:** 46,8 anni
+
+---
+
+## 7. STRUTTURA PER ETÀ (2025)
+
+| Classe d'età | % |
+|-------------|---|
+| 0–14 anni | 11,9% |
+| 15–39 anni | 25,2% |
+| 40–64 anni | 38,2% |
+| 65–79 anni | 16,9% |
+| 80+ anni | 7,8% |
+
+---
+
+## 8. ETÀ MEDIA AL PRIMO FIGLIO
+
+- **Valore:** 31,8 anni (2024)
+- **Record:** valore più elevato in ambito UE
+
+---
+
+## 9. TFR PER PAESE EUROPEO (2024)
+
+| Paese | TFR |
+|-------|-----|
+| Francia | 1,66 |
+| Svezia | 1,52 |
+| Germania | 1,40 |
+| Media UE | 1,38 |
+| Italia | 1,18 |
+| Spagna | 1,12 |
+| Malta | 1,06 |
+
+---
+
+## 10. TFR PER REGIONE ITALIANA (2024)
+
+| Regione | TFR |
+|---------|-----|
+| Trentino-Alto Adige | 1,42 |
+| Campania | 1,32 |
+| Sicilia | 1,30 |
+| Lombardia | 1,28 |
+| Veneto | 1,26 |
+| Lazio | 1,22 |
+| Sardegna | 1,10 |
+
+---
+
+## 11. PROIEZIONI POPOLAZIONE (scenario mediano ISTAT) — milioni
+
+| Anno | Scenario ottimista | Scenario base | Scenario pessimista |
+|------|-------------------|--------------|-------------------|
+| 2025 | 58,9 | 58,9 | 58,9 |
+| 2030 | 58,2 | 57,5 | 56,8 |
+| 2035 | 57,8 | 56,5 | 54,2 |
+| 2040 | 57,5 | 56,0 | 52,5 |
+| 2045 | 57,0 | 55,2 | 49,8 |
+| 2050 | 56,8 | 54,7 | 46,5 |
+
+**Variazione prevista 2025→2050 (scenario base):** −4,2 milioni
+
+---
+
+## 12. FATTORI DEL DECLINO DEMOGRAFICO
+
+Indice sintetico multidimensionale (stima qualitativa composita):
+
+| Fattore | Impatto (%) |
+|---------|------------|
+| Precarietà lavorativa | 95 |
+| Incertezza economica | 92 |
+| Costo abitazioni | 88 |
+| Età materna avanzata | 85 |
+| Emigrazione giovanile | 82 |
+| Carenza servizi | 78 |
+
+---
+
+## 13. TIMELINE EVENTI PRINCIPALI
+
+- **1964–65 — Picco delle nascite:** Oltre 1 milione di nati/anno. TFR 2,55.
+- **1976 — Sotto soglia di sostituzione:** TFR scende sotto 2,1 per la prima volta.
+- **1995 — Primo minimo storico:** TFR 1,19. Nascite 526.000.
+- **2008 — Ripresa temporanea:** Nascite 577.000. TFR 1,42.
+- **2020 — Pandemia:** Nascite 404.000. Decessi 740.300 (picco pandemico).
+- **2024 — Nuovo minimo:** Nascite 370.000. TFR 1,18.
+- **2025 — Consolidamento minimo storico:** Dati ISTAT definitivi: 355.000 nascite, TFR 1,14, popolazione 58,94M.
+- **2026 — Stima parziale ANPR:** ~340.000 nascite, TFR 1,12.
+
+---
+
+## 14. TABELLA STORICA RIASSUNTIVA
+
+| Periodo | Anno | Nascite | TFR | Natalità (‰) | Status |
+|---------|------|---------|-----|-------------|--------|
+| Baby Boom | 1964-65 | 1.050.000 | 2,55 | 20,0 | Picco storico |
+| Inversione | 1976 | 810.000 | 1,85 | 14,1 | Sotto soglia |
+| Crisi anni '80 | 1987 | 590.000 | 1,28 | 9,8 | Calo |
+| Primo minimo | 1995 | 526.000 | 1,19 | 8,8 | Minimo |
+| Falsa ripresa | 2008 | 577.000 | 1,42 | 9,6 | Ripresa |
+| Pandemia | 2020 | 404.000 | 1,24 | 6,8 | Pandemia |
+| Sotto la soglia | 2024 | 370.000 | 1,18 | 6,3 | Sotto soglia |
+| Consolidamento 2025 | 2025 | 355.000 | 1,14 | 6,0 | Minimo storico consolidato |
+| Proiezione 2026 | 2026 | 340.000 | 1,12 | 5,8 | Dato parziale ANPR |
+
+---
+
+## 15. KPI (KEY PERFORMANCE INDICATORS)
+
+| Indicatore | Trend | Nota |
+|------------|-------|------|
+| **Nascite** | −66,2% dal 1965 | Nuovo minimo storico 2025 (355k) |
+| **TFR** | Nuovo minimo storico 2025 (1,14) | Soglia sostituzione: 2,1 |
+| **Over 65** | +147% dal 1960 | 24,7% (14,8M), età media 46,8 |
+| **Popolazione** | −4,2M entro 2050* | *Scenario mediano ISTAT |
+| **Età media al primo figlio** | Tra i più elevati UE | 31,8 anni |
+| **Calo nascite 2008→2025** | −38,5% | 577K → 355K |
+
+---
+
+*Fonte: ISTAT (demo.istat.it) — Dati consolidati 1960–2025, stima parziale 2026 • Licenza CC BY 3.0 IT*
