@@ -3,8 +3,8 @@
 > Flusso di lavoro completo per l'aggiornamento automatizzato dei dati demografici da comunicati ISTAT, con validazione strutturale, sanity check (inclusa spike detection), versionamento semantico, changelog automatico e sincronizzazione HTML.
 
 **Script:** `scripts/update_data.py`  
-**Versione dataset corrente:** 1.3  
-**Ultimo aggiornamento:** 2026-07-29
+**Versione dataset corrente:** 1.5  
+**Ultimo aggiornamento:** 2026-07-30
 
 ---
 
@@ -56,7 +56,7 @@ Dataset strutturato contenente l'intero patrimonio informativo del progetto:
 
 | Chiave | Tipo | Descrizione |
 |---|---|---|
-| `version` | string | Versione corrente del dataset (es. `"1.3"`) |
+| `version` | string | Versione corrente del dataset (es. `"1.5"`) |
 | `lastUpdate` | string | Data ultimo aggiornamento (ISO 8601: `YYYY-MM-DD`) |
 | `license` | string | Licenza dei dati |
 | `sources` | object | Oggetto con le fonti dati, ciascuna con `name`, `url`, `period`, `status`, `notes` |
@@ -522,5 +522,5 @@ In formato esteso, se `label` e `unit` vengono forniti, lo script li userà per 
 ---
 
 > **Documento generato e aggiornato come parte del repository.**  
-> Ultima modifica: 2026-07-29 — Versione dataset v1.3.  
+> Ultima modifica: 2026-07-30 — Versione dataset v1.5.  
 > Per aggiornamenti allo script, modificare `scripts/update_data.py` e rigenerare la documentazione.

@@ -5,15 +5,19 @@
 
 function initKPIs() {
   var obs = DATA.observations;
+  // Anno target per i KPI: l'ultimo anno consolidato prima della proiezione.
+  // Lo ricaviamo dalla serie nascite (penultimo anno dell'array).
+  var targetYear = obs.births.years[obs.births.years.length - 2] || 2025;
+
   var kpis = [
     {
       id: 'kpiBirths',
-      val: (obs.births.values[obs.births.values.length - 2] * 1000).toLocaleString('it-IT'),
+      val: (getValueForYear(obs.births, targetYear, 0) * 1000).toLocaleString('it-IT'),
       trendKey: 'births',
     },
     {
       id: 'kpiTfr',
-      val: obs.fertility.values[obs.fertility.values.length - 2]
+      val: getValueForYear(obs.fertility, targetYear, 0)
         .toFixed(2)
         .replace('.', ','),
       trendKey: 'tfr',
@@ -21,14 +25,14 @@ function initKPIs() {
     {
       id: 'kpiElderly',
       val:
-        obs.elderly_ratio.values[obs.elderly_ratio.values.length - 1]
+        getValueForYear(obs.elderly_ratio, targetYear, obs.elderly_ratio.values[obs.elderly_ratio.values.length - 1])
           .toFixed(1)
           .replace('.', ',') + '%',
       trendKey: 'elderly',
     },
     {
       id: 'kpiPopulation',
-      val: obs.population.values[obs.population.values.length - 2]
+      val: getValueForYear(obs.population, targetYear, 0)
         .toFixed(1)
         .replace('.', ','),
       trendKey: 'population',
@@ -66,28 +70,31 @@ function initCounters() {
   ).matches;
   var obs = DATA.observations;
 
+  // Determina l'anno target per i contatori (stessa logica di initKPIs)
+  var counterTargetYear = obs.births.years[obs.births.years.length - 2] || 2025;
+
   var counters = [
     {
       id: 'kpiBirths',
-      end: obs.births.values[obs.births.values.length - 2] * 1000,
+      end: getValueForYear(obs.births, counterTargetYear, 0) * 1000,
       decimals: 0,
       suffix: '',
     },
     {
       id: 'kpiTfr',
-      end: obs.fertility.values[obs.fertility.values.length - 2],
+      end: getValueForYear(obs.fertility, counterTargetYear, 0),
       decimals: 2,
       suffix: '',
     },
     {
       id: 'kpiElderly',
-      end: obs.elderly_ratio.values[obs.elderly_ratio.values.length - 1],
+      end: getValueForYear(obs.elderly_ratio, counterTargetYear, obs.elderly_ratio.values[obs.elderly_ratio.values.length - 1]),
       decimals: 1,
       suffix: '%',
     },
     {
       id: 'kpiPopulation',
-      end: obs.population.values[obs.population.values.length - 2],
+      end: getValueForYear(obs.population, counterTargetYear, 0),
       decimals: 1,
       suffix: '',
     },

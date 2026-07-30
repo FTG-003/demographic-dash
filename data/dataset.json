@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "dataset_version": "1.4",
-    "last_update": "2026-07-29",
+    "dataset_version": "1.5",
+    "last_update": "2026-07-30",
     "license": "CC BY 3.0 IT",
-    "status": "consolidated",
-    "notes": "Dati 2025 consolidati ISTAT • 2026 parziale (stima)"
+    "status": "provisional",
+    "notes": "Dati 2025 provvisori ISTAT • 2026 parziale (stima ANPR)"
   },
   "sources": {
     "births": {
@@ -12,21 +12,21 @@
       "url": "https://demo.istat.it/",
       "period": "1960-2026",
       "status": "mixed",
-      "notes": "Nascite (nati vivi, definizione ufficiale ISTAT). Anni 1960-2025 consolidati. Anno 2026 parziale (stima preliminare basata su rilevazioni primo semestre)."
+      "notes": "Nascite (nati vivi, definizione ufficiale ISTAT). Anni 1960-2024 consolidati. Anno 2025 provvisorio (stima preliminare ISTAT). Anno 2026 parziale (stima preliminare basata su rilevazioni primo semestre)."
     },
     "fertility": {
       "name": "ISTAT - Indicatori demografici",
       "url": "https://www.istat.it/it/archivio/indicatori-demografici",
       "period": "1960-2026",
       "status": "mixed",
-      "notes": "TFR = Tasso di Fecondità Totale. Anni 1960-2025 consolidati. Anno 2026 parziale (stima preliminare)."
+      "notes": "TFR = Tasso di Fecondità Totale. Anni 1960-2024 consolidati. Anno 2025 provvisorio (stima preliminare ISTAT). Anno 2026 parziale (stima preliminare)."
     },
     "population": {
       "name": "ISTAT - Popolazione residente",
       "url": "https://demo.istat.it/",
       "period": "1960-2026",
       "status": "mixed",
-      "notes": "Popolazione residente al 31 dicembre. Anni 1960-2025 consolidati. Anno 2026 parziale (stima preliminare)."
+      "notes": "Popolazione residente al 31 dicembre. Anni 1960-2024 consolidati. Anno 2025 provvisorio (stima preliminare ISTAT). Anno 2026 parziale (stima preliminare)."
     },
     "europe": {
       "name": "Eurostat - Fertility indicators (demo_find)",
@@ -40,7 +40,7 @@
       "url": "https://demo.istat.it/",
       "period": "1960-2026",
       "status": "mixed",
-      "notes": "Decessi annuali. Anni 1960-2025 consolidati. Anno 2026 parziale (stima preliminare)."
+      "notes": "Decessi annuali. Anni 1960-2024 consolidati. Anno 2025 provvisorio (stima preliminare ISTAT). Anno 2026 parziale (stima preliminare)."
     },
     "projections": {
       "name": "ISTAT - Previsioni demografiche 2023-2070 (scenario mediano)",
@@ -87,7 +87,7 @@
         2020, 2021, 2022, 2023, 2024, 2025, 2026
       ],
       "values": [
-        910, 911, 927, 950, 1016, 1050, 1040, 1020, 1000, 990,
+        910, 911, 927, 950, 1035, 1018, 1040, 1020, 1000, 990,
         970, 950, 930, 900, 870, 840, 810, 790, 770, 750,
         730, 710, 690, 670, 650, 630, 610, 590, 580, 575,
         570, 562, 558, 552, 536, 526, 530, 535, 538, 544,
@@ -132,7 +132,7 @@
       "value": 31.8,
       "year": 2024,
       "source": "fertility",
-      "notes": "Record UE. Dato ISTAT 2024 (ultimo consolidato disponibile)."
+      "notes": "Record UE. Dato ISTAT 2024 consolidato."
     },
     "fertility_europe": {
       "label": "TFR per paese europeo (2024)",
@@ -182,7 +182,7 @@
     "timeline": {
       "boom": {
         "period": "1964-65",
-        "description": "Picco delle nascite (1964–65): Con oltre 1 milione di nati all'anno, il baby boom italiano raggiunge il suo massimo storico. Il TFR è di 2,55 figli per donna."
+        "description": "Record assoluto del Baby Boom (1964): Con 1.035.207 nati, il baby boom italiano raggiunge il suo massimo storico assoluto (TFR 2,55). Il 1965 segue con 1.018.000 nati (TFR 2,50)."
       },
       "decline1": {
         "period": "1976",
@@ -211,12 +211,12 @@
     },
     "kpi": {
       "births": {
-        "trend": "−66,2% dal 1965",
-        "note": "Nuovo minimo storico 2025 (355k). Dato ufficiale consolidato ISTAT (1960–2025). 2026: stima parziale."
+        "trend": "−65,7% dal 1964",
+        "note": "Nuovo minimo storico 2025 (355k). Dati 1960-2024 consolidati ISTAT, 2025 provvisorio. 2026: stima parziale ANPR."
       },
       "tfr": {
         "trend": "Nuovo minimo storico 2025 (1,14)",
-        "note": "Soglia sostituzione: 2,1. Dato 2025 consolidato: 1,14."
+        "note": "Soglia sostituzione: 2,1. Dato 2025 provvisorio: 1,14."
       },
       "elderly": {
         "trend": "+147% dal 1960",
@@ -232,38 +232,36 @@
       },
       "decline": {
         "trend": "−38,5% in 17 anni",
-        "note": "ISTAT: 577K (2008) → 355K (2025) — calo del −38,5%"
+        "note": "ISTAT: 577K (2008) → 355K (2025) — calo del −38,5%. 2025 provvisorio."
       }
     }
   },
   "historicalTable": [
-    { "periodo": "Baby Boom", "anno": "1964-65", "nascite": 1050000, "tfr": 2.55, "natalita": 20.0, "status": "Picco storico" },
+    { "periodo": "Record Baby Boom", "anno": "1964", "nascite": 1035207, "tfr": 2.55, "natalita": 20.0, "status": "Record assoluto (1.035M nati, TFR 2,55)" },
+    { "periodo": "Picco Baby Boom", "anno": "1965", "nascite": 1018000, "tfr": 2.50, "natalita": 19.6, "status": "Secondo picco (1.018M nati, TFR 2,50)" },
     { "periodo": "Inversione", "anno": "1976", "nascite": 810000, "tfr": 1.85, "natalita": 14.1, "status": "Sotto soglia" },
     { "periodo": "Crisi anni '80", "anno": "1987", "nascite": 590000, "tfr": 1.28, "natalita": 9.8, "status": "Calo" },
     { "periodo": "Primo minimo", "anno": "1995", "nascite": 526000, "tfr": 1.19, "natalita": 8.8, "status": "Minimo" },
     { "periodo": "Falsa ripresa", "anno": "2008", "nascite": 577000, "tfr": 1.42, "natalita": 9.6, "status": "Ripresa" },
     { "periodo": "Pandemia", "anno": "2020", "nascite": 404000, "tfr": 1.24, "natalita": 6.8, "status": "Pandemia" },
     { "periodo": "Sotto la soglia", "anno": "2024", "nascite": 370000, "tfr": 1.18, "natalita": 6.3, "status": "Sotto soglia" },
-    { "periodo": "Consolidamento 2025", "anno": "2025", "nascite": 355000, "tfr": 1.14, "natalita": 6.0, "status": "Minimo storico consolidato (355k nati, TFR 1,14)" },
+    { "periodo": "Consolidamento 2025", "anno": "2025", "nascite": 355000, "tfr": 1.14, "natalita": 6.0, "status": "Minimo storico (355k nati, TFR 1,14) — dato provvisorio ISTAT" },
     { "periodo": "Proiezione 2026", "anno": "2026", "nascite": 340000, "tfr": 1.12, "natalita": 5.8, "status": "Dato parziale / Proiezione ANPR (340k nati)" }
   ],
   "changelog": [
     {
-      "version": "1.4",
-      "date": "2026-07-29",
+      "version": "1.5",
+      "date": "2026-07-30",
       "changes": [
-        "Integrazione dati ISTAT consolidati 2025: 355.000 nascite, TFR 1,14, Popolazione 58,94M",
-        "Aggiunte proiezioni parziali 2026: 340.000 nascite, TFR 1,12, Popolazione 58,82M",
-        "Dataset stato portato a 'consolidated' con note metodologiche trasparenti",
-        "Bonifica Red Team completa (R01-R16): sicurezza, validazione, accessibilità, performance",
-        "Aggiornati KPI e timeline eventi con dati 2025/2026",
-        "Tabella storico ampliata con voci 2025 e 2026",
-        "Sincronizzazione automatica dataset.json ↔ index.html completata",
-        "Release v1.4 stabile e pronta per la produzione"
+        "Corretto picco storico baby boom: 1964 = 1.035.207 nati (record assoluto), 1965 = 1.018.000 nati",
+        "Aggiornato KPI nascite: −65,7% dal 1964 (anziché −66,2% dal 1965)",
+        "Dati 2025 riclassificati da 'consolidated' a 'provisional' (stima provvisoria ISTAT)",
+        "Aggiunto changelog versione 1.5 con tracciamento correzioni scientifiche",
+        "Aggiornati docs METHOD.md e DATA_SOURCES.md per coerenza scientifica"
       ]
     },
     {
-      "version": "1.3",
+      "version": "1.4",
       "date": "2026-07-29",
       "changes": [
         "Bonifica strutturale completa: unificazione modello dati con metadati sotto chiave metadata",

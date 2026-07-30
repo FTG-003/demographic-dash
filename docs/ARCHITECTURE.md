@@ -122,7 +122,14 @@ L'Osservatorio Demografico Italiano adotta un'architettura **multi-file HTML + V
 ├── docs/
 │   ├── ARCHITECTURE.md     ← Questo documento
 │   ├── CHANGELOG.md        ← Storico versioni
+│   ├── DATA_SOURCES.md     ← Metodologia e fonti dati
+│   ├── METHOD.md           ← Spiegazione indicatori demografici
+│   ├── CONTRIBUTING.md     ← Linee guida per contribuire
 │   └── UPDATE_WORKFLOW.md  ← Manuale operativo
+├── robots.txt              ← Istruzioni crawler SEO
+├── sitemap.xml             ← Sitemap XML
+├── llms.txt                ← Guida AI/LLM
+├── llms-full.txt           ← Versione estesa per AI
 └── README.md               ← Descrizione progetto
 ```
 
@@ -195,8 +202,8 @@ Il cuore dell'architettura dati è l'oggetto globale `const DATA = { ... }`, emb
 ```javascript
 const DATA = {
     metadata: {
-        dataset_version: "1.4",
-        last_update: "2026-07-29",
+        dataset_version: "1.5",
+        last_update: "2026-07-30",
         license: "CC BY 3.0 IT",
         status: "consolidated",
         notes: "…"
@@ -338,4 +345,4 @@ Il sistema è progettato per soddisfare le linee guida WCAG 2.1 Livello AA:
 ---
 
 > **Documento manutenuto come parte del repository.**  
-> Ultimo aggiornamento: 2026-07-29 — Versione v1.4 — Refactoring multi-file.
+> Ultimo aggiornamento: 2026-07-30 — Versione v1.5 — Refactoring multi-file e bonifica repository.

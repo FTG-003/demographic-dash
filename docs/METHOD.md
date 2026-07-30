@@ -109,10 +109,13 @@ Natalità (‰) = (Nati vivi / Popolazione media) × 1000
 
 | Anno | Nascite | Natalità (‰) |
 |---|---|---|
-| 1964 (Baby Boom) | 1.016.000 | ~20,0‰ |
+| 1964 (Record Baby Boom) | 1.035.207 | ~20,0‰ |
+| 1965 (Secondo picco) | 1.018.000 | ~19,6‰ |
 | 1976 | 810.000 | ~14,1‰ |
 | 1995 (primo minimo) | 526.000 | ~8,8‰ |
 | 2024 (minimo assoluto) | 370.000 | ~6,3‰ |
+
+> **Nota storica:** Il record assoluto del baby boom italiano è il **1964** con 1.035.207 nati (TFR 2,55), superando il 1965 che registrò 1.018.000 nati (TFR 2,50).
 
 ---
 
@@ -140,7 +143,12 @@ Rapporto Dipendenza Anziani (%) = (Popolazione 65+ / Popolazione 15–64) × 100
 
 L'Italia presenta uno dei rapporti di dipendenza anziani più alti dell'Unione Europea, conseguenza combinata del bassissimo TFR prolungato (dal 1976) e dell'aumento della speranza di vita.
 
-### Fonte
+| Anno | Over 65 | Rapporto dipendenza |
+|---|---|---|
+| **1960** | 10,0% | ~1 anziano ogni 10 lavoratori |
+| **2024** | 24,3% | ~1 anziano ogni 4 lavoratori |
+| **2025 (provv.)** | **24,7%** | **14,8 milioni** di over 65 |
+| **2035 (proiez.)** | >30% | Più di 1 anziano ogni 3 lavoratori |
 
 ISTAT — Popolazione residente per età. Anni 1960 (consolidato) e 2024 (consolidato).
 
@@ -277,4 +285,4 @@ Periodo estratto: 2025–2050 (passi quinquennali).
 ---
 
 > **Documento tecnico manutenuto come parte del repository.**  
-> Ultimo aggiornamento: 2026-07-29 — Versione dataset v1.3.
+> Ultimo aggiornamento: 2026-07-30 — Versione dataset v1.4.

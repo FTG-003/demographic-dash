@@ -14,6 +14,7 @@ function initNavigation() {
   };
 
   navBtns.forEach(function (btn) {
+    if (!btn) return;
     btn.addEventListener('click', function () {
       var view = btn.getAttribute('data-view');
       navBtns.forEach(function (b) {
@@ -41,6 +42,7 @@ function initExport() {
   document
     .querySelectorAll('.nav-btn[data-action="export"]')
     .forEach(function (btn) {
+      if (!btn) return;
       btn.addEventListener('click', function () {
         var chartIds = [
           { id: 'mainChart', name: 'evoluzione_demografica' },

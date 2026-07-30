@@ -1,19 +1,17 @@
 {
   "name": "demographic-dash",
   "version": "1.0.0",
-  "description": "Dashboard interattiva sulla demografia italiana, basata su dati **ISTAT** ed **Eurostat**.",
+  "description": "Italian Demographic Observatory — dashboard interattiva sulla demografia italiana basata su dati ISTAT ed Eurostat.",
   "main": "index.html",
   "directories": {
     "doc": "docs"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {}, 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FTG-003/demographic-dash.git"
   },
-  "keywords": [],
+  "keywords": ["demographics", "istat", "eurostat", "italy", "dashboard", "data-visualization", "population"],
   "author": "Fabrizio Terzi",
   "license": "MIT",
   "bugs": {

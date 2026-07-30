@@ -26,6 +26,19 @@ function formatNum(n, decimals) {
 }
 
 /**
+ * Trova il valore corrispondente a un anno specifico in una serie temporale.
+ * @param {Object} series - Oggetto con proprieta' 'years' (array) e 'values' (array)
+ * @param {number} year - Anno target
+ * @param {*} [fallback] - Valore di fallback se l'anno non viene trovato
+ * @returns {*} Il valore corrispondente all'anno, o il fallback
+ */
+function getValueForYear(series, year, fallback) {
+  if (!series || !Array.isArray(series.years)) return fallback;
+  var idx = series.years.indexOf(year);
+  return idx >= 0 ? series.values[idx] : fallback;
+}
+
+/**
  * Mostra un toast notification per 3 secondi
  * @param {string} msg
  */
@@ -82,10 +95,15 @@ function createVerticalGradient(ctx, height, color) {
 
 /* ── Colori e gradienti per i vari grafici ── */
 const COLORS = {
-  // Main chart dataset colors
+  // Main chart dataset colors (hex)
   births: '#10B981',
   deaths: '#DC2626',
   tfr: '#3B82F6',
+  // Main chart dataset colors (rgba — per gradienti, punti, fills)
+  birthsRgba: 'rgba(16,185,129,1)',
+  deathsRgba: 'rgba(220,38,38,1)',
+  tfrRgba: 'rgba(59,130,246,1)',
+  deathsFill: 'rgba(220,38,38,0.08)',
   // Europe / Regions threshold colors
   violet: 'rgba(127,0,255,0.85)',
   magenta: 'rgba(225,0,255,0.7)',
@@ -93,13 +111,20 @@ const COLORS = {
   violetBorder: '#7F00FF',
   magentaBorder: '#E100FF',
   magentaBorderDim: 'rgba(225,0,255,0.6)',
-  // Age structure
+  // Age structure (5 classi ISTAT 2025)
   ageColors: [
-    'rgba(0,242,254,0.7)',
-    'rgba(79,172,254,0.7)',
-    'rgba(37,117,252,0.7)',
-    'rgba(107,72,255,0.7)',
-    'rgba(127,0,255,0.7)',
+    'rgba(0,242,254,0.75)',   // 0-14: ciano brillante
+    'rgba(0,188,212,0.75)',   // 15-39: ciano medio
+    'rgba(16,185,129,0.70)',  // 40-64: smeraldo
+    'rgba(127,0,255,0.70)',   // 65-79: viola
+    'rgba(80,0,160,0.80)',    // 80+: viola profondo
+  ],
+  ageBorderColors: [
+    'rgba(0,242,254,0.9)',
+    'rgba(0,188,212,0.9)',
+    'rgba(16,185,129,0.9)',
+    'rgba(127,0,255,0.9)',
+    'rgba(80,0,160,0.9)',
   ],
   // Projections
   projOptimistic: 'rgba(0,242,254,0.6)',

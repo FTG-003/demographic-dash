@@ -74,9 +74,10 @@ function initTimeline() {
   });
   var points = document.querySelectorAll('.timeline-point');
   points.forEach(function (btn) {
+    if (!btn) return;
     btn.setAttribute(
       'aria-label',
-      btn.querySelector('.timeline-event')?.textContent || 'Periodo'
+      (btn.querySelector('.timeline-event') && btn.querySelector('.timeline-event').textContent) || 'Periodo'
     );
     btn.addEventListener('click', function () {
       var period = btn.getAttribute('data-period');
@@ -85,7 +86,7 @@ function initTimeline() {
         'Nessuna informazione disponibile per questo periodo.';
       showToast(msg);
       points.forEach(function (p) {
-        p.removeAttribute('aria-pressed');
+        if (p) p.removeAttribute('aria-pressed');
       });
       btn.setAttribute('aria-pressed', 'true');
     });

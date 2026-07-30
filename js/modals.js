@@ -10,6 +10,7 @@ function initModals() {
   document
     .querySelectorAll('.nav-btn[data-action="info"]')
     .forEach(function (btn) {
+      if (!btn) return;
       btn.addEventListener('click', function () {
         lastFocus = document.activeElement;
         modal.classList.add('open');
@@ -27,12 +28,16 @@ function initModals() {
     }
   }
 
-  getEl('closeInfoModal').addEventListener('click', close);
-  getEl('closeInfoModalBtn').addEventListener('click', close);
+  var closeBtn1 = getEl('closeInfoModal');
+  if (closeBtn1) closeBtn1.addEventListener('click', close);
+  var closeBtn2 = getEl('closeInfoModalBtn');
+  if (closeBtn2) closeBtn2.addEventListener('click', close);
 
-  modal.addEventListener('click', function (e) {
-    if (e.target === modal) close();
-  });
+  if (modal) {
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) close();
+    });
+  }
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal.classList.contains('open')) {

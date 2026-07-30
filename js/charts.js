@@ -31,11 +31,11 @@ function initCharts() {
   var mainCtx = getEl('mainChart').getContext('2d');
   var mH = mainCtx.canvas.parentElement.clientHeight || 440;
   var gradB = mainCtx.createLinearGradient(0, 0, 0, mH);
-  gradB.addColorStop(0, 'rgba(16,185,129,0.25)');
-  gradB.addColorStop(1, 'rgba(16,185,129,0.0)');
+  gradB.addColorStop(0, COLORS.birthsRgba.replace('1)', '0.25)'));
+  gradB.addColorStop(1, COLORS.birthsRgba.replace('1)', '0.0)'));
   var gradT = mainCtx.createLinearGradient(0, 0, 0, mH);
-  gradT.addColorStop(0, 'rgba(59,130,246,0.25)');
-  gradT.addColorStop(1, 'rgba(59,130,246,0.0)');
+  gradT.addColorStop(0, COLORS.tfrRgba.replace('1)', '0.25)'));
+  gradT.addColorStop(1, COLORS.tfrRgba.replace('1)', '0.0)'));
 
   var mainChart = new Chart(mainCtx, {
     type: 'line',
@@ -45,7 +45,7 @@ function initCharts() {
         {
           label: 'Nascite (migliaia)',
           data: obs.births.values,
-          borderColor: '#10B981',
+          borderColor: COLORS.births,
           backgroundColor: gradB,
           borderWidth: 2.5,
           tension: 0.3,
@@ -53,15 +53,15 @@ function initCharts() {
           yAxisID: 'y',
           pointRadius: 3,
           pointHoverRadius: 6,
-          pointBackgroundColor: '#10B981',
+          pointBackgroundColor: COLORS.births,
           pointBorderColor: 'rgba(240,230,216,0.2)',
           pointBorderWidth: 1,
         },
         {
           label: 'Decessi annuali (migliaia)',
           data: obs.deaths.values,
-          borderColor: '#DC2626',
-          backgroundColor: 'rgba(220,38,38,0.08)',
+          borderColor: COLORS.deaths,
+          backgroundColor: COLORS.deathsFill,
           borderWidth: 2.5,
           borderDash: [8, 4],
           tension: 0.3,
@@ -69,14 +69,14 @@ function initCharts() {
           yAxisID: 'y',
           pointRadius: 3,
           pointHoverRadius: 6,
-          pointBackgroundColor: '#DC2626',
+          pointBackgroundColor: COLORS.deaths,
           pointBorderColor: 'rgba(240,230,216,0.2)',
           pointBorderWidth: 1,
         },
         {
           label: 'TFR (figli per donna)',
           data: obs.fertility.values,
-          borderColor: '#3B82F6',
+          borderColor: COLORS.tfr,
           backgroundColor: gradT,
           borderWidth: 2.5,
           tension: 0.3,
@@ -84,7 +84,7 @@ function initCharts() {
           yAxisID: 'y1',
           pointRadius: 3.5,
           pointHoverRadius: 7,
-          pointBackgroundColor: '#3B82F6',
+          pointBackgroundColor: COLORS.tfr,
           pointBorderColor: 'rgba(240,230,216,0.2)',
           pointBorderWidth: 1,
         },
@@ -190,19 +190,19 @@ function initCharts() {
           title: {
             display: true,
             text: 'Nascite / Decessi (migliaia)',
-            color: '#10B981',
+            color: COLORS.births,
             font: {
               size: 12,
               family: "'Outfit', 'Inter', sans-serif",
             },
           },
           ticks: {
-            color: '#10B981',
+            color: COLORS.births,
             callback: function (v) {
               return v + 'K';
             },
           },
-          grid: { color: 'rgba(16,185,129,0.08)' },
+          grid: { color: COLORS.birthsRgba.replace('1)', '0.08)') },
         },
         y1: {
           type: 'linear',
@@ -210,43 +210,44 @@ function initCharts() {
           title: {
             display: true,
             text: 'TFR (figli per donna)',
-            color: '#3B82F6',
+            color: COLORS.tfr,
             font: {
               size: 12,
               family: "'Outfit', 'Inter', sans-serif",
             },
           },
-          ticks: { color: '#3B82F6' },
+          ticks: { color: COLORS.tfr },
           grid: { drawOnChartArea: false },
         },
       },
     },
   });
 
-  getEl('toggleMainChartType').addEventListener('click', function () {
-    var isLine = mainChart.config.type === 'line';
-    mainChart.config.type = isLine ? 'bar' : 'line';
-    mainChart.update();
-    var btn = getEl('toggleMainChartType');
-    if (btn) btn.textContent = isLine ? '📈' : '📊';
-  });
+  var toggleBtn = getEl('toggleMainChartType');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function () {
+      var isLine = mainChart.config.type === 'line';
+      mainChart.config.type = isLine ? 'bar' : 'line';
+      mainChart.update();
+      toggleBtn.textContent = isLine ? '📈' : '📊';
+    });
+  }
 
-  getEl('downloadMainChart').addEventListener('click', function () {
-    downloadChart('mainChart', 'evoluzione_demografica');
-  });
+  var dlMainBtn = getEl('downloadMainChart');
+  if (dlMainBtn) {
+    dlMainBtn.addEventListener('click', function () {
+      downloadChart('mainChart', 'evoluzione_demografica');
+    });
+  }
 
   /* ─── 2. Europe Chart (Viola/Magenta Elettrico) ─── */
   var euroCtx = getEl('europeChart').getContext('2d');
   var euValNew = obs.fertility_europe.values;
   var euColors = euValNew.map(function (v) {
-    if (v >= 1.5) return 'rgba(127,0,255,0.85)';
-    if (v >= 1.3) return 'rgba(225,0,255,0.7)';
-    return 'rgba(225,0,255,0.45)';
+    return barColor(v, 1.5, 1.3);
   });
   var euBorders = euValNew.map(function (v) {
-    if (v >= 1.5) return '#7F00FF';
-    if (v >= 1.3) return '#E100FF';
-    return 'rgba(225,0,255,0.6)';
+    return barBorder(v, 1.5, 1.3);
   });
 
   new Chart(euroCtx, {
@@ -315,22 +316,21 @@ function initCharts() {
     },
   });
 
-  getEl('downloadEuropeChart').addEventListener('click', function () {
-    downloadChart('europeChart', 'confronto_europeo_tfr');
-  });
+  var dlEuBtn = getEl('downloadEuropeChart');
+  if (dlEuBtn) {
+    dlEuBtn.addEventListener('click', function () {
+      downloadChart('europeChart', 'confronto_europeo_tfr');
+    });
+  }
 
   /* ─── 3. Regions Chart (Viola/Magenta Elettrico) ─── */
   var regCtx = getEl('regionsChart').getContext('2d');
   var regVals = obs.fertility_regions.values;
   var regColors = regVals.map(function (v) {
-    if (v >= 1.5) return 'rgba(127,0,255,0.85)';
-    if (v >= 1.3) return 'rgba(225,0,255,0.7)';
-    return 'rgba(225,0,255,0.45)';
+    return barColor(v, 1.5, 1.3);
   });
   var regBorders = regVals.map(function (v) {
-    if (v >= 1.5) return '#7F00FF';
-    if (v >= 1.3) return '#E100FF';
-    return 'rgba(225,0,255,0.6)';
+    return barBorder(v, 1.5, 1.3);
   });
 
   new Chart(regCtx, {
@@ -400,9 +400,12 @@ function initCharts() {
     },
   });
 
-  getEl('downloadRegionsChart').addEventListener('click', function () {
-    downloadChart('regionsChart', 'tfr_regionale');
-  });
+  var dlRegBtn = getEl('downloadRegionsChart');
+  if (dlRegBtn) {
+    dlRegBtn.addEventListener('click', function () {
+      downloadChart('regionsChart', 'tfr_regionale');
+    });
+  }
 
   /* ─── 4. Age Structure Chart (5 classi ISTAT 2025 — Ciano/Smeraldo/Viola) ─── */
   var ageCtx = getEl('ageChart').getContext('2d');
@@ -508,34 +511,34 @@ function initCharts() {
         {
           label: 'Scenario ottimista',
           data: proj.scenarios.ottimista,
-          borderColor: 'rgba(0,242,254,0.6)',
+          borderColor: COLORS.projOptimistic,
           borderDash: [5, 5],
           borderWidth: 2,
           fill: false,
           tension: 0.3,
           pointRadius: 4,
-          pointBackgroundColor: 'rgba(0,242,254,0.6)',
+          pointBackgroundColor: COLORS.projOptimistic,
         },
         {
           label: 'Scenario mediano (ISTAT)',
           data: proj.scenarios.base,
-          borderColor: '#00F2FE',
+          borderColor: COLORS.projBase,
           borderWidth: 3,
           fill: false,
           tension: 0.3,
           pointRadius: 5,
-          pointBackgroundColor: '#00F2FE',
+          pointBackgroundColor: COLORS.projBase,
         },
         {
           label: 'Scenario pessimista',
           data: proj.scenarios.pessimista,
-          borderColor: 'rgba(79,172,254,0.6)',
+          borderColor: COLORS.projPessimistic,
           borderDash: [5, 5],
           borderWidth: 2,
           fill: false,
           tension: 0.3,
           pointRadius: 4,
-          pointBackgroundColor: 'rgba(79,172,254,0.6)',
+          pointBackgroundColor: COLORS.projPessimistic,
         },
       ],
     },
@@ -583,9 +586,9 @@ function initCharts() {
         {
           label: 'Impatto relativo (stima qualitativa)',
           data: causesData.values,
-          borderColor: '#FFB75E',
-          backgroundColor: 'rgba(255,183,94,0.15)',
-          pointBackgroundColor: '#FFB75E',
+          borderColor: COLORS.radarBorder,
+          backgroundColor: COLORS.radarFill,
+          pointBackgroundColor: COLORS.radarPoint,
           pointBorderColor: 'rgba(240,230,216,0.3)',
           borderWidth: 2.5,
           pointRadius: 4,
