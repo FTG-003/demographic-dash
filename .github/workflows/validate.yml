@@ -38,15 +38,24 @@ jobs:
           python-version: '3.11'
 
       # ── JS Syntax Check ───────────────────────────────────────────────────
-      - name: "[JS Syntax Check] node --check js/*.js"
-        run: node --check js/*.js
+      - name: JS Syntax Check
+        run: for f in js/*.js; do node --check "$f"; done
 
       # ── Dataset Check ────────────────────────────────────────────────────
       - name: "[Dataset Check] python3 scripts/update_data.py --check"
         run: python3 scripts/update_data.py --check
 
-      # ── Sync Check (HTML ↔ JSON) ─────────────────────────────────────────
-      - name: "[Sync Check] Embed dataset in index.html and verify git diff"
+      # ── Sync Check (dataset.json vs index.html) ──────────────────────────
+      - name: Sync Check (dataset.json vs index.html)
         run: |
           python3 scripts/update_data.py --embed
-          git diff --exit-code index.html
+          git diff --ignore-space-at-eol --exit-code index.html
+
+      # ── Line Ending Check ─────────────────────────────────────────────────
+      - name: Line Ending Check (must be LF only)
+        run: |
+          ! grep -rl $'\r$' index.html data/dataset.json js/*.js css/*.css 2>/dev/null || {
+            echo '❌ CRLF trovato nei file sopra. Esegui: git add --renormalize . && git commit';
+            exit 1;
+          }
+          echo '✅ Tutti i file hanno line endings LF'

@@ -1,0 +1,8 @@
+# Normalizzazione line endings — Unix LF per tutti i file di progetto
+* text=auto eol=lf
+
+# File binari / immagini
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
