@@ -5,6 +5,14 @@
 
 ---
 
+## [1.6] — 2026-07-31
+
+### Aggiornato
+- Dati 2025 riclassificati da **provvisorio** a **consolidato** (comunicato ISTAT definitivo)
+- Aggiornati metadati, note fonti, KPI e tabella storica: 2025 ora risulta consolidato (355K nascite, TFR 1,14, Pop. 58,94M)
+- Badge tabella storica 2025 → "Minimo storico consolidato"
+- Aggiornati docs METHOD.md e DATA_SOURCES.md per coerenza scientifica
+
 ## [1.4] — 2026-07-29
 
 ### Aggiunto

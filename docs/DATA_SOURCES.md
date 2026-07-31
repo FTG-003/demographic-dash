@@ -39,7 +39,7 @@
 | **Unità** | Valori assoluti (il dataset li esprime in migliaia) |
 | **Frequenza** | Annuale |
 | **URL** | [demo.istat.it](https://demo.istat.it/) |
-| **Metodo** | Rilevazione totale (censuaria) degli eventi di nascita registrati nelle anagrafi comunali. I dati 1960–2024 sono consolidati; il dato 2025 è una stima preliminare pubblicata nel comunicato stampa "Indicatori demografici" di febbraio 2026. |
+| **Metodo** | Rilevazione totale (censuaria) degli eventi di nascita registrati nelle anagrafi comunali. I dati 1960–2025 sono consolidati; il dato 2026 è una stima parziale (primo semestre). |
 | **Licenza** | [CC BY 3.0 IT](https://creativecommons.org/licenses/by/3.0/it/) |
 
 ### 2.2 ISTAT — Indicatori demografici (TFR)
@@ -68,15 +68,15 @@
 | **Metodo** | Popolazione residente in Italia (iscritti in anagrafe). Include cittadini italiani e stranieri regolarmente iscritti. Esclude i temporaneamente presenti. |
 | **Licenza** | [CC BY 3.0 IT](https://creativecommons.org/licenses/by/3.0/it/) |
 
-### 2.4 ISTAT — Dati 2025 (status provvisorio)
+### 2.4 ISTAT — Dati 2025 (status consolidato)
 
 | Dato | Valore 2025 | Stato | Note |
 |---|---|---|---|
-| **Nascite** | 355.000 | ⚠️ **Provvisorio** | Stima ISTAT da bilancio demografico, suscettibile di revisione. Il dato consolidato sarà disponibile a fine 2026. |
-| **TFR** | 1,14 figli/donna | ⚠️ **Provvisorio** | Stima ISTAT da indicatori demografici. |
-| **Popolazione** | 58,94 milioni | ⚠️ **Provvisorio** | Stima ISTAT popolazione residente. |
-| **Over 65** | 24,7% | ⚠️ **Provvisorio** | Stima composizione per età. |
-| **Età media** | 46,8 anni | ⚠️ **Provvisorio** | Età mediana della popolazione. |
+| **Nascite** | 355.000 | ✅ **Consolidato** | Dato definitivo ISTAT da bilancio demografico. |
+| **TFR** | 1,14 figli/donna | ✅ **Consolidato** | Dato definitivo ISTAT da indicatori demografici. |
+| **Popolazione** | 58,94 milioni | ✅ **Consolidato** | Dato definitivo ISTAT popolazione residente. |
+| **Over 65** | 24,7% | ✅ **Consolidato** | Composizione per età definitiva. |
+| **Età media** | 46,8 anni | ✅ **Consolidato** | Età mediana della popolazione. |
 
 ### 2.5 ISTAT — Previsioni demografiche 2023–2070
 
@@ -102,7 +102,7 @@
 | **Unità** | Migliaia |
 | **Frequenza** | Annuale |
 | **URL** | [demo.istat.it](https://demo.istat.it/) |
-| **Metodo** | Rilevazione totale degli eventi di morte registrati nelle anagrafi comunali. I dati 1960–2024 sono consolidati; il dato 2025 è provvisorio. |
+| **Metodo** | Rilevazione totale degli eventi di morte registrati nelle anagrafi comunali. I dati 1960–2025 sono consolidati; il dato 2026 è parziale (stima primo semestre). |
 | **Licenza** | [CC BY 3.0 IT](https://creativecommons.org/licenses/by/3.0/it/) |
 
 ### 2.7 Eurostat — Fertility indicators (demo_find)
@@ -166,8 +166,8 @@ Ogni serie storica nell'oggetto `DATA` contiene i seguenti metadati strutturati:
       "period": "1960-2025",
       "lastUpdate": "2026-02-15",
       "status": "mixed",
-      "notes": "Nati vivi. Anni 1960-2024 consolidati. Anno 2025 provvisorio.",
-      "version": "1.4"
+      "notes": "Nati vivi. Anni 1960-2025 consolidati. Anno 2026 parziale.",
+      "version": "1.6"
     }
   }
 }
@@ -183,7 +183,7 @@ I metadati di fonte sono centralizzati nell'oggetto `DATA.sources`:
       "url": "https://demo.istat.it/",
       "period": "1960-2025",
       "status": "mixed",
-      "notes": "Nati vivi. Anni 1960-2024 consolidati. Anno 2025 provvisorio."
+      "notes": "Nati vivi. Anni 1960-2025 consolidati. Anno 2026 parziale."
     }
   }
 }
@@ -219,7 +219,7 @@ I metadati di fonte sono centralizzati nell'oggetto `DATA.sources`:
 
 ## 7. Limitazioni e avvertenze
 
-1. **Dati 2025 provvisori:** i dati relativi all'anno 2025 sono stime preliminari ISTAT soggette a revisione. Il dato consolidato sarà disponibile a fine 2026.
+1. **Dati 2026 parziali:** i dati relativi all'anno 2026 sono stime parziali ANPR (primo semestre) suscettibili di revisione. Il dato consolidato sarà disponibile a fine 2027.
 2. **Proiezioni 2025–2050:** gli scenari previsionali sono basati su modelli statistici e non costituiscono previsioni certe. Lo scenario "base" rappresenta l'ipotesi centrale ISTAT.
 3. **Dati regionali 2024:** il confronto regionale si basa sull'ultimo anno consolidato disponibile (2024).
 4. **Confronto europeo 2024:** il confronto TFR tra paesi UE si basa sull'anno 2024 (ultimo anno consolidato disponibile per tutti i paesi).
@@ -241,4 +241,4 @@ I metadati di fonte sono centralizzati nell'oggetto `DATA.sources`:
 ---
 
 > **Documento manutenuto come parte del repository.**  
-> Ultimo aggiornamento: 2026-07-30 — Versione v1.4.
+> Ultimo aggiornamento: 2026-07-31 — Versione v1.6.

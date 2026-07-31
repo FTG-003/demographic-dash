@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License MIT">
-  <img src="https://img.shields.io/badge/Version-1.5-brightgreen.svg?style=for-the-badge" alt="Version 1.5">
+  <img src="https://img.shields.io/badge/Version-1.6-brightgreen.svg?style=for-the-badge" alt="Version 1.6">
   <img src="https://img.shields.io/badge/Status-Production-0066cc.svg?style=for-the-badge" alt="Status: Production">
   <img src="https://img.shields.io/badge/WCAG-AA-007F3E.svg?style=for-the-badge" alt="WCAG AA">
   <img src="https://img.shields.io/badge/Stack-HTML5%20%7C%20JS%20%7C%20Chart.js-E34F26.svg?style=for-the-badge" alt="Stack: HTML5/JS/Chart.js">
@@ -189,5 +189,5 @@ I contributi sono benvenuti! Vedi [CONTRIBUTING.md](./docs/CONTRIBUTING.md) per 
 
 <p align="center">
   <sub>Costruito con ❤️ e dati aperti. I dati demografici raccontano la storia di un paese.</sub><br>
-  <sub><strong>v1.5</strong> — Rilasciato il 30 Luglio 2026 — Dataset 1.5 — Refactoring multi-file e bonifica repository</sub>
+  <sub><strong>v1.6</strong> — Rilasciato il 31 Luglio 2026 — Dataset 1.6 — Dati 2025 consolidati ISTAT</sub>
 </p>

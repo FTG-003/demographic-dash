@@ -51,15 +51,15 @@ TFR = Σ fx   per x da 15 a 49
 
 ### Valori attuali
 
-- **Italia 2024 (consolidato):** 1,18 figli per donna — minimo storico assoluto
-- **Italia 2025 (provvisorio):** 1,15 figli per donna (stima preliminare ISTAT)
+- **Italia 2024 (consolidato):** 1,18 figli per donna
+- **Italia 2025 (consolidato):** 1,14 figli per donna — nuovo minimo storico assoluto
 - **Media UE 2024:** 1,38 figli per donna (dato Eurostat)
 - **Soglia di sostituzione:** 2,1 figli per donna
 
 ### Fonte
 
 ISTAT — Indicatori demografici, Tavola "Tasso di fecondità totale per anno".  
-Anni 1960–2024 consolidati. Anno 2025 provvisorio (stima preliminare).
+Anni 1960–2025 consolidati. Anno 2026 parziale (stima primo semestre).
 
 ---
 
@@ -285,4 +285,4 @@ Periodo estratto: 2025–2050 (passi quinquennali).
 ---
 
 > **Documento tecnico manutenuto come parte del repository.**  
-> Ultimo aggiornamento: 2026-07-30 — Versione dataset v1.4.
+> Ultimo aggiornamento: 2026-07-31 — Versione dataset v1.6.

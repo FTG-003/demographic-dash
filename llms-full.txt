@@ -1,12 +1,12 @@
 # Osservatorio Demografico Italiano — Knowledge Base Completa
-## Dataset ISTAT 1960–2026 (v1.4, 29 Luglio 2026)
+## Dataset ISTAT 1960–2026 (v1.6, 31 Luglio 2026)
 
 ---
 ## 1. METADATI DEL DATASET
 
 - **Nome:** Italian Demographic Observatory
-- **Versione:** 1.4
-- **Ultimo aggiornamento:** 2026-07-29
+- **Versione:** 1.6
+- **Ultimo aggiornamento:** 2026-07-31
 - **Licenza:** CC BY 3.0 IT
 - **Stato:** consolidated (dati 2025 consolidati ISTAT; 2026 parziale/stima ANPR)
 - **Autore/dashboard:** Fabrizio Terzi
