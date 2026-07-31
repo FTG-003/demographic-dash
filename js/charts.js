@@ -583,48 +583,101 @@ function initCharts() {
   var causesCtx = getEl('causesChart').getContext('2d');
   var causesData = obs.causes;
 
+  // Palette ambra/arancio — dal più impattante (chiaro) al meno impattante (scuro)
+  var causesColors = [
+    'rgba(255,183,94,0.95)',  // 95 precarietà
+    'rgba(255,153,102,0.95)', // 92 incertezza
+    'rgba(255,140,90,0.95)',  // 88 costo abitazioni
+    'rgba(237,143,3,0.95)',   // 85 età materna
+    'rgba(230,120,70,0.95)',  // 82 emigrazione
+    'rgba(200,90,50,0.95)',   // 78 servizi
+  ];
+  var causesBorder = [
+    'rgba(255,199,130,1)',
+    'rgba(255,179,130,1)',
+    'rgba(255,160,110,1)',
+    'rgba(255,163,45,1)',
+    'rgba(250,140,90,1)',
+    'rgba(225,110,70,1)',
+  ];
+
   new Chart(causesCtx, {
-    type: 'radar',
+    type: 'bar',
     data: {
       labels: causesData.categories,
       datasets: [
         {
           label: 'Impatto relativo (stima qualitativa)',
           data: causesData.values,
-          borderColor: COLORS.radarBorder,
-          backgroundColor: COLORS.radarFill,
-          pointBackgroundColor: COLORS.radarPoint,
-          pointBorderColor: 'rgba(240,230,216,0.3)',
-          borderWidth: 2.5,
-          pointRadius: 4,
+          backgroundColor: causesColors,
+          borderColor: causesBorder,
+          borderWidth: 1.5,
+          borderRadius: 6,
+          borderSkipped: false,
+          maxBarThickness: 26,
+          hoverBackgroundColor: 'rgba(255,183,94,1)',
         },
       ],
     },
     options: {
+      indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: {
-          labels: {
-            color: 'rgba(240,230,216,0.55)',
-            font: { size: 10, family: "'Inter', sans-serif" },
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(14,19,41,0.95)',
+          titleColor: 'rgba(240,230,216,0.6)',
+          bodyColor: '#F0E6D8',
+          borderColor: 'rgba(255,183,94,0.4)',
+          borderWidth: 1,
+          cornerRadius: 8,
+          padding: 12,
+          caretPadding: 6,
+          callbacks: {
+            label: function (ctx) {
+              return 'Impatto: ' + ctx.parsed.x + '/100';
+            },
           },
         },
-        datalabels: { display: false },
+        datalabels: {
+          display: true,
+          anchor: 'end',
+          align: 'end',
+          offset: 8,
+          color: 'rgba(240,230,216,0.95)',
+          font: { size: 12, weight: '700', family: "'Inter', sans-serif" },
+          formatter: function (value) {
+            return value;
+          },
+        },
       },
       scales: {
-        r: {
-          angleLines: { color: 'rgba(42,58,92,0.25)' },
-          grid: { color: 'rgba(42,58,92,0.2)' },
-          pointLabels: {
-            color: 'rgba(240,230,216,0.55)',
+        x: {
+          min: 0,
+          max: 100,
+          grid: { color: 'rgba(42,58,92,0.18)' },
+          border: { display: false },
+          ticks: {
+            color: 'rgba(240,230,216,0.4)',
             font: { size: 10, family: "'Inter', sans-serif" },
+            stepSize: 20,
+            callback: function (value) {
+              return value;
+            },
           },
-          ticks: { display: false, stepSize: 20 },
-          suggestedMin: 0,
-          suggestedMax: 100,
+        },
+        y: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: {
+            color: 'rgba(240,230,216,0.95)',
+            font: { size: 13, weight: '600', family: "'Inter', sans-serif" },
+            padding: 10,
+          },
         },
       },
+      layout: { padding: { top: 6, right: 34, bottom: 2, left: 4 } },
     },
   });
 }
