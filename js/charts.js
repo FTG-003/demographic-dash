@@ -583,14 +583,31 @@ function initCharts() {
   var causesCtx = getEl('causesChart').getContext('2d');
   var causesData = obs.causes;
 
+  // Ordina per impatto decrescente e costruisce etichette compatte.
+  // Etichette brevi (sinonimi) per non far assorbire alla colonna y metà
+  // del canvas su mobile; il nome esteso resta nel tooltip.
+  var causesLabelMap = {
+    'Precarietà lavorativa': 'Precarietà',
+    'Costo abitazioni': 'Abitazioni',
+    'Età materna avanzata': 'Età materna',
+    'Emigrazione giovanile': 'Emigrazione',
+    'Carenza servizi': 'Servizi',
+    'Incertezza economica': 'Incertezza',
+  };
+  var causesItems = causesData.categories
+    .map(function (cat, i) { return { label: causesLabelMap[cat] || cat, full: cat, value: causesData.values[i] }; })
+    .sort(function (a, b) { return b.value - a.value; });
+  var causesLabels = causesItems.map(function (it) { return it.label; });
+  var causesValues = causesItems.map(function (it) { return it.value; });
+
   // Palette ambra/arancio — dal più impattante (chiaro) al meno impattante (scuro)
   var causesColors = [
-    'rgba(255,183,94,0.95)',  // 95 precarietà
-    'rgba(255,153,102,0.95)', // 92 incertezza
-    'rgba(255,140,90,0.95)',  // 88 costo abitazioni
-    'rgba(237,143,3,0.95)',   // 85 età materna
-    'rgba(230,120,70,0.95)',  // 82 emigrazione
-    'rgba(200,90,50,0.95)',   // 78 servizi
+    'rgba(255,183,94,0.95)',
+    'rgba(255,153,102,0.95)',
+    'rgba(255,140,90,0.95)',
+    'rgba(237,143,3,0.95)',
+    'rgba(230,120,70,0.95)',
+    'rgba(200,90,50,0.95)',
   ];
   var causesBorder = [
     'rgba(255,199,130,1)',
@@ -604,17 +621,17 @@ function initCharts() {
   new Chart(causesCtx, {
     type: 'bar',
     data: {
-      labels: causesData.categories,
+      labels: causesLabels,
       datasets: [
         {
           label: 'Impatto relativo (stima qualitativa)',
-          data: causesData.values,
+          data: causesValues,
           backgroundColor: causesColors,
           borderColor: causesBorder,
           borderWidth: 1.5,
           borderRadius: 6,
           borderSkipped: false,
-          maxBarThickness: 26,
+          maxBarThickness: 24,
           hoverBackgroundColor: 'rgba(255,183,94,1)',
         },
       ],
@@ -637,6 +654,12 @@ function initCharts() {
           callbacks: {
             label: function (ctx) {
               return 'Impatto: ' + ctx.parsed.x + '/100';
+            },
+            title: function (items) {
+              // Mostra il nome esteso come titolo del tooltip
+              var idx = items[0] && items[0].dataIndex;
+              var item = causesItems[idx];
+              return item ? item.full : '';
             },
           },
         },
