@@ -342,8 +342,9 @@ body::before {
    ═══════════════════════════════════════════════════ */
 .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
+    /* Stesso rateo delle card "Osservazioni": colonne min 300px, gap 28px */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
     margin-bottom: 32px;
 }
 
@@ -351,7 +352,8 @@ body::before {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: var(--radius);
-    padding: 32px 34px;
+    /* Stesso padding delle card "Osservazioni" */
+    padding: 30px 34px;
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(12px);
@@ -439,7 +441,10 @@ body::before {
 
 .kpi-value {
     font-family: var(--font-mono);
-    font-size: 3.6rem;
+    /* Dimensione fluida 2rem–3.6rem (min 32px, max 57.6px):
+       scala con la larghezza della card come le card "Osservazioni".
+       Se il numero non ci sta, js/kpi.js riduce solo quel valore. */
+    font-size: clamp(2rem, 3.6vw, 3.6rem);
     font-weight: 800;
     margin-bottom: 6px;
     color: var(--text);
@@ -1146,6 +1151,32 @@ tbody td:last-child {
 
 .footer a:hover {
     text-decoration: underline;
+}
+
+.footer .footer-github {
+    margin-top: 14px;
+}
+
+.footer .footer-github a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    background: var(--card-bg);
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.footer .footer-github a:hover {
+    color: var(--ciano);
+    border-color: var(--ciano-dim);
+    background: var(--ciano-dim);
+    text-decoration: none;
 }
 
 /* ═══════════════════════════════════════════════════

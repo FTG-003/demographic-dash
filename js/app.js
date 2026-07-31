@@ -226,3 +226,9 @@ document.addEventListener('DOMContentLoaded', function () {
   initModals();
   updateMetadata();
 });
+
+// Al ridimensionamento della finestra la griglia KPI cambia larghezza:
+// riallinea i numeri che non ci stanno (il CSS fluido ripristina poi il resto).
+window.addEventListener('resize', function () {
+  if (typeof fitAllKpiValues === 'function') fitAllKpiValues();
+});

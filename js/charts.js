@@ -163,13 +163,18 @@ function initCharts() {
               borderDash: [6, 4],
               label: {
                 display: true,
-                content:
-                  'Soglia sostituzione: ' +
-                  obs.fertility_threshold.value.toFixed(1).replace('.', ','),
+                content: [
+                  'Soglia di sostituzione',
+                  obs.fertility_threshold.value.toFixed(1).replace('.', ',') +
+                    ' figli per donna',
+                ],
                 position: 'end',
-                backgroundColor: 'rgba(245,158,11,0.15)',
-                color: '#F59E0B',
-                font: { size: 11 },
+                backgroundColor: 'rgba(245,158,11,0.95)',
+                color: '#1B2133',
+                font: { size: 14, weight: 'bold' },
+                padding: { x: 12, y: 8 },
+                borderRadius: 8,
+                yAdjust: -14,
               },
             },
           },

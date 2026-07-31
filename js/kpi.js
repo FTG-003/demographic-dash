@@ -3,6 +3,48 @@
  * Italian Demographic Observatory v1.4+
  */
 
+/**
+ * Riduce la dimensione del valore KPI solo se non ci sta nella card
+ * (i numeri in mono non possono andare a capo). Risolve il caso es. "355.000"
+ * nelle card compatte: si scala solo il numero, mai il layout circostante.
+ * @param {HTMLElement} el - elemento .kpi-value
+ * @param {HTMLElement} card - elemento .kpi-card contenitore
+ */
+function fitKpiValue(el, card) {
+  if (!el || !card) return;
+  var style = el.style;
+  var avail =
+    card.clientWidth -
+    parseFloat(getComputedStyle(card).paddingLeft || 0) -
+    parseFloat(getComputedStyle(card).paddingRight || 0);
+  // Targget: il testo occupa al massimo il 90% della larghezza disponibile
+  var target = avail * 0.9;
+  var fontSize = 360; // 3.6rem
+  // Diminuisci finché il testo entra (min 0.5rem = 8px)
+  while (fontSize > 8) {
+    el.style.fontSize = fontSize / 10 + 'rem';
+    if (el.scrollWidth <= target) break;
+    fontSize -= 4;
+  }
+  if (fontSize <= 8) {
+    // Fallback: ripristina la dimensione fluida del CSS
+    style.fontSize = '';
+    style.removeProperty('font-size');
+  }
+}
+
+/**
+ * Applica fitKpiValue a tutte le card KPI.
+ * @param {boolean} [onlyAnimated] - se true, riallinea solo le card animate da CountUp
+ */
+function fitAllKpiValues(onlyAnimated) {
+  document.querySelectorAll('.kpi-card').forEach(function (card) {
+    if (onlyAnimated && card.getAttribute('data-countup') !== 'running') return;
+    var el = card.querySelector('.kpi-value');
+    if (el) fitKpiValue(el, card);
+  });
+}
+
 function initKPIs() {
   var obs = DATA.observations;
   // Anno target per i KPI: l'ultimo anno consolidato prima della proiezione.
@@ -64,7 +106,16 @@ function initKPIs() {
 }
 
 function initCounters() {
-  if (typeof CountUp === 'undefined') return;
+  // CountUp 2.8 espone la classe in due modi a seconda del build servito dal CDN:
+  //  - ESM/UMS via jsdelivr "countUp.min.js": window.CountUp (o window.countUp.CountUp)
+  //  - UMD "countUp.umd.js": window.countUp.CountUp
+  var CountUpClass = window.CountUp || (window.countUp && window.countUp.CountUp);
+  if (typeof CountUpClass !== 'function') {
+    // CountUp non disponibile: il valore è già quello finale (impostato da initKPIs),
+    // quindi basta un fit.
+    fitAllKpiValues();
+    return;
+  }
   var prefersReduced = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   ).matches;
@@ -115,12 +166,20 @@ function initCounters() {
   counters.forEach(function (c) {
     if (!getEl(c.id)) return;
     try {
-      var cu = new CountUp(c.id, c.end, {
+      var el = getEl(c.id);
+      var card = el.closest('.kpi-card');
+      if (card) card.setAttribute('data-countup', 'running');
+      var cu = new CountUpClass(c.id, c.end, {
         decimals: c.decimals,
         suffix: c.suffix || '',
         duration: prefersReduced ? 0 : 2,
         useEasing: !prefersReduced,
         useGrouping: c.id === 'kpiBirths',
+        onCompleteCallback: function () {
+          if (card) card.removeAttribute('data-countup');
+          // Alla fine dell'animazione il numero è stabile: ridimensiona se serve
+          fitAllKpiValues();
+        },
       });
       cu.start();
     } catch (e) {
